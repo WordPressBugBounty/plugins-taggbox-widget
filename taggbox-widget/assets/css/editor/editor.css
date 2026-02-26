@@ -1,0 +1,254 @@
+.taggbox-editor-main-div {
+    background : #f3f6f9;
+    border     : 1px solid #f4f4f4;
+    font-family: inter, sans-serif;
+}
+
+.taggbox-editor-main-div *,
+.taggbox-editor-main-div :after,
+.taggbox-editor-main-div :before {
+    box-sizing: border-box;
+}
+
+input[type="text"].tb_gt_input_box {
+    border                   : 1px solid #e4e6ef;
+    background-color         : #fff;
+    margin                   : 0;
+    border-radius            : 0;
+    border-top-left-radius   : 2px !important;
+    border-bottom-left-radius: 2px !important;
+}
+
+input[type="text"].tb_gt_input_box:focus {
+    border-color: #545454;
+    box-shadow  : none;
+    outline     : none;
+}
+
+.tb_input__00 input[type="text"] {
+    display                  : block;
+    width                    : 100%;
+    height                   : 44px !important;
+    padding                  : 8px .75rem !important;
+    font-size                : 1rem;
+    font-weight              : 400;
+    width                    : 100% !important;
+    margin                   : 0 !important;
+    line-height              : 1.5;
+    color                    : #495057;
+    background-color         : #fff;
+    background-clip          : padding-box;
+    border                   : 1px solid #ced4da;
+    transition               : border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    border-top-left-radius   : 2px !important;
+    border-bottom-left-radius: 2px !important;
+}
+
+.taggbox-preview-btn {
+    margin-top                : 0 !important;
+    color                     : #fff;
+    background-color          : #ff4051;
+    border-color              : #ff4051;
+    border                    : 0;
+    padding                   : 8px .75rem;
+    font-size                 : 16px;
+    line-height               : 1.5;
+    height                    : 44px;
+    margin-left               : -1px;
+    cursor                    : pointer;
+    border-top-right-radius   : 2px !important;
+    border-bottom-right-radius: 2px !important;
+}
+
+.taggbox-preview-show .taggbox-preview-btn:hover {
+    background-color: #e23442;
+    border-color    : #e23442;
+}
+
+.tb_input input[type="text"]:focus,
+.tb_input input[type="text"]:hover {
+    border    : 1px solid #545454;
+    outline   : none;
+    box-shadow: none;
+}
+
+.tb_wall_input {
+    display        : flex;
+    width          : 100%;
+    align-items    : center;
+    justify-content: center;
+}
+
+.taggbox-preview-show .taggbox-editor-singup-link {
+    color: #ff4051 !important;
+}
+
+.tb_input__00 {
+    width: 99%;
+}
+
+.tb_alert__ {
+    display          : -webkit-box;
+    display          : -ms-flexbox;
+    display          : flex;
+    -webkit-box-align: stretch;
+    -ms-flex-align   : stretch;
+    align-items      : stretch;
+    border-radius    : 3px;
+    padding          : 10px 15px;
+    background-color : #FFE2E5;
+    border-color     : transparent;
+    margin-bottom    : 15px;
+}
+
+.tb_alert__text {
+    color: #e73d4a;
+}
+
+.tb_flash_msg {
+    font-size     : 10px;
+    font-weight   : 600;
+    text-transform: capitalize;
+    margin-top    : 10px;
+}
+
+.taggbox_logo__ img {
+    width    : 28px;
+    height   : 28px;
+    max-width: 28px;
+    display  : block;
+}
+
+.taggbox-editor-heading {
+    padding-bottom: 10px;
+    font-size     : 15px;
+    display       : block;
+    font-weight   : 600;
+}
+
+.tb_preview_wrapper {
+    display        : flex;
+    align-items    : center;
+    justify-content: start;
+    width          : 100%;
+    flex-direction : column;
+}
+
+.taggbox-editor-widget-main-div {
+    padding: 30px 25px;
+}
+
+.taggbox-shortcode-div {
+    font-size     : 8px;
+    font-weight   : bold;
+    text-transform: uppercase;
+}
+
+.b-0 {
+    border-radius: 0px !important;
+}
+
+.taggbox-editor-singup-msg-div {
+    font-size     : 10px;
+    font-weight   : 600;
+    text-transform: capitalize;
+    margin-top    : 10px;
+}
+
+.taggbox-editor-singup-link {
+    font-size      : 15px;
+    text-transform : capitalize;
+    font-weight    : 800;
+    text-decoration: none !important;
+}
+
+.taggbox-preview-btn {
+    margin-top                : 0 !important;
+    color                     : #fff;
+    background-color          : #ff4051;
+    border-color              : #ff4051;
+    border                    : 0;
+    padding                   : 8px 1.2rem;
+    font-size                 : 16px;
+    line-height               : 1.5;
+    height                    : 44px;
+    margin-left               : -1px;
+    cursor                    : pointer;
+    border-top-right-radius   : 2px !important;
+    border-bottom-right-radius: 2px !important;
+    display                   : flex;
+    align-content             : center;
+    align-items               : center;
+}
+
+iframe.taggbox-editor-iframe,
+.block-editor__container iframe.taggbox-editor-iframe {
+    background     : #F2F6F8;
+    border         : 1px solid #e7ecef;
+    height         : 750px;
+    min-width      : 170%;
+    transform      : scale(0.59);
+    margin-left    : 0;
+    position       : relative;
+    margin-top     : -155px;
+    margin-bottom  : -155px;
+    display        : flex;
+    align-items    : self-start;
+    justify-content: center;
+}
+
+.taggbox-preview {
+    display  : none;
+    max-width: 750px;
+    margin   : 0 auto;
+    position : relative;
+}
+
+.taggbox-close-preview-btn {
+    position        : absolute;
+    bottom          : auto;
+    right           : -12px;
+    top             : -12px;
+    border          : none;
+    background-color: #2b2b2b;
+    border-radius   : 50%;
+    color           : #fff;
+    height          : 28px;
+    width           : 28px;
+    padding         : 0;
+    vertical-align  : middle;
+    z-index         : 9;
+    cursor          : pointer;
+}
+
+.taggbox-close-preview-btn:hover,
+.taggbox-close-preview-btn:focus {
+    background-color: #1e1e1e;
+}
+
+.taggbox-preview svg {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    padding        : 0;
+    width          : 20px;
+    height         : 28px;
+    margin         : 0 auto;
+    text-align     : center;
+}
+
+.taggbox-preview-hide {
+    display: none !important;
+}
+
+.taggbox-preview-show {
+    display: block;
+}
+
+@media screen and (max-width:991px) {
+
+    iframe.taggbox-editor-iframe,
+    .block-editor__container iframe.taggbox-editor-iframe {
+        height: 600px;
+    }
+}
