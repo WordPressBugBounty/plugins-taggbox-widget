@@ -58,7 +58,7 @@ function __taggbox__get_account_details() {
 	let __taggbox__plan = document.querySelector("#__taggbox__plan");
 	let __taggbox__toast = new TaggboxToast;
 	let formData = new FormData();
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__get_account_details');
 	__taggbox__open_loader();
@@ -215,7 +215,7 @@ function __taggbox__make_payment(planId, priceCode) {
 	} else {
 		__taggbox__open_loader();
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__make_payment');
 		formData.append('planId', planId);
@@ -254,7 +254,7 @@ function __taggbox__cancel_subscription(planId) {
 	confirmDialog({ title: 'Are you sure!', message: 'Do you want to cancel subscription?', buttonText: 'Yes', type: 'danger' }, function () {
 		let formData = new FormData();
 		formData.append('planId', planId);
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__cancel_subscription');
 		__taggbox__open_loader();

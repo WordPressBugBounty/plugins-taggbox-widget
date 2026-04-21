@@ -105,7 +105,7 @@ if (__taggbox__logout) {
 	__taggbox__logout.addEventListener('click', function (event) {
 		confirmDialog({ title: 'Yes, sign out', message: 'Are you sure! do you want to sign out?', buttonText: 'Sign Out', type: 'warning' }, function () {
 			let formData = new FormData();
-			formData.append('action', 'data');
+			formData.append('action', 'taggbox_data');
 			formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 			formData.append('__taggbox__ajax_action', '__taggbox__logout');
 			__taggbox__open_loader();
@@ -146,7 +146,7 @@ function __taggbox__menus(__taggbox__menu_id, __taggbox__widgetId = null) {
 	__taggbox__open_loader();
 	let __taggbox__toast = new TaggboxToast;
 	let formData = new FormData();
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('menueId', __taggbox__menu_id);
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__menue');
@@ -183,7 +183,7 @@ function __taggbox__get_already_exist_auth(__taggbox__network_id) {
 		return;
 	let formData = new FormData();
 	formData.append('networkId', __taggbox__network_id);
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__get_already_exist_auth');
 	fetch(__taggbox__ajax_url, {
@@ -206,7 +206,7 @@ function __taggbox__get_already_exist_auth_new(__taggbox__network_id, __taggbox_
 	__taggbox__open_loader();
 	let formData = new FormData();
 	formData.append('networkId', __taggbox__network_id);
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__get_already_exist_auth');
 	fetch(__taggbox__ajax_url, {
@@ -252,7 +252,7 @@ function __taggbox__manageActiveWidget(__taggbox__widgetId = null) {
 	}
 	let __taggbox__toast = new TaggboxToast;
 	let formData = new FormData();
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__manage_active_widget');
 	formData.append('widgetId', __taggbox__widgetId);
@@ -306,7 +306,7 @@ if (__taggbox__widget_create_form) {
 				}
 				__taggbox__open_loader();
 				let __taggbox__toast = new TaggboxToast;
-				formData.append('action', 'data');
+				formData.append('action', 'taggbox_data');
 				formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 				formData.append('__taggbox__ajax_action', '__taggbox__create_widget');
 				fetch(__taggbox__ajax_url, {
@@ -375,7 +375,7 @@ function __tageembed__addUpdateAndRefreshAccount(__taggbox__networkId, __taggbox
 	if (__taggbox__networkId) {
 		let __taggbox__toast = new TaggboxToast;
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__add_or_update_account');
 		formData.append('type', __taggbox__type);

@@ -78,8 +78,47 @@ function __taggbox__hide_other_plugin_account_popup_close() {
     let __taggbox__other_plugin_popup = document.querySelector("#__taggbox__other_plugin_popup")
     __taggbox__other_plugin_popup.style.display = "none";
 }
-
 /*--End-- Manage Other Plugin Account Popup*/
+
+/*--Start-- Get Country Code For Register*/
+window.addEventListener ? window.addEventListener("load", __taggbox__getCallingCode, false) : window.attachEvent && window.attachEvent("onload", __taggbox__getCallingCode);
+function __taggbox__getCallingCode() {
+    /*Manage Customizaton Section Hide Show*/
+    let __taggbox__toast = new TaggboxToast;
+    let formData = new FormData();
+    formData.append('action', 'taggbox_data');
+    formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
+    formData.append('__taggbox__ajax_action', '__taggbox__getCallingCode');
+    __taggbox__open_loader();
+    fetch(__taggbox__ajax_url, {
+        method: 'POST',
+        headers: {
+            'x-requested-with': 'XMLHttpRequest',
+        },
+        body: formData,
+    }).then(response => {
+        return response.json()
+    }).then(response => {
+        __taggbox__close_loader();
+        if (response.status == true) {
+            let callingCodes = response.data.callingCode;
+            let select = document.getElementById("__taggbox__callingCode");
+            callingCodes.forEach((callingCode, index) => {
+                let option = document.createElement("option");
+                option.value = callingCode.callingCode;
+                option.textContent = `${callingCode.flag} ${callingCode.name} (${callingCode.callingCode})`;
+                if (callingCode.status == 1)
+                    option.selected = true;
+                select.appendChild(option);
+            });
+        }
+    }).catch((error) => {
+        console.log(error);
+        __taggbox__close_loader();
+        __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__tagembed__is-top-right' });
+    });
+}
+/*--End-- Get Country Code For Register*/
 
 /*--Start-- Register*/
 var __taggbox__register_form = document.querySelector("#__taggbox__register_form");
@@ -94,11 +133,13 @@ if (__taggbox__register_form) {
         __taggbox__register_password_error.style.display = 'none';
         let __taggbox__register_contact_no_error = document.querySelector("#__taggbox__register_contact_no_error");
         __taggbox__register_contact_no_error.style.display = 'none';
+        let __taggbox__register_calling_code_error = document.querySelector("#__taggbox__register_calling_code_error");
+        __taggbox__register_calling_code_error.style.display = 'none';
         __taggbox__open_loader();
         let __taggbox__toast = new TaggboxToast;
         let formData = document.querySelector("#__taggbox__register_form")
         formData = new FormData(formData);
-        formData.append('action', 'data');
+        formData.append('action', 'taggbox_data');
         formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
         formData.append('__taggbox__ajax_action', '__taggbox__register');
         fetch(__taggbox__ajax_url, {
@@ -133,6 +174,10 @@ if (__taggbox__register_form) {
                     if (response.data.hasOwnProperty("password")) {
                         __taggbox__register_password_error.style.display = 'block';
                         __taggbox__register_password_error.textContent = response.data.password;
+                    }
+                    if (response.data.hasOwnProperty("calling_code")) {
+                        __taggbox__register_calling_code_error.style.display = 'block';
+                        __taggbox__register_calling_code_error.textContent = response.data.calling_code;
                     }
                     if (response.data.hasOwnProperty("contact_no")) {
                         __taggbox__register_contact_no_error.style.display = 'block';
@@ -171,7 +216,7 @@ if (__taggbox__login_form) {
         let __taggbox__toast = new TaggboxToast;
         let formData = document.querySelector("#__taggbox__login_form")
         formData = new FormData(formData);
-        formData.append('action', 'data');
+        formData.append('action', 'taggbox_data');
         formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
         formData.append('__taggbox__ajax_action', '__taggbox__login');
         fetch(__taggbox__ajax_url, {

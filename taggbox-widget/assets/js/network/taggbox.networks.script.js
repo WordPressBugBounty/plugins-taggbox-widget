@@ -7,7 +7,7 @@ function __taggbox__get_networks() {
     let widgetData = document.querySelector("#__taggbox__widgets").selectedOptions[0];
     let __taggbox__toast = new TaggboxToast;
     let formData = new FormData();
-    formData.append('action', 'data');
+    formData.append('action', 'taggbox_data');
     formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
     formData.append('__taggbox__ajax_action', '__taggbox__source_networks');
     __taggbox__open_loader();
@@ -64,7 +64,7 @@ if (__taggbox__networks) {
         __taggbox__open_loader();
         let formData = new FormData();
         formData.append('networkId', networkId);
-        formData.append('action', 'data');
+        formData.append('action', 'taggbox_data');
         formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
         formData.append('__taggbox__ajax_action', '__taggbox__get_network_filter');
         fetch(__taggbox__ajax_url, {

@@ -1,105 +1,83 @@
-=== Taggbox: Embed LinkedIn, Facebook, Instagram, TikTok, YouTube & More Social Media Widgets ===
-Contributors: Taggbox
+=== Taggbox: Social Feed Widgets ===
+Contributors: taggbox
 Donate link: https://taggbox.com/
-Plugin Name: Taggbox: Embed LinkedIn, Facebook Reels, Instagram, TikTok Videos, YouTube Galleries & More Social Media Widgets
-Tags: Instagram, LinkedIn, Twitter, Facebook, Google Reviews
+Tags: instagram, linkedin, twitter, facebook, google reviews
 Requires at least: 3.0
-Tested up to: 6.9.1
+Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 3.5
+Stable tag: 3.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Collect, Cuarte & Publish Instagram Widget, Embed Facebook Feed, Embed YouTube Videos, Add Twitter(X) Widget, Google Reviews & 20+ Social Media Widgets on website.
+Collect, Curate & Publish Instagram, Facebook Feeds, YouTube Videos, Twitter (X) Feeds, Google Reviews & 20+ Social Media Widgets on your website.
 
 == Description ==
 
 = Collect. Curate. Publish. =
 
-Taggbox is the all-in-one UGC platform that acts as both a [social widget](https://taggbox.com/social-media-widget/) and a [review widget](https://taggbox.com/reviews-widget/) for WordPress. It enables you to display authentic user content, reviews, and brand stories directly on your website, transforming visitor trust into measurable engagement. With social proof in action, your site can attract up to 66% more customers because people trust other people, and hence, UGC works.
+Taggbox is a UGC (User-Generated Content) platform that works as a social media and reviews widget for WordPress. It allows you to collect, curate, and display user-generated content, reviews, and social media feeds directly on your website.
 
-== Taggbox - Best Social Media Aggregator Platform: ==
+The plugin helps you embed content from various social media and review platforms into your WordPress site through a single dashboard. Instead of manually collecting and embedding posts or reviews, you can connect your source, configure your feed, and display it using the provided embed options.
 
-The primary goal of social media and reviews aggregation platforms is to give customer sentiments with the help of collecting reviews, ratings, comments, and other UGC from diverse sources like social media platforms like Facebook, Twitter, Instagram, TikTok, RSS, and LinkedIn, review sites like Yelp, Google Reviews, Airbnb, etc.
+Features
+	* Collect content from multiple social media platforms
+	* Aggregate reviews and ratings from supported review platforms
+	* Moderate and manage content from a centralized dashboard
+	* Embed social feeds and review widgets into WordPress pages and posts
+	* Customize display layouts to match your website design
 
-Users can access these platforms to read reviews and comments about businesses and share their opinions. These platforms can aggregate all [social media feeds](https://taggbox.com/blog/embed-social-media-feeds-on-website/), videos, and content into a single frame, making it easy for users to stay up to date on the latest views and experiences related to the products or services they are interested in.
+Taggbox enables website owners to showcase social media content and customer reviews in one place, making it easier to manage and publish user-generated content on their WordPress website.
 
-Businesses can also use social media and review aggregation platforms to monitor and manage their online reputation by tracking customer feedback and responding to reviews and comments from a central dashboard. This can help businesses stay informed about customer sentiment and address issues before they escalate.
+== Installation ==
 
-Overall, reviews and [social media aggregator](https://taggbox.com/social-media-aggregator/) platforms provide a valuable service by collecting and presenting customer feedback in a comprehensive and accessible way. They are helpful to both consumers and businesses.
+Installation is free, quick, and easy. Set up Taggbox in a minute.
 
-Taggbox is a platform that aggregates content from various social media and review platforms. All you need to do is choose your connection type and input the credentials. With Taggbox, you don’t need to collect content from social media one by one or embed it manually anymore. Using powerful automation frameworks, you can handle all your collection and embedding requirements with a single click.
+**Option 1: From the WP Plugin directory**
+
+* Go to the Plugins page in your WordPress site’s dashboard.
+* Click on the “Add New” button.
+* Search for “Taggbox”.
+* Click on the “Install” button next to it, then click “Activate”.
+* Choose the network you want to collect content from example, LinkedIn Feed
+* Customize the Widget using different themes and layout options
+* Copy the short code and paste it where you want to display the LinkedIn widget
+
+**Option 2: Upload the Zip File**
+
+* Download the Taggbox Zip file.
+* Upload the file to the /wp-content/plugins directory of your WordPress website.
+* Activate the plugin.
+* Choose the network (Eg, “Linkeidn”) and get started.
+
+**Step-by-Step guide to add Instagram Feed on WordPress Website:**
+
+* Select Instagram as your network.
+* Now choose your Instagram Feed type from Instagram Handle, Hashtag, Stories, Reels, Mentions, and click on “Create Feed”.
+* Now authorize your Instagram account to collect posts from Instagram.
+* Your Instagram feed will be now collected by the Taggbox plugin.
+* You can now proceed to customize the Instagram Feed by using different themes & layout options. Then choose a relevant Instagram Feed from the moderation panel so that you don't showcase an irrelevant Instagram feed.
+* Finally, go to the embed tab & copy the Instagram feed WordPress embed code.
+* Paste the embed code in the backend of the page or posts you would like to display the Instagram Feed in.
+* Save the changes made & you're done.
+* Your Instagram Feed is now live on your WP website.
 
 == Top Social Media & Review Networks: ==
 
-= Instagram Widget (Hashtag, Mention, Handle, Stories, Reels) =
-* Customers tag you in their posts, reels, and stories every day.
-* Showcasing this UGC makes your site feel alive, boosts FOMO, and inspires purchase decisions.
-
-= Facebook Widget (Page, Album, Reviews) =
-* Display community posts, videos, and reviews directly from your business page.
-* Builds trust by showing a mix of brand-created and customer-shared content.
-
-= TikTok Widget =
-* Viral-style, short-form videos are the internet’s favorite language.
-* Embedding TikToks keeps your website trendy, engaging, and relatable to Gen Z & Millennials.
-
-= YouTube Widget (Shorts, Playlists) =
-* Long-form reviews, tutorials, and unboxings work wonders for credibility.
-* Shorts add snackable, high-energy content that improves engagement time on site.
-
-= Twitter (X) Widget =
-* Tweets, mentions, and customer shoutouts provide real-time validation.
-* Great for showing social buzz around events, campaigns, or product launches.
-
-= LinkedIn Widget =
-* Perfect for B2B brands. Display endorsements, client testimonials, or company highlights to showcase your credibility and expertise.
-* Adds authority and professional credibility to your website.
-
-= Pinterest Widget =
-* Curate lifestyle boards, product inspiration, and moodboards featuring your brand.
-* Highly visual content boosts product discovery and sparks innovative ideas for customers.
-
-= RSS Widget =
-* Pull blogs, PR mentions, and industry news into your site automatically.
-* Keeps your site updated with fresh thought leadership without manual uploads.
-
-= Vimeo Widget =
-* A polished alternative to YouTube. Great for brand films, campaign reels, or event coverage.
-* Enhances your site's appearance and storytelling-driven.
-
-= Flickr Widget =
-* Perfect for event galleries, travel/lifestyle visuals, and user photography.
-* Adds depth to your content mix and makes your site look authentic.
-
-= Google Reviews Widget = 
-* The #1 platform people check before making a purchase or visiting.
-* Embedding Google reviews directly boosts SEO visibility and local trust.
-
-= Yelp Widget =
-* Especially powerful for restaurants, retail, and service industries.
-* Social proof on Yelp = more local foot traffic and higher credibility.
-
-= Airbnb Widget =
-* Guests’ experiences drive booking decisions.
-* Showcasing reviews on your property site instantly reassures future guests.
-
-= Facebook Reviews Widget =
-* Reviews alongside a community page feel “socially verified.”
-* Adds a human touch with names, profiles, and social credibility.
-
-= Amazon Reviews Widget =
-* The gold standard for ecommerce trust signals.
-* Verified buyer reviews reduce friction and drive more confident purchases.
-
-= TripAdvisor Widget =
-* Go-to source for travelers worldwide.
-* Embedding these reviews improves bookings and global trust for hotels, restaurants, and attractions.
-
-= Etsy Widget =
-* Perfect for small businesses, creators, and handmade brands.
-* Authentic customer stories highlight product quality and uniqueness.
-* Collecting content from all these platforms keeps your website fresh, engaging, and credible.
+*Instagram Widget (Hashtag, Mention, Handle, Stories, Reels)
+* Facebook Widget (Page, Album, Reviews) 
+* TikTok Widget
+* YouTube Widget (Shorts, Playlists)
+* Twitter (X) Widget
+* LinkedIn Widget
+* Pinterest Widget
+* RSS Widget
+* Vimeo Widget
+* Flickr Widget
+* Google Reviews Widget
+* Yelp Widget
+* Airbnb Widget
+* Facebook Reviews Widget
+* Amazon Reviews Widget
 
 == How It Works – 4 Simple Steps ==
 
@@ -112,109 +90,21 @@ No coding required. Everything updates automatically.
 
 == Key Features ==
 
-* **Customizable Widgets**: Match your widget’s backgrounds, fonts, and branding elements, or use our ready-to-use templates. Design your widget exactly the way you want.
-
-* **Content Moderation**: Automatically filter content with features like negativity neutralizer and duplicate removal. Maintain complete control over what appears on your widget.
-
-* **Direct UGC Upload**: Enable users to submit photos, videos, and testimonials directly on your site, without requiring them to log in to their social media accounts.
-
-* **Analytics**: Track engagement, CTR, and other key metrics with our AI-powered analytics to measure the performance of your content effectively.
-
-* **Sync Product Catalogs**: Transform posts into clickable, product-linked content, allowing visitors to make instant purchases directly from your widget.
-
-* **Multiple widget Types**: Display social, video, and review content all in one place for a richer, engaging user experience.
-
-* **Fast, Responsive & SEO-Friendly**: Keep your site optimized for speed, mobile responsiveness, and search engine visibility while displaying your content.
+* **Customizable Widgets** – Customize layouts, fonts, colors, and themes to match your website design.
+* **Content Moderation** – Filter and manage posts with duplicate removal and moderation tools.
+* **Analytics** – Track engagement and performance metrics.
+* **Multiple Widget Types** – Display social feeds, videos, and reviews in one place.
+* **Fast & SEO-Friendly** – Optimized for speed, responsiveness, and search visibility.
 
 == Benefits of Using Taggbox ==
 
-* **Boost Credibility**: Today’s customers trust other people more than brand ads. By displaying authentic UGC and verified reviews, your website instantly communicates honesty, transparency, and reliability. This social proof helps new visitors feel confident about choosing your brand.
-
-* **Increase Conversions**: Shoppable UGC bridges the gap between inspiration and action. Visitors see real people using your product, and with one click, they can buy it themselves. This reduces hesitation, shortens the purchase journey, and directly boosts sales.
-
-* **Save Time**: Forget the hassle of chasing down reviews or manually updating your site. Taggbox automates the entire process, from collection to publishing, so your content stays fresh without the heavy lifting. That means more time for strategy, less time for grunt work.
-
-* **Enhance Engagement**: A static website feels outdated. With Taggbox, live widgets continuously refresh with the latest UGC, reviews, and social buzz. Visitors spend more time exploring your content, engaging with real stories, and connecting with your brand.
-
-* **Monitor Customer Sentiment**: Reviews and widgetback are gold, but only if you can track them easily. With Taggbox’s centralized dashboard, you can see what customers are saying, identify trends, and respond proactively. It’s a built-in pulse check on your brand reputation.
-
-* **Stay On-Brand**: Your website has its own identity, and your widgets should too. With customizable layouts, themes, and CSS, Taggbox ensures every gallery, widget, or review wall seamlessly blends into your site’s look and feel with no jarring mismatches.
-
-* **SEO-Friendly**: Search engines love fresh, authentic content. By embedding UGC and reviews, you’re adding keyword-rich, constantly updated content to your site. This improves visibility, helps you rank higher, and attracts more organic traffic.
-
-* **Build Community**: Taggbox isn’t just about showcasing existing content. It’s about inspiring new contributions. With direct upload options and interactive widgets, you invite customers to participate in your brand story, creating a stronger sense of belonging and loyalty.
-
-== Integrations == 
-
-Taggbox works with the tools you already use:
-
-* **Website Platforms**: WordPress, HTML, Wix, Squarespace, Shopify
-* **Email Marketing Platforms**: Mailchimp, HubSpot, Klaviyo, Omnisend
-* **Social & Review Sources**: Instagram, TikTok, Facebook, YouTube, Twitter (X), LinkedIn, Pinterest, RSS, Google Reviews, Yelp, Airbnb, Facebook Reviews, Amazon, TripAdvisor, Etsy
-* **API Access**: Integrate UGC into apps or custom software
-
-== Pricing ==
-
-Try Taggbox risk-free with our flexible [pricing plans](https://taggbox.com/price/widget-price/):
-
-**Free Plan (Forever Free)**
-
-* 1 widget (social or review)
-* 500 Views/month
-* Updates every 48 hours
-* Taggbox branding included
-
-**Premium Plan**
-
-* Multiple widgets from different sources 
-* Unlimited views
-* Real-time updates
-* Remove Taggbox branding
-* Priority support
-
-**Note**: One widget = one source (e.g., Instagram handle or hashtag counts as one widget)
-
-== Ways Businesses Use Taggbox ==
-
-* **Website Widgets & UGC Galleries**: Transform your website into a hub of authentic stories. Showcase real customer photos, videos, and reviews in beautifully designed galleries or dynamic widgets that automatically update. It keeps your site looking fresh, interactive, and trustworthy without manual effort.
-
-* **Hashtag Campaigns**:  Turn your branded hashtag into a content goldmine. Collect and display posts from customers, fans, and influencers who use your hashtag. It not only encourages participation but also builds community around your brand while amplifying reach.
-
-* **Email Campaigns & Social Ads**: Spice up email marketing and ads with authentic content. Adding UGC to campaigns increases click-through rates, lowers ad fatigue, and makes your promotions feel more relatable. Customers trust peer-generated visuals far more than stock imagery.
-
-* **Shoppable Galleries**: Convert inspiration into action instantly. [Embed shoppable galleries](https://taggbox.com/blog/introducing-shoppable-galleries/) on product pages, blogs, or landing pages where customers can see real-life use cases and shop directly from the content. This shortens the purchase journey and drives conversions.
-
-* **Event Displays & Tag-Based UGC**: Enhance events with live social walls for increased interactivity. Showcase attendee posts, photos, and reviews in real-time on large screens. It boosts participation, creates share-worthy moments, and turns attendees into brand promoters.
-
-== Make UGC Shoppable ==
-
-Your customers are already creating the best ads for your brand. They’re posting photos, recording unboxings, and writing reviews. These are authentic stories that showcase your products better than any polished studio campaign.
-
-**Why let that goldmine stop at likes and comments?**
-
-With Taggbox, you can turn these real customer moments into shoppable experiences that not only inspire but also convert.
-
-**From Inspiration → Checkout in Seconds**
-
-Think of it this way: a visitor lands on your website. They see a real person styling your jacket, using your skincare product, or sipping from your tumbler. In that exact moment of inspiration, they don’t have to search for the product, hunt for links, or open new tabs.
-
-They click on the tagged content — and bam — they see the price, details, and can purchase instantly, without leaving your site.
-
-No friction. No detours. Just a natural flow from social proof to the shopping cart.
-
-==How It Works?==
-
-* **Embed UGC Anywhere**: Add authentic customer photos, videos, and reviews directly to your website or product pages.
-* **Hotspot Tagging**: Highlight multiple products in a single post with interactive tags.
-* **Instant Product Info**: Shoppers receive cohesive, concise details (price, description, options) instantly.
-* **Seamless Checkout**: One click takes them straight to purchase — no endless navigation.
-
-== Why It Matters? ==
-
-* **Authenticity Builds Trust** → Nothing beats seeing real people enjoy your product.
-* **Frictionless Path to Purchase** → Skip the multi-step funnel, go straight from content to cart.
-* **Boosted Conversions** → Story-driven shopping nudges customers naturally toward “yes.”
-* **Impulse Buy Power** → Capture excitement at the exact moment of discovery.
+* **Boost Credibility** – Display real customer content and reviews to build trust.
+* **Increase Conversions** – Turn user content into shoppable experiences.
+* **Save Time** – Automatically collect and update social media content.
+* **Enhance Engagement** – Keep your site fresh with live social feeds.
+* **Stay On-Brand** – Fully customizable widgets to match your website style.
+* **SEO Benefits** – Add fresh content that improves search visibility.
+* **Build Community** – Encourage customers to share and engage with your brand.
 
 == The Big Win ==
 
@@ -353,6 +243,14 @@ This isn’t just content. This is commerce powered by trust.
 * Widget Theme
 * Vivid
 
+== Screenshots ==
+1. Register your account on Taggbox.
+2. Login to your account.
+3. Widget creation page.
+4. Customization options.
+5. Embedding widget using shortcode.
+6. Analytics page.
+
 == Our Support ==
 
 We're known for quick, helpful support. With 24/7 customer service, we promptly resolve any issues to meet customer expectations. Check topics or ask a new question here: [Support Forum](https://wordpress.org/support/plugin/taggbox-widget/)
@@ -363,41 +261,6 @@ To find out more about who we are & what we do, here are some useful links:
 [Templates](https://taggbox.com/templates/)
 [Privacy Policy](https://taggbox.com/privacy-policy/)
 [Terms of Service](https://taggbox.com/terms-of-service/)
-
-== Installation ==
-
-Installation is free, quick, and easy. Set up Taggbox in a minute.
-
-**Option 1: From the WP Plugin directory**
-
-* Go to the Plugins page in your WordPress site’s dashboard.
-* Click on the “Add New” button.
-* Search for “Taggbox”.
-* Click on the “Install” button next to it, then click “Activate”.
-* Choose the network you want to collect content from example, LinkedIn Feed
-* Customize the Widget using different themes and layout options
-* Copy the short code and paste it where you want to display the LinkedIn widget
-
-**Option 2: Upload the Zip File**
-
-* Download the Taggbox Zip file.
-* Upload the file to the /wp-content/plugins directory of your WordPress website.
-* Activate the plugin.
-* Choose the network (Eg, “Linkeidn”) and get started.
-
-**Step-by-Step guide to add Instagram Feed on WordPress Website:**
-
-* Select Instagram as your network.
-* Now choose your Instagram Feed type from Instagram Handle, Hashtag, Stories, Reels, Mentions, and click on “Create Feed”.
-* Now authorize your Instagram account to collect posts from Instagram.
-* Your Instagram feed will be now collected by the Taggbox plugin.
-* You can now proceed to customize the Instagram Feed by using different themes & layout options. Then choose a relevant Instagram Feed from the moderation panel so that you don't showcase an irrelevant Instagram feed.
-* Finally, go to the embed tab & copy the Instagram feed WordPress embed code.
-* Paste the embed code in the backend of the page or posts you would like to display the Instagram Feed in.
-* Save the changes made & you're done.
-* Your Instagram Feed is now live on your WP website.
-
-Video Guide For [Taggbox (Tutorial)](https://www.youtube.com/watch?v=2ogsKD2h9YY)
 
 == Frequently Asked Questions ==
 
@@ -422,16 +285,73 @@ Using the Taggbox WordPress plugin requires no coding skills, as we work with Sh
 = Is Taggbox compatible with Elementor and Woocommerce platforms? =
 Yes, Taggbox is compatible with all CMS platforms, including Elementor and Woocommerce.
 
+== External services ==
+
+= 1. Intercom =
+This plugin connects to Intercom, a third-party customer communication platform, to provide customer support and assistance within the plugin dashboard. The Intercom widget allows users to contact the Taggbox support team directly from the plugin interface.
+
+= What the service is used for =
+The Intercom widget is used to provide customer support and help users communicate with the Taggbox support and customer success teams.
+
+= What data is sent and when =
+When the plugin dashboard loads, the Intercom widget may collect and process limited technical information required to operate the support service. This may include:
+* Browser information
+* Device information
+* Usage data related to plugin interaction
+* Technical data required to load the support widget
+No personal data is sent unless the user voluntarily provides information through the support chat.
+Data is only transmitted when a user opens the plugin dashboard where the Intercom support widget is loaded.
+
+= Service Provider =
+Intercom, Inc.
+
+= Service Links =
+* Intercom Terms of Service
+https://www.intercom.com/legal/terms-and-policies
+* Intercom Privacy Policy
+https://www.intercom.com/legal/privacy
+* Taggbox Privacy Policy
+https://taggbox.com/privacy-policy/
+* Taggbox Terms of Service
+https://taggbox.com/terms-of-service/
+
+= 2. Tagembed API =
+This plugin connects to the Tagembed API, a service operated by Taggbox, to allow users to create widgets, connect social media sources, and display collected content on their WordPress website.
+
+=What the service is used for=
+* Create and manage widgets
+* Connect social media and review sources
+* Collect and aggregate social media content
+* Retrieve and display that content on the website
+
+=What data is sent and when=
+The plugin sends requests to the Tagembed API when users interact with the plugin dashboard. This may include:
+* Account information required to create or access a Tagembed account
+* Widget or feed configuration details
+* Website domain information
+* Requests required to retrieve feed content
+
+Data is transmitted when:
+
+* A user creates or logs into a Tagembed account through the plugin
+* A user creates or manages a widget or feed
+* A widget loads on the website to display content
+
+= Service provider =
+Taggbox (Tagembed service)
+
+= Service links =
+* Privacy Policy: https://tagembed.com/privacy-policy/
+* Terms of Service: https://tagembed.com/terms-of-service/
+* Taggbox Privacy Policy: https://taggbox.com/privacy-policy/
+* Taggbox Terms of Service: https://taggbox.com/terms-of-service/
+
 == Changelog ==
 
-= 3.5 =
-  * Now Taggbox social media widget plugin will work within the WordPress itself for better UI and user experience.
-= 3.4 =
-  * First Release - This is the first release of Taggbox Social Media Widget WordPress Plugin. If you find any issues, please contact us on [taggbox.com](https://taggbox.com/contact-us/)
+= 3.9 =
+  * Updated user registration process.
 
 == Upgrade Notice ==
 
-= 3.5 =
+= 3.8 =
   * Now Taggbox social media widget plugin will work within the WordPress itself for better UI and user experience. 
-= 3.4 =
-  * First Release - This is the first release of Taggbox Social Media Widget WordPress Plugin. If you find any issues, please contact us on [taggbox.com](https://taggbox.com/contact-us/)

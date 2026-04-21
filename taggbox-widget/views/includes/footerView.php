@@ -10,7 +10,7 @@
 
 		function __taggbox__getAndManageIntercomSetting() {
 			let formData = new FormData();
-			formData.append('action', 'data');
+			formData.append('action', 'taggbox_data');
 			formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 			formData.append('__taggbox__ajax_action', '__taggbox__get_and_manage_intercom_chat_setting');
 			fetch(__taggbox__ajax_url, {
@@ -90,7 +90,7 @@
 		function __taggbox__plugin_version() {
 			let __taggbox__toast = new TaggboxToast;
 			let formData = new FormData();
-			formData.append('action', 'data');
+			formData.append('action', 'taggbox_data');
 			formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 			formData.append('__taggbox__ajax_action', '__taggbox__plugin_version');
 			fetch(__taggbox__ajax_url, {
@@ -237,22 +237,3 @@
 	window.onload = __taggbox__manageNextAndBackButon();
 	/*--End-- Manage And Generate Next And Back Link In Footer*/
 </script>
-<!--Start--Clarity Tracking Code -->
-<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() {
-		(function(c, l, a, r, i, t, y) {
-			c[a] = c[a] || function() {
-				(c[a].q = c[a].q || []).push(arguments)
-			};
-			t = l.createElement(r);
-			t.async = 1;
-			t.src = "https://www.clarity.ms/tag/" + i;
-			y = l.getElementsByTagName(r)[0];
-			y.parentNode.insertBefore(t, y);
-		})(window, document, "clarity", "script", "jz1bviq7un");
-		var __taggbox__userEmailIdForClarity = "<?php echo	esc_html($__taggbox__active_widget_user_email_id);	?>";
-		clarity("set", "userEmail", __taggbox__userEmailIdForClarity);
-		clarity("set", "type", "wordpress");
-	});
-</script>
-<!--End--Clarity Tracking Code -->

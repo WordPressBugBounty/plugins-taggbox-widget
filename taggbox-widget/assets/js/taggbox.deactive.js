@@ -88,7 +88,7 @@ function __taggbox__deactivatePlugin() {
         __taggbox__pluginDeactivateReason = "";
     }
     let formData = new FormData();
-    formData.append('action', 'data');
+    formData.append('action', 'taggbox_data');
     formData.append('__taggbox__ajax_action', '__taggbox__plugin_deactivate');
     formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_security_nones_object.__taggbox__ajax_call_security_nones);
     formData.append('betterPlugin', __taggbox__better_plugin_input);

@@ -9,7 +9,7 @@ function __taggbox__get_theme() {
     let __taggbox__theme = document.querySelector("#__taggbox__theme");
     let __taggbox__toast = new TaggboxToast;
     let formData = new FormData();
-    formData.append('action', 'data');
+    formData.append('action', 'taggbox_data');
     formData.append('widgetId', widgetId);
     formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
     formData.append('__taggbox__ajax_action', '__taggbox__get_themes');
@@ -70,7 +70,7 @@ function __taggbox__editTheme(__taggbox__theme_id) {
     if (!__taggbox__widget_id || !__taggbox__theme_id)
         return __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
     let formData = new FormData();
-    formData.append('action', 'data');
+    formData.append('action', 'taggbox_data');
     formData.append('widgetId', __taggbox__widget_id);
     formData.append('themeId', __taggbox__theme_id);
     formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);

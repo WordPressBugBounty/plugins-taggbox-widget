@@ -45,7 +45,7 @@ function __taggbox__create_feed(__taggbox__feed_data, useCommonInput = true) {
             if (validationError)
                 return;
             __taggbox__open_loader();
-            formData.append('action', 'data');
+            formData.append('action', 'taggbox_data');
             formData.append('widgetId', __taggbox__feed_data.widgetId);
             formData.append('widgetName', __taggbox__feed_data.widgetName);
             formData.append('networkId', __taggbox__feed_data.networkId);

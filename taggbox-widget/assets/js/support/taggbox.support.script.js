@@ -9,7 +9,7 @@ function __taggbox__check_user_accout_status() {
 
     let __taggbox__toast = new TaggboxToast;
     let formData = new FormData();
-    formData.append('action', 'data');
+    formData.append('action', 'taggbox_data');
     formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
     formData.append('__taggbox__ajax_action', '__taggbox__check_user_accout_status');
     __taggbox__open_loader();

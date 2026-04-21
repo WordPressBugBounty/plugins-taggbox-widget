@@ -61,6 +61,10 @@ wp_enqueue_script('__script-account-js', TAGGBOX_PLUGIN_URL . '/assets/js/accoun
 					<span id="__taggbox__register_email_id_error"></span>
 				</div>
 				<div class="__taggbox__form_row">
+					<select id="__taggbox__callingCode" name="calling_code" style="padding: 0 8px;line-height: 2; min-height: 30px;width: 100%;border-radius: 0; border: 1px solid #999;background-color: #fff;color: #2c3338;"></select>
+					<span id="__taggbox__register_calling_code_error"></span>
+				</div>
+				<div class="__taggbox__form_row">
 					<input type="number" name="contact_no" value="" placeholder="Contact Number">
 					<span id="__taggbox__register_contact_no_error"></span>
 				</div>

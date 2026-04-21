@@ -75,9 +75,6 @@ if (__taggbox__feed_filters) {
 			case "32":
 				__taggbox__createVkFeed(__taggbox__feed_data);
 				break;
-			case "33":
-				__taggbox__createTrustpilotFeed(__taggbox__feed_data);
-				break;
 			case "34":
 				__taggbox__createAmazonFeed(__taggbox__feed_data);
 				break;
@@ -192,7 +189,7 @@ function __taggbox__getFacebookPageAlbums() {
 		__taggbox__open_loader();
 		let __taggbox__toast = new TaggboxToast;
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('connectedAccountsId', __taggbox__connected_accountsId);
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__get_facebook_page_albums');
@@ -277,7 +274,7 @@ function __taggbox__manageFacebookPageSearchOptions() {
 			__taggbox__search_option.innerHTML = "";
 
 			let formData = new FormData();
-			formData.append('action', 'data');
+			formData.append('action', 'taggbox_data');
 			formData.append('facebookPageData', __taggbox__facebook_search_page);
 			formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 			formData.append('__taggbox__ajax_action', '__taggbox__search_facebook_page');
@@ -361,7 +358,7 @@ function __taggbox__searchGoogleLocation() {
 		/*__taggbox__search_option.innerHTML = '';*/
 		let __taggbox__toast = new TaggboxToast;
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('googleLocationName', __taggbox__google_location);
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__search_google_location');
@@ -528,7 +525,7 @@ function __taggbox__youtubeSearch(type = null) {
 		__taggbox__youtube_channel_search_loader.style.display = 'block';
 		let __taggbox__toast = new TaggboxToast;
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('youtubeChannelData', __taggbox__youtube_channel_data);
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__search_youtube_channel');
@@ -599,7 +596,7 @@ function __taggbox__getYoutubePlaylist(youtubeId) {
 	__taggbox__open_loader();
 	let __taggbox__toast = new TaggboxToast;
 	let formData = new FormData();
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__get_youtube_playlist');
 	formData.append('youtubeId', youtubeId);
@@ -827,7 +824,7 @@ function __taggbox__getSlackChannelList(__taggbox__connected_accountsId = null) 
 		let __taggbox__account_slack_channel = document.querySelector("#__taggbox__account_slack_channel");
 		__taggbox__open_loader();
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('connectedAccountsId', __taggbox__get_connected_accountsId);
 		formData.append('__taggbox__ajax_action', '__taggbox__get_slack_channel_list');
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
@@ -983,7 +980,7 @@ function __taggbox__searchVkCommunities() {
 		/*__taggbox__search_option.innerHTML = '';*/
 		let __taggbox__toast = new TaggboxToast;
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('vkCommunitiesName', __taggbox__vk_communities);
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__search_vk_communities');
@@ -1039,24 +1036,6 @@ function __taggbox__manageVkCommunitiesData(__taggbox__communities_id, __taggbox
 }
 /*--End-- Search Vk Communities*/
 /*--End--Create Vk Feed*/
-/*--Start--Create Trustpilot Feed*/
-function __taggbox__createTrustpilotFeed(__taggbox__feed_data) {
-	let __taggbox__toast = new TaggboxToast;
-	if (Object.keys(__taggbox__feed_data).length === 0)
-		__taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
-	switch (__taggbox__feed_data.filterId) {
-		case "76":
-			__taggbox__feed_data.inputs = [{ label: 'Trustpilot Url', type: 'text', name: 'feed', placeholder: 'Enter URL : https://www.trustpilot.com/review/leapinlizardlabels.com' }];
-			break;
-		default:
-			__taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
-			document.querySelector("#__taggbox__feed_filters").selectedIndex = 0;
-			return;
-			break;
-	}
-	__taggbox__create_feed(__taggbox__feed_data);
-}
-/*--End--Create Trustpilot Feed*/
 /*--Start--Create Amazon Feed*/
 function __taggbox__createAmazonFeed(__taggbox__feed_data) {
 	switch (__taggbox__feed_data.filterId) {
@@ -1166,7 +1145,7 @@ function __taggbox__updateFeedStauts(count) {
 	formData.append('feedId', __taggbox__feed_id);
 	formData.append('widgetId', __taggbox__widget_id);
 	formData.append('status', __taggbox__feed_status);
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__update_feed_status');
 	__taggbox__open_loader();
@@ -1220,7 +1199,7 @@ function __taggbox__deleteFeed(__taggbox__feed_id, __taggbox__widget_id, __taggb
 		let formData = new FormData();
 		formData.append('feedId', __taggbox__feed_id);
 		formData.append('widgetId', __taggbox__widget_id);
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__delete_feed');
 		__taggbox__open_loader();
@@ -1270,7 +1249,7 @@ function __taggbox__getFeed() {
 
 	let __taggbox__toast = new TaggboxToast;
 	let formData = new FormData();
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__get_feed');
 	formData.append('widgetId', __taggbox__widgetId);

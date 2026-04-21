@@ -16,7 +16,7 @@ function __taggbox__widgetEditForm(__taggbox__widget_id, __taggbox__widget_name)
 				return;
 			}
 			__taggbox__open_loader();
-			formData.append('action', 'data');
+			formData.append('action', 'taggbox_data');
 			formData.append('widgetId', __taggbox__widget_id);
 			formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 			formData.append('__taggbox__ajax_action', '__taggbox__edit_widget');
@@ -73,7 +73,7 @@ function __taggbox__updateWidgetStauts(__taggbox__widget_id, count) {
 	let formData = new FormData();
 	formData.append('widgetId', __taggbox__widget_id);
 	formData.append('status', __taggbox__widget_status);
-	formData.append('action', 'data');
+	formData.append('action', 'taggbox_data');
 	formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 	formData.append('__taggbox__ajax_action', '__taggbox__update_widget_status');
 	__taggbox__open_loader();
@@ -125,7 +125,7 @@ function __taggbox__deleteWidget(__taggbox__widget_id, __taggbox__widgetbox_id) 
 	confirmDialog({ title: 'Yes, delete widget', message: 'Are you sure! do you want to delete widget?', buttonText: 'Delete', type: 'danger' }, function () {
 		let formData = new FormData();
 		formData.append('widgetId', __taggbox__widget_id);
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__delete_widget');
 		__taggbox__open_loader();

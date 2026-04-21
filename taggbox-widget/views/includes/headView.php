@@ -3,15 +3,15 @@ wp_enqueue_script('__jquery');
 wp_enqueue_script('__taggbox__custom-js', TAGGBOX_PLUGIN_URL . '/assets/js/taggbox.common.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 wp_enqueue_script('__script-widget-js', TAGGBOX_PLUGIN_URL . '/assets/js/widget/taggbox.widget.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 $__taggbox__account_page = true; /* Use : Check User Token Valid Or Not */
-$__taggbox__user_details = ___taggbox__user();
-$__taggbox__active_widget_user_id = ___taggbox__activeWidgetUser();
+$__taggbox__user_details = taggbox_user();
+$__taggbox__active_widget_user_id = taggbox_activeWidgetUser();
 $__taggbox__active_widget_user_name = !empty($__taggbox__user_details->name) ? $__taggbox__user_details->name : '';
 $__taggbox__active_widget_user_email_id = !empty($__taggbox__user_details->email) ? $__taggbox__user_details->email : '';
-$__taggbox__menus = ___taggbox__menus();
+$__taggbox__menus = taggbox_menus();
 $__taggbox__active_menue_id = null;
-$__taggbox__active_widget_id = ___taggbox__activeWidget();
+$__taggbox__active_widget_id = taggbox_activeWidget();
 $__taggbox__active_widget_id = !empty($__taggbox__active_widget_id) ? $__taggbox__active_widget_id : 0;
-$__taggbox__widgets = ___taggbox__widgets();
+$__taggbox__widgets = taggbox_widgets();
 $__taggbox__widgets_count = count($__taggbox__widgets); /* Use In Next And Back Button */
 /* $__taggbox__collaborators = __taggbox__collaborator($__taggbox__user_details->userId); */
 ?>
@@ -33,7 +33,7 @@ $__taggbox__widgets_count = count($__taggbox__widgets); /* Use In Next And Back 
 			let __taggbox__toast = new TaggboxToast;
 			__taggbox__open_loader();
 			let formData = new FormData();
-			formData.append('action', 'data');
+			formData.append('action', 'taggbox_data');
 			formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 			formData.append('__taggbox__ajax_action', '__taggbox__check_user_token');
 			fetch(__taggbox__ajax_url, {
@@ -81,7 +81,7 @@ $__taggbox__widgets_count = count($__taggbox__widgets); /* Use In Next And Back 
 		let __taggbox__overlay = document.querySelector("#__taggbox__upgrade_plan_overlay");
 		if (__taggbox__overlay) __taggbox__overlay.style.display = 'block';
 		let formData = new FormData();
-		formData.append('action', 'data');
+		formData.append('action', 'taggbox_data');
 		formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
 		formData.append('__taggbox__ajax_action', '__taggbox__check_plan_premium_feature');
 		__taggbox__open_loader();
@@ -112,7 +112,7 @@ $__taggbox__widgets_count = count($__taggbox__widgets); /* Use In Next And Back 
 				<div class="__taggbox__formwbody">
 				<div class="__taggbox__formwrow">
 				<p>
-				You've created a <strong>LinkedIn feed</strong>, which is not available in your free plan.
+				You've created a <strong> Premium Network feed</strong>, which is not available in your free plan.
 				To continue displaying content from this network, please upgrade your plan.
 				</p>
 				</div>
@@ -126,7 +126,7 @@ $__taggbox__widgets_count = count($__taggbox__widgets); /* Use In Next And Back 
 				<div style="display:flex; flex-direction:column;">
 				<span style="font-size:16px; font-weight:700;">Prefer Not to Upgrade?</span>
 				<span style="font-size:14px;">
-				You can delete the (<span style="color:#6f42c1;">LinkedIn</span>) feed and choose a network included in the free plan.
+				You can delete the (<span style="color:#6f42c1;"> Premium Network </span>) feed and choose a network included in the free plan.
 				</span>
 				</div>
 				<button onclick="__taggbox__menus('2')" 
