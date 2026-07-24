@@ -73,6 +73,21 @@ function __taggbox__get_account_details() {
 	}).then(response => {
 		__taggbox__close_loader();
 		if (response.status == true) {
+
+			/*--Start-- Manage Upgrade Plan Section Hide | Show*/
+			let __taggbox__upgrade_plan_section = document.querySelector("#__taggbox__upgrade_plan_section");
+			let __taggbox__support_section = document.querySelector("#__taggbox__support_section");
+			if (response.data.upgradeSection && response.data.upgradeSection === "hide") {
+				if (__taggbox__upgrade_plan_section) {
+					__taggbox__upgrade_plan_section.style.display = "none";
+				}
+				if (__taggbox__support_section) {
+					__taggbox__support_section.style.display = "block";
+				}
+				return false;
+			}
+			/*--End-- Manage Upgrade Plan Section Hide | Show*/
+
 			/*--Start-- Manage All Feacture Section*/
 			let allFeactureHTML = "";
 			let i = 0;
@@ -136,7 +151,7 @@ function __taggbox__get_account_details() {
 						elemHTML = `${elemHTML}<strong>${response.data.Product[indexx][indexxx].Plan.name}</strong>`;
 						let monthelyPrice = response.data.Product[indexx][indexxx].Plan.wordpessMonthlyPrice;
 						let yearlyPrice = response.data.Product[indexx][indexxx].Plan.wordpressYearlyPrice;
-						if (response.data.Product[indexx][indexxx].Plan.id == 67) {
+						if (response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) {
 							elemHTML = `${elemHTML}<h2>Free</h2>`;
 						} else {
 							elemHTML = `${elemHTML}<h2 class="__taggbox__monthely_plan" style="display:none;">$${monthelyPrice}/Mo</h2>`;
@@ -146,7 +161,7 @@ function __taggbox__get_account_details() {
 						elemHTML = `${elemHTML}<ul>`;
 						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${response.data.Product[indexx][indexxx].PlanRule.feeds} ${(response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) ? `Feed` : `Feeds`}</li>`;
 						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${response.data.Product[indexx][indexxx].PlanRule.viewCount} Views/Month</li>`;
-						if (response.data.Product[indexx][indexxx].Plan.id != 67) {
+						if (response.data.Product[indexx][indexxx].Plan.id != 67 && response.data.Product[indexx][indexxx].Plan.id != 53) {
 							if (response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit != 0) {
 								elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />LinkedIn Auto Update (Max ${response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit} Feeds)</li>`;
 							} else {
@@ -162,9 +177,9 @@ function __taggbox__get_account_details() {
 							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />Custom CSS</li>`;
 						}
 						if (response.data.Product[indexx][indexxx].PlanRule.branding == 0) {
-							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-cross.svg" alt="no-access" />No Tagembed Branding</li>`;
+							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-cross.svg" alt="no-access" />No Taggbox Branding</li>`;
 						} else {
-							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />Tagembed Branding</li>`;
+							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />Taggbox Branding</li>`;
 						}
 						elemHTML = `${elemHTML}</ul>`;
 						if (response.data.Product[indexx][indexxx].Plan.id != 1) {
@@ -188,6 +203,11 @@ function __taggbox__get_account_details() {
 			}
 			__taggbox__plan.innerHTML = elemHTML;
 			/*--End-- Manage Plan Serction Section*/
+
+			/*Manage Upgrade Plan Section Hide | Show */
+			if (__taggbox__upgrade_plan_section)
+				__taggbox__upgrade_plan_section.style.display = "block";
+
 		} else {
 			if (response.hasOwnProperty("message")) {
 				__taggbox__toast.danger({ message: response.message, position: '__taggbox__is-top-right' });

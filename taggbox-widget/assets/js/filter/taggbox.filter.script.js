@@ -18,7 +18,7 @@ function __taggbox__changeFilterIfrmSrc() {
         let __taggbox__end = generateRandomString(10);
         let __taggbox__widgetId = widgetData.selectedOptions[0].value.split('#')[0];
         let __taggbox__moderation_url_param = __taggbox__widgetId + '-' + __taggbox__start + '-' + __taggbox__user_id + '-' + __taggbox__end;
-        document.querySelector("#__taggbox__widget_filter_section_id").innerHTML = `<iframe src="${__taggbox__plugin_server_url}Moderation/index/${__taggbox__moderation_url_param}" title="Tagembed" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        document.querySelector("#__taggbox__widget_filter_section_id").innerHTML = `<iframe src="${__taggbox__plugin_server_url}Moderation/index/${__taggbox__moderation_url_param}" title="Taggbox" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     }
 }
 /*--End--Manage Widget Display  Preview According Widget*/

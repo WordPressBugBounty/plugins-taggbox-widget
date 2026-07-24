@@ -318,9 +318,9 @@ function __taggbox__manageFacebookPageSearchOptions() {
 		__taggbox__facebook_page_search_loader.style.display = 'none';
 	}
 }
-function __taggbox__facebookSearchData(__taggbox__page_name, __Tagembed__page_link) {
+function __taggbox__facebookSearchData(__taggbox__page_name, __Taggbox__page_link) {
 	document.getElementById("__taggbox__facebook_search_page").value = __taggbox__page_name;
-	document.getElementById("__taggbox__facebook_feed").value = __Tagembed__page_link;
+	document.getElementById("__taggbox__facebook_feed").value = __Taggbox__page_link;
 	document.getElementById("__taggbox__search_option").style.display = 'none';
 }
 /*--End-- Search Facebook And Manage Facebook Page Data*/

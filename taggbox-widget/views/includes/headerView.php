@@ -64,8 +64,8 @@
 		</div>
 	</div>
 </div>
-<!--Start-- Manage Tagembed Loader How OR Not -->
+<!--Start-- Manage Taggbox Loader How OR Not -->
 <script>
 	var __taggbox__loader_status = <?php echo in_array($__taggbox__active_menue_id, [5]) ? 0 : 1; ?>;
 </script>
-<!--End-- Manage Tagembed Loader How OR Not -->
+<!--End-- Manage Taggbox Loader How OR Not -->

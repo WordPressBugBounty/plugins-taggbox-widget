@@ -1,5 +1,5 @@
 /*--Start-- Manage Window Popup In New Tab*/
-/*function __tagmebed__openWindowPopup(url, windowName = "Tagembed") {
+/*function __tagmebed__openWindowPopup(url, windowName = "Taggbox") {
  __tagmebed__window_popup = window.open(url, '_blank');
  __tagmebed__window_popup.focus();
  var __taggbox__window_pupup_timer = setInterval(function () {
@@ -9,7 +9,7 @@
  }
  }, 250);
  }*/
-function __tagmebed__openWindowPopup(url, windowName = "Tagembed") {
+function __tagmebed__openWindowPopup(url, windowName = "Taggbox") {
 	__tagmebed__window_popup = window.open(url, windowName, 'height=600,width=600,left=0,top=0,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
 	var __taggbox__window_pupup_timer = setInterval(function () {
 		if (__tagmebed__window_popup.closed) {
@@ -139,7 +139,7 @@ if (__taggbox__logout) {
 }
 /*--End-- Logout*/
 
-/*--Start--Manage Tagembed Menue*/
+/*--Start--Manage Taggbox Menue*/
 function __taggbox__menus(__taggbox__menu_id, __taggbox__widgetId = null) {
 	if (__taggbox__widgetId)
 		__taggbox__manageActiveWidget(__taggbox__widgetId);
@@ -176,7 +176,7 @@ function __taggbox__menus(__taggbox__menu_id, __taggbox__widgetId = null) {
 		__taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
 	});
 }
-/*--End--Manage Tagembed Menue*/
+/*--End--Manage Taggbox Menue*/
 /*--Start-- Get Already Exist Auth*/
 function __taggbox__get_already_exist_auth(__taggbox__network_id) {
 	if (!__taggbox__network_id)

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name:       Taggbox – Free Social Media Widgets, Review Badges & Shoppable UGC
+ * Plugin Name:       Taggbox – Social Media Feed Widget
  * Plugin URI:        https://taggbox.com/widget/
  * Description:       Display social media feeds and user-generated content in an interactive widget.
- * Version:           4.0
+ * Version:           4.1
  * Author:            Taggbox
  * Author URI:        https://taggbox.com/
  * License:           GPLv3
@@ -15,7 +15,7 @@ if (!defined('WPINC')) :
 endif;
 
 /* --Start-- Create Constant */
-!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.0');
+!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.1');
 !defined('TAGGBOX_PLUGIN_DIR_PATH')         && define('TAGGBOX_PLUGIN_DIR_PATH',         plugin_dir_path(__FILE__));
 !defined('TAGGBOX_PLUGIN_URL')              && define('TAGGBOX_PLUGIN_URL',              plugin_dir_url(__FILE__));
 !defined('TAGGBOX_PLUGIN_REDIRECT_URL')     && define('TAGGBOX_PLUGIN_REDIRECT_URL',     get_admin_url(null, 'admin.php?page='));
@@ -1482,7 +1482,7 @@ function taggbox_createDatabaseTableForPlugin()
 	$wpdb->query('CREATE TABLE  IF NOT EXISTS `wp_taggbox_menus` (`id` int(11) NOT NULL AUTO_INCREMENT,`name` varchar(100) NOT NULL,`status` tinyint(2) NOT NULL,`path` varchar(255) NOT NULL,PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
 	$wpdb->query('CREATE TABLE  IF NOT EXISTS `wp_taggbox_active_widget` (`id` int(11) NOT NULL AUTO_INCREMENT,`widgetId` varchar(100) NOT NULL,PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
 	$wpdb->query('CREATE TABLE  IF NOT EXISTS `wp_taggbox_active_options` (`id` int(11) NOT NULL AUTO_INCREMENT,`email` varchar(500) NOT NULL,`isLogin` enum(\'no\', \'yes\'),PRIMARY KEY(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
-	/* --Start-- Manage Tagembed Plugin Menus */
+	/* --Start-- Manage Taggbox Plugin Menus */
 	$__taggbox__checkAlreadyExistMenusDataExistOrNot = $wpdb->get_results('SELECT id FROM wp_taggbox_menus');
 	if (empty($__taggbox__checkAlreadyExistMenusDataExistOrNot)) :
 		$__taggbox__menus = [['name' => 'Widget', 'status' => 0, 'path' => 'widget/widgetView'], ['name' => 'Feed', 'status' => 1, 'path' => 'feed/addView'], ['name' => 'Choose Theme', 'status' => 0, 'path' => 'theme/themeView'], ['name' => 'Filter', 'status' => 0, 'path' => 'filter/filterView'], ['name' => 'Customize', 'status' => 0, 'path' => 'customize/customizeView'], ['name' => 'Display', 'status' => 0, 'path' => 'display/displayView'], ['name' => 'Social Accounts', 'status' => 0, 'path' => 'socialAccount/socialAccountView'], ['name' => 'Support', 'status' => 0, 'path' => 'support/supportView'], ['name' => 'Upgrade', 'status' => 0, 'path' => 'upgrade/upgradeView'], ['name' => 'Analytics', 'status' => 0, 'path' => 'analytics/analyticsView']];
@@ -1490,7 +1490,7 @@ function taggbox_createDatabaseTableForPlugin()
 			$wpdb->query($wpdb->prepare('INSERT INTO wp_taggbox_menus (name, status, path) VALUES (%s, %s, %s)', $__taggbox__menu['name'], $__taggbox__menu['status'], $__taggbox__menu['path']));
 		endforeach;
 	endif;
-	/* --End-- Manage Tagembed Plugin Menus */
+	/* --End-- Manage Taggbox Plugin Menus */
 }
 function taggbox_dropDatabaseTablesForPlugin()
 {

@@ -2,7 +2,7 @@
 <div id="__taggbox__upgrade_plan_overlay" style="position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.1);z-index:999;display:none;"></div>
 <div id="__taggbox__plan_upgrade_message" class="__taggbox__plan_upgrade_message"></div>
 <!--End-- Upgrade Plan Overlay And Message-->
-<!--Start-- Call Tagembed Chat And Plugin Version Script After Login And Register-->
+<!--Start-- Call Taggbox Chat And Plugin Version Script After Login And Register-->
 <?php if (!empty($__taggbox__user_details)) : ?>
 	<script type="text/javascript">
 		/*--Start-- Manage Intercom Chat And Setting Data */
@@ -111,7 +111,7 @@
 						elemHTML = `${elemHTML}<hr class="__taggbox__horizontaborder">`;
 						elemHTML = `${elemHTML}<div class="__taggbox__formwbody">`;
 						elemHTML = `${elemHTML}<div class="__taggbox__formwrow">`;
-						elemHTML = `${elemHTML}<p><strong> Note : </strong> There is a new version of Tagembed Widget available. <strong> ${response.data.livePluginVersion} </strong> is a recommended Update For Performance Improvements. </p>`;
+						elemHTML = `${elemHTML}<p><strong> Note : </strong> There is a new version of Taggbox Widget available. <strong> ${response.data.livePluginVersion} </strong> is a recommended Update For Performance Improvements. </p>`;
 						elemHTML = `${elemHTML}</div></div>`;
 						elemHTML = `${elemHTML}<div class = "__taggbox__btnwrap text-center">`;
 						elemHTML = `${elemHTML}<a style="background: #d63638;" href="${response.data.pluginUpgradeURL}" class="__taggbox__okaybtn">Update Plugin</a>`;
@@ -140,7 +140,7 @@
 		/*--End-- Manage Hide And Show plugin Upgrade Message*/
 	</script>
 <?php endif; ?>
-<!--End-- Call Tagembed Chat And Plugin Version Script After Login And Register-->
+<!--End-- Call Taggbox Chat And Plugin Version Script After Login And Register-->
 </div>
 </div>
 <!--Start-- Manage Next And Back Button On All Pages  -->

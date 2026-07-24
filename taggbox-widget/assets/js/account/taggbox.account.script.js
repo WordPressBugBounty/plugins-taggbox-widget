@@ -55,7 +55,7 @@ function __taggbox__manage_other_plugin_account(otherPluginInstallStatus, plugin
     elemHTML = `${elemHTML}<div class="__taggbox__popupwrap __taggbox__popup_xl">`;
     elemHTML = `${elemHTML}<button onclick="__taggbox__hide_other_plugin_account_popup_close();" type="button" class="__taggbox__closebtn"></button>`;
     elemHTML = `${elemHTML}<div class="__taggbox__popupinn">`;
-    elemHTML = `${elemHTML}<div class="__taggbox__header"><h2>Taggbox & Tagembed Are Now One 🤝</h2></div>`;
+    elemHTML = `${elemHTML}<div class="__taggbox__header"><h2>Taggbox & Taggbox Are Now One 🤝</h2></div>`;
     elemHTML = `${elemHTML}<hr class="__taggbox__horizontaborder">`;
     elemHTML = `${elemHTML}<div class="__taggbox__formwbody">`;
     elemHTML = `${elemHTML}<div class="__taggbox__formwrow">`;
@@ -115,7 +115,7 @@ function __taggbox__getCallingCode() {
     }).catch((error) => {
         console.log(error);
         __taggbox__close_loader();
-        __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__tagembed__is-top-right' });
+        __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
     });
 }
 /*--End-- Get Country Code For Register*/
