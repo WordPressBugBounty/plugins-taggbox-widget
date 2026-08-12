@@ -154,12 +154,7 @@ if (__taggbox__register_form) {
             __taggbox__close_loader();
             if (response.status == true) {
                 if (response.hasOwnProperty("data") && Object.keys(response.data).length > 0) {
-                    if (response.data.hasOwnProperty("accountAlreadyOtherPluginStatus")) {
-                        if (response.data.accountAlreadyOtherPluginStatus == true)
-                            __taggbox__manage_other_plugin_account(response.data.otherPluginInstallStatus, response.data.pluginUrl, response.data.existingPluginUser, response.data.otherPluginInstallUrl);
-                    } else {
-                        window.location.replace(response.data.redirectUrl);
-                    }
+                    window.location.replace(response.data.redirectUrl);
                 }
             } else {
                 if (response.hasOwnProperty("data") && Object.keys(response.data).length > 0) {
@@ -231,12 +226,7 @@ if (__taggbox__login_form) {
             __taggbox__close_loader();
             if (response.status == true) {
                 if (response.hasOwnProperty("data") && Object.keys(response.data).length > 0) {
-                    if (response.data.hasOwnProperty("accountAlreadyOtherPluginStatus")) {
-                        if (response.data.accountAlreadyOtherPluginStatus == true)
-                            __taggbox__manage_other_plugin_account(response.data.otherPluginInstallStatus, response.data.pluginUrl, response.data.existingPluginUser, response.data.otherPluginInstallUrl);
-                    } else {
-                        window.location.replace(response.data.redirectUrl);
-                    }
+                    window.location.replace(response.data.redirectUrl);
                 }
             } else {
                 if (response.hasOwnProperty("data") && Object.keys(response.data).length > 0) {

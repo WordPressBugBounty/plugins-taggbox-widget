@@ -1,4 +1,7 @@
 <?php
+if (!defined('ABSPATH')) :
+	exit;
+endif;
 wp_enqueue_script('__jquery');
 wp_enqueue_script('__taggbox__custom-js', TAGGBOX_PLUGIN_URL . '/assets/js/taggbox.common.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 wp_enqueue_script('__script-widget-js', TAGGBOX_PLUGIN_URL . '/assets/js/widget/taggbox.widget.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
@@ -16,13 +19,13 @@ $__taggbox__widgets_count = count($__taggbox__widgets); /* Use In Next And Back 
 /* $__taggbox__collaborators = __taggbox__collaborator($__taggbox__user_details->userId); */
 ?>
 <script type="text/javascript">
-	var __taggbox__ajax_call_nones = "<?php echo esc_html(wp_create_nonce('__taggbox__ajax_call_security_nones')); ?>";
-	var __taggbox__ajax_url = "<?php echo esc_html(admin_url('admin-ajax.php')); ?>";
-	var __taggbox__plugin_server_url = "<?php echo esc_html(TAGGBOX_PLUGIN_SERVER_URL); ?>";
+	var __taggbox__ajax_call_nones = <?php echo wp_json_encode((string) wp_create_nonce('__taggbox__ajax_call_security_nones')); ?>;
+	var __taggbox__ajax_url = <?php echo wp_json_encode((string) admin_url('admin-ajax.php')); ?>;
+	var __taggbox__plugin_server_url = <?php echo wp_json_encode((string) TAGGBOX_PLUGIN_SERVER_URL); ?>;
 	var __taggbox__network_already_exist_auth = [];
-	var __taggbox__plugin_url_for_js = "<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>";
-	var __taggbox__plugin_react_url = "<?php echo esc_html(TAGGBOX_PLUGIN_REACT_URL); ?>";
-	var __taggbox__user_id = "<?php echo esc_html(!empty($__taggbox__user_details->userId) ? $__taggbox__user_details->userId : ''); ?>";
+	var __taggbox__plugin_url_for_js = <?php echo wp_json_encode((string) TAGGBOX_PLUGIN_URL); ?>;
+	var __taggbox__plugin_react_url = <?php echo wp_json_encode((string) TAGGBOX_PLUGIN_REACT_URL); ?>;
+	var __taggbox__user_id = <?php echo wp_json_encode(!empty($__taggbox__user_details->userId) ? (string) $__taggbox__user_details->userId : ''); ?>;
 </script>
 <!--Start--Check User Access Token-->
 <?php if (!empty($__taggbox__user_details)) : ?>

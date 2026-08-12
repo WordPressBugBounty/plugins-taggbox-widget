@@ -3978,11 +3978,11 @@ div.daterangepicker.opensright:after {
         display   : block;
         width     : 24px;
         height    : 24px;
-        background: url(https://cdn.tagembed.com/wp-plugin/images/logo.png) 0 0 / contain no-repeat
+        background: url(../images/branding/logo.png) 0 0 / contain no-repeat
     }
 
     .__taggbox__container .__taggbox__row .__taggbox__widget .__taggbox__widget_inn .__taggbox__branding a {
-        background: url(https://cdn.tagembed.com/wp-plugin/images/tagembed-branding.svg) center center/contain no-repeat;
+        background: url(../images/branding/tagembed-branding.svg) center center/contain no-repeat;
         width     : 24px;
         height    : 24px
     }

@@ -29,7 +29,7 @@ function __taggbox__get_networks() {
                     if (response.data[index].id == 18) {
                         name = name.split(' ')[0];
                     }
-                    elemHTML = `${elemHTML}<option value="${response.data[index].id}#${response.data[index].name}"> ${name}</option>`;
+                    elemHTML = `${elemHTML}<option value="${__taggbox__escapeHtml(response.data[index].id)}#${__taggbox__escapeHtml(response.data[index].name)}"> ${__taggbox__escapeHtml(name)}</option>`;
                 }
             document.getElementById("__taggbox__networks").innerHTML = elemHTML;
         } else {
@@ -81,7 +81,7 @@ if (__taggbox__networks) {
                 __taggbox__account_error.style.display = 'flex';
                 let elemHTML = `<option vlaue="-1">Select Feed Filter</option>`;
                 for (let index in response.data)
-                    elemHTML = `${elemHTML}<option value="${response.data[index].id}#${response.data[index].name}"> ${response.data[index].name}</option>`;
+                    elemHTML = `${elemHTML}<option value="${__taggbox__escapeHtml(response.data[index].id)}#${__taggbox__escapeHtml(response.data[index].name)}"> ${__taggbox__escapeHtml(response.data[index].name)}</option>`;
                 __taggbox__feed_filters.innerHTML = elemHTML;
             } else {
                 __taggbox__account_error.style.display = 'none';

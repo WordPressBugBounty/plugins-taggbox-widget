@@ -1,3 +1,8 @@
+<?php
+if (!defined('ABSPATH')) :
+	exit;
+endif;
+?>
 <div class="__taggbox__tabing">
 	<div class="__taggbox__tabingone">
 		<div class="__taggbox__menumob">
@@ -14,9 +19,9 @@
 				endif;
 				if ($__taggbox__menu->id <= 6) :
 			?>
-					<li onclick="__taggbox__menus('<?php echo esc_html($__taggbox__menu->id); ?>')" class="__taggbox__tablinks<?php echo esc_html($__taggbox__menu->status) == 1 ? ' __taggbox__active ' : ''; ?>"> <span><?php echo esc_html($i); ?></span> <?php echo esc_html($__taggbox__menu->name); ?></li>
+					<li onclick="__taggbox__menus('<?php echo esc_js($__taggbox__menu->id); ?>')" class="__taggbox__tablinks<?php echo esc_html($__taggbox__menu->status) == 1 ? ' __taggbox__active ' : ''; ?>"> <span><?php echo esc_html($i); ?></span> <?php echo esc_html($__taggbox__menu->name); ?></li>
 				<?php else : ?>
-					<li onclick="__taggbox__menus('<?php echo esc_html($__taggbox__menu->id); ?>')" class="__taggbox__tablinks <?php echo esc_html($__taggbox__menu->status) == 1 ? ' __taggbox__active ' : ''; ?>"><?php echo esc_html($__taggbox__menu->name); ?></li>
+					<li onclick="__taggbox__menus('<?php echo esc_js($__taggbox__menu->id); ?>')" class="__taggbox__tablinks <?php echo esc_html($__taggbox__menu->status) == 1 ? ' __taggbox__active ' : ''; ?>"><?php echo esc_html($__taggbox__menu->name); ?></li>
 			<?php
 				endif;
 				$i++;
@@ -24,7 +29,7 @@
 			?>
 		</ul>
 		<ul class="__taggbox__branding">
-			<li><a href="https://taggbox.com/" target="_blank"><img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/taggbox-logo.png" alt="taggbox" /></a></li>
+			<li><a href="https://taggbox.com/" target="_blank"><img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/taggbox-logo.png'); ?>" alt="taggbox" /></a></li>
 		</ul>
 	</div>
 	<div class="__taggbox__tabingtwo">
@@ -32,10 +37,10 @@
 			<div class="__taggbox__selectwid">
 				<?php if (!empty($__taggbox__widgets)) : ?>
 					<?php if (!in_array($__taggbox__active_menue_id, [1,	7,	8,	9,	10])):	?>
-						<span class="<?php echo in_array($__taggbox__active_menue_id, [2]) ? 'add-select-widget' : ""; ?> ">Selected Widget</sub></span>
+						<span class="<?php echo in_array($__taggbox__active_menue_id, [2]) ? 'add-select-widget' : ""; ?> ">Selected Widget</span>
 						<select name="__taggbox__widgets" id="__taggbox__widgets">
 							<?php foreach ($__taggbox__widgets	as	$__taggbox__widget) : ?>
-								<option <?php echo $__taggbox__active_widget_id == $__taggbox__widget->id ? 'selected' : ''; ?> value="<?php echo esc_html($__taggbox__widget->id); ?>#<?php echo esc_html($__taggbox__widget->name); ?>"><?php echo esc_html($__taggbox__widget->name); ?></option>
+								<option <?php echo $__taggbox__active_widget_id == $__taggbox__widget->id ? 'selected' : ''; ?> value="<?php echo esc_attr($__taggbox__widget->id); ?>#<?php echo esc_attr($__taggbox__widget->name); ?>"><?php echo esc_html($__taggbox__widget->name); ?></option>
 							<?php endforeach; ?>
 						</select>
 					<?php endif; ?>
@@ -47,7 +52,7 @@
 		</div>
 		<div class="__taggbox__tabtworight">
 			<div class="__taggbox__msg">
-				<img style="margin-top: -2px;" src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/profile.png" />
+				<img style="margin-top: -2px;" src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/profile.png'); ?>" alt="" />
 				<div class="__taggbox__showemail">
 					<b>Hi,</b>
 					<?php echo esc_html($__taggbox__active_widget_user_name); ?>
@@ -57,7 +62,7 @@
 			<a href="javascript:void(0);" id="__taggbox__logout" class="__taggbox__logout">
 				<em>Switch account</em>
 				<span>
-					<img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/turn-off.png" alt="Sign Out" />
+					<img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/turn-off.png'); ?>" alt="Sign Out" />
 					<i>Sign Out</i>
 				</span>
 			</a>
@@ -66,6 +71,6 @@
 </div>
 <!--Start-- Manage Taggbox Loader How OR Not -->
 <script>
-	var __taggbox__loader_status = <?php echo in_array($__taggbox__active_menue_id, [5]) ? 0 : 1; ?>;
+	var __taggbox__loader_status = <?php echo absint(in_array($__taggbox__active_menue_id, [5]) ? 0 : 1); ?>;
 </script>
 <!--End-- Manage Taggbox Loader How OR Not -->

@@ -1,3 +1,8 @@
+<?php
+if (!defined('ABSPATH')) :
+	exit;
+endif;
+?>
 <!--Start-- Upgrade Plan Overlay And Message-->
 <div id="__taggbox__upgrade_plan_overlay" style="position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.1);z-index:999;display:none;"></div>
 <div id="__taggbox__plan_upgrade_message" class="__taggbox__plan_upgrade_message"></div>
@@ -111,10 +116,10 @@
 						elemHTML = `${elemHTML}<hr class="__taggbox__horizontaborder">`;
 						elemHTML = `${elemHTML}<div class="__taggbox__formwbody">`;
 						elemHTML = `${elemHTML}<div class="__taggbox__formwrow">`;
-						elemHTML = `${elemHTML}<p><strong> Note : </strong> There is a new version of Taggbox Widget available. <strong> ${response.data.livePluginVersion} </strong> is a recommended Update For Performance Improvements. </p>`;
+						elemHTML = `${elemHTML}<p><strong> Note : </strong> There is a new version of Taggbox Widget available. <strong> ${__taggbox__escapeHtml(response.data.livePluginVersion)} </strong> is a recommended Update For Performance Improvements. </p>`;
 						elemHTML = `${elemHTML}</div></div>`;
 						elemHTML = `${elemHTML}<div class = "__taggbox__btnwrap text-center">`;
-						elemHTML = `${elemHTML}<a style="background: #d63638;" href="${response.data.pluginUpgradeURL}" class="__taggbox__okaybtn">Update Plugin</a>`;
+						elemHTML = `${elemHTML}<a style="background: #d63638;" href="${__taggbox__escapeHtml(response.data.pluginUpgradeURL)}" class="__taggbox__okaybtn">Update Plugin</a>`;
 						elemHTML = `${elemHTML}</div></div></div>`;
 						document.getElementById("__taggbox__plugin_upgrade_message").innerHTML = elemHTML;
 					}
@@ -188,8 +193,8 @@
 		let __taggbox__next_and_back_link_main_section = document.querySelector("#__taggbox__next_and_back_link_main_section");
 		__taggbox__next_and_back_link_main_section.innerHTML = "";
 		let __taggbox__nextAndBackLinkSectionStyle = "block";
-		let __taggbox__widgets_count = "<?php echo	esc_html($__taggbox__widgets_count);	?>";
-		let __taggbox__active_menue_id = "<?php echo	esc_html($__taggbox__active_menue_id);	?>";
+		let __taggbox__widgets_count = <?php echo wp_json_encode((string) $__taggbox__widgets_count); ?>;
+		let __taggbox__active_menue_id = <?php echo wp_json_encode((string) $__taggbox__active_menue_id); ?>;
 		if (__taggbox__widgets_count == 0) {
 			__taggbox__nextAndBackLinkSectionStyle = "none";
 		}

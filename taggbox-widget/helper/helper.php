@@ -1,21 +1,22 @@
 <?php
+if (!defined('ABSPATH')) :
+	exit;
+endif;
 function taggbox_wpApiCall($apiUrl, $body, $header = null, $breakResponse = false)
 {
-	$header = (null != $header ? $header : []);
-	$args = ['body' => $body, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => $header, 'cookies' => []];
+	$header   = (null != $header ? $header : []);
+	$args     = ['body' => $body, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => $header, 'cookies' => []];
 	$response = wp_remote_post($apiUrl, $args);
 	if ($breakResponse) :
 		taggbox_dd($response);
 	endif;
-	if (!is_wp_error($response)) :
-		if (isset($response['body']) && !empty($response['body'])) :
-			return json_decode($response['body']);
-		else :
-			return;
-		endif;
-	else :
-		taggbox_wpApiCall($apiUrl, $body, $header = null, $breakResponse = false);
+	if (is_wp_error($response)) :
+		return;
 	endif;
+	if (isset($response['body']) && !empty($response['body'])) :
+		return json_decode($response['body']);
+	endif;
+	return;
 }
 function taggbox_manageApiResponse($response)
 {
@@ -59,27 +60,13 @@ function taggbox_manageApiResponse($response)
 			endif;
 	}
 }
-function taggbox_IsBase64($data)
-{
-	$decoded_data = base64_decode($data, true);
-	$encoded_data = base64_encode($decoded_data);
-	if ($encoded_data != $data) :
-		return false;
-	elseif (!ctype_print($decoded_data)) :
-		return false;
-	else :
-		return true;
-	endif;
-}
 function taggbox_exitWithSuccess($data = null)
 {
-	echo wp_json_encode(['status' => (bool)true, 'data' => (array)$data, 'message' => (string)'OK']);
-	exit;
+	wp_send_json(['status' => (bool)true, 'data' => (array)$data, 'message' => (string)'OK']);
 }
 function taggbox_exitWithDanger($error = null, $data = [])
 {
-	echo wp_json_encode(['status' => (bool)false, 'data' => (array)$data, 'message' => (string)('' != $error ? $error : 'Oh snap! Something went wrong.')]);
-	exit;
+	wp_send_json(['status' => (bool)false, 'data' => (array)$data, 'message' => (string)('' != $error ? $error : 'Oh snap! Something went wrong.')]);
 }
 function taggbox_d($data = 'NONE')
 {
@@ -94,14 +81,15 @@ function taggbox_dd($data = 'NONE')
 	echo '</pre>';
 	die;
 }
-function taggbox_convertObjectToArray($data)
-{
-	$data = wp_json_encode($data);
-	return json_decode($data, true);
-}
 /* --Start__ Sanetize All Input */
 function taggbox_inputSanetize($data)
 {
+	if (is_array($data)) :
+		foreach ($data as $__taggbox__input_sanetize_item) :
+			taggbox_inputSanetize($__taggbox__input_sanetize_item);
+		endforeach;
+		return;
+	endif;
 	$data = (string)$data;
 	if (preg_match('/<[^>]*>/', $data)) :
 		return taggbox_exitWithDanger('Special characters  are not allowed. Please remove them and try again.');
@@ -113,7 +101,11 @@ function taggbox_sanitizeRequestData($__taggbox__request_input_data)
 {
 	$__taggbox__Input_return_data = [];
 	foreach ($__taggbox__request_input_data as $__taggbox__request_input_key => $__taggbox__request_input) :
-		$__taggbox__Input_return_data[$__taggbox__request_input_key] = sanitize_text_field($__taggbox__request_input);
+		if (is_array($__taggbox__request_input)) :
+			$__taggbox__Input_return_data[$__taggbox__request_input_key] = taggbox_sanitizeRequestData($__taggbox__request_input);
+		else :
+			$__taggbox__Input_return_data[$__taggbox__request_input_key] = sanitize_text_field($__taggbox__request_input);
+		endif;
 	endforeach;
 	return $__taggbox__Input_return_data;
 }

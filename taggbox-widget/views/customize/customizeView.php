@@ -1,4 +1,7 @@
 <?php
+if (!defined('ABSPATH')) :
+	exit;
+endif;
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headView.php';
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
 wp_enqueue_script('__script-customize-js', TAGGBOX_PLUGIN_URL . '/assets/js/customize/taggbox.customize.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
@@ -156,17 +159,17 @@ wp_enqueue_script('__script-customize-js', TAGGBOX_PLUGIN_URL . '/assets/js/cust
 							<ul>
 								<li>
 									<input type="radio" id="__taggbox__featured_popup" name="__taggbox__popup_option" value="featuredPopup" />
-									<img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/customization/featured-popup.svg" alt="Featured Popup" />
+									<img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/customization/featured-popup.svg'); ?>" alt="Featured Popup" />
 									<span>Featured Popup</span>
 								</li>
 								<li>
 									<input type="radio" id="__taggbox__direct_to_source" name="__taggbox__popup_option" value="directToSource" />
-									<img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/customization/direct-to-source.svg" alt="Direct to Source" />
+									<img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/customization/direct-to-source.svg'); ?>" alt="Direct to Source" />
 									<span>Direct to Source</span>
 								</li>
 								<li>
 									<input type="radio" id="__taggbox__none" name="__taggbox__popup_option" value="none" />
-									<img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/customization/none.svg" alt="None" />
+									<img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/customization/none.svg'); ?>" alt="None" />
 									<span>None</span>
 								</li>
 							</ul>
@@ -404,17 +407,17 @@ wp_enqueue_script('__script-customize-js', TAGGBOX_PLUGIN_URL . '/assets/js/cust
 							<ul>
 								<li>
 									<input type="radio" id="__taggbox__show_more" name="__taggbox__show_option" value="showMore" />
-									<img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/customization/showMore.svg" alt="Show More" />
+									<img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/customization/showMore.svg'); ?>" alt="Show More" />
 									<span>Show More</span>
 								</li>
 								<li>
 									<input type="radio" id="__taggbox__auto_load" name="__taggbox__show_option" value="autoScrollStatus" />
-									<img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/customization/autoScroll.svg" alt="Auto Load" />
+									<img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/customization/autoScroll.svg'); ?>" alt="Auto Load" />
 									<span>Auto Load</span>
 								</li>
 								<li>
 									<input type="radio" id="__taggbox__showmore_autoload_none" name="__taggbox__show_option" value="none" />
-									<img src="<?php echo esc_html(TAGGBOX_PLUGIN_URL); ?>assets/images/customization/showMoreAutoLoadNone.svg" alt="None" />
+									<img src="<?php echo esc_url(TAGGBOX_PLUGIN_URL . 'assets/images/customization/showMoreAutoLoadNone.svg'); ?>" alt="None" />
 									<span>None</span>
 								</li>
 							</ul>

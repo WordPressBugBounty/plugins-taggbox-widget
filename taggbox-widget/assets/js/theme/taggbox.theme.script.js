@@ -31,11 +31,11 @@ function __taggbox__get_theme() {
                     elemHTML = `${elemHTML}<li>`;
                     elemHTML = `${elemHTML}<label class="${response.data[index].active == 1 ? "__taggbox__themeactive" : ""} ">`;
                     elemHTML = `${elemHTML}<span class="__taggbox__theme-img">`;
-                    /*elemHTML = `${elemHTML}<img src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${response.data[index].themeId}.png" alt="modern fall" />`;*/
-                    elemHTML = `${elemHTML}<img class="lazyload" src="${__taggbox__plugin_url_for_js}assets/images/blur-img.gif" data-src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${response.data[index].themeId}.png" alt="theme-image" />`;
+                    /*elemHTML = `${elemHTML}<img src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${__taggbox__escapeHtml(response.data[index].themeId)}.png" alt="modern fall" />`;*/
+                    elemHTML = `${elemHTML}<img class="lazyload" src="${__taggbox__plugin_url_for_js}assets/images/blur-img.gif" data-src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${__taggbox__escapeHtml(response.data[index].themeId)}.png" alt="theme-image" />`;
                     elemHTML = `${elemHTML}</span>`;
-                    elemHTML = `${elemHTML}<span class="__taggbox__themename"> ${response.data[index].name} </span>`;
-                    elemHTML = `${elemHTML}<input type="radio" onclick="__taggbox__editTheme(${response.data[index].themeId});" class="__taggbox__theme_radio_button"  name="themeId" value="${response.data[index].themeId}" ${response.data[index].active == 1 ? "checked" : ""}  />`;
+                    elemHTML = `${elemHTML}<span class="__taggbox__themename"> ${__taggbox__escapeHtml(response.data[index].name)} </span>`;
+                    elemHTML = `${elemHTML}<input type="radio" onclick="__taggbox__editTheme(${__taggbox__escapeJsNumber(response.data[index].themeId)});" class="__taggbox__theme_radio_button"  name="themeId" value="${__taggbox__escapeHtml(response.data[index].themeId)}" ${response.data[index].active == 1 ? "checked" : ""}  />`;
                     elemHTML = `${elemHTML}</label>`;
                     elemHTML = `${elemHTML}</li>`;
                 }

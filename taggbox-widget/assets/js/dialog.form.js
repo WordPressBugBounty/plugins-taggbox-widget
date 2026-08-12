@@ -1,3 +1,13 @@
+/*--Start--Escape Untrusted Value Before Render (Self Contained : Load Order Safe)*/
+function __taggbox__dialogEscapeHtml(value) {
+    return String(value === undefined || value === null ? "" : value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+/*--End--Escape Untrusted Value Before Render*/
 function __taggbox__dialog_form(option = { popupSize: "__taggbox__popup_sm", title: "Action", form: { method: '', cancelButtonText: '', cancelButtonClass: '', buttonText: '', buttonClass: '' }, inputs: [], action: null, cancelAction: null }) {
     let elemId = '__taggbox__dialog_form_id_';
     let id = (option.form.id) ? option.form.id : '';
@@ -10,7 +20,7 @@ function __taggbox__dialog_form(option = { popupSize: "__taggbox__popup_sm", tit
     let elemHTML = `<div id="${elemId}" class="__taggbox__overlay">`;
     elemHTML = `${elemHTML}<div  class="__taggbox__popupwrap ${option.popupSize}">`;
     elemHTML = `${elemHTML}<div class="__taggbox__popupinn"><div class="__taggbox__header">`;
-    elemHTML = `${elemHTML}<h2>${option.title}</h2>`;
+    elemHTML = `${elemHTML}<h2>${__taggbox__dialogEscapeHtml(option.title)}</h2>`;
     elemHTML = `${elemHTML}</div>`;
     if (option.inputs instanceof Array && option.inputs.length > 0) {
         elemHTML = `${elemHTML}<hr class="__taggbox__horizontaborder" />`;
@@ -20,12 +30,12 @@ function __taggbox__dialog_form(option = { popupSize: "__taggbox__popup_sm", tit
         let count = 0;
         for (let input of option.inputs) {
             let id = (input.id) ? input.id : '';
-            let label = (input.label) ? input.label : '';
+            let label = (input.label) ? __taggbox__dialogEscapeHtml(input.label) : '';
             let name = (input.name) ? input.name : '';
             let type = (input.type) ? input.type : '';
-            let value = (input.value) ? input.value : '';
+            let value = (input.value) ? __taggbox__dialogEscapeHtml(input.value) : '';
             let otherClass = (input.type === 'checkbox' || input.type === 'radio') ? ' __taggbox__checkboxrow' : '';
-            let placeholder = (input.placeholder) ? input.placeholder : '';
+            let placeholder = (input.placeholder) ? __taggbox__dialogEscapeHtml(input.placeholder) : '';
             let jsFunction = (input.jsFunction) ? input.jsFunction : '';
             let jsSearchBtnFunction = (input.jsSearchBtnFunction) ? input.jsSearchBtnFunction : '';
             let extraTag = (input.extraTag) ? input.extraTag : '';
@@ -43,7 +53,7 @@ function __taggbox__dialog_form(option = { popupSize: "__taggbox__popup_sm", tit
             } else if (["select"].includes(type)) {
                 elemHTML = `${elemHTML} <select id="${id}" ${jsFunction} name="${name}">`;
                 for (let index in input.options)
-                    elemHTML = `${elemHTML} <option value="${input.options[index].value}"> ${input.options[index].name} </option>`;
+                    elemHTML = `${elemHTML} <option value="${__taggbox__dialogEscapeHtml(input.options[index].value)}"> ${__taggbox__dialogEscapeHtml(input.options[index].name)} </option>`;
                 elemHTML = `${elemHTML}'</select>`;
             } else if (["checkbox"].includes(type)) {
                 elemHTML = `${elemHTML} <input id="${id}" ${jsFunction} type="${type}" name="${name}" value ="${value}"/>`;
@@ -51,10 +61,10 @@ function __taggbox__dialog_form(option = { popupSize: "__taggbox__popup_sm", tit
                 for (let index in input.options) {
                     elemHTML = `${elemHTML} <div>`;
                     if (input.options[index].label) {
-                        elemHTML = `${elemHTML} <label style="margin-right:5px;margin-left: 5px;">${input.options[index].label} </label></div>`;
+                        elemHTML = `${elemHTML} <label style="margin-right:5px;margin-left: 5px;">${__taggbox__dialogEscapeHtml(input.options[index].label)} </label></div>`;
                     }
                     let checked = (input.options[index].checked) ? 'checked' : '';
-                    elemHTML = `${elemHTML} <input id="${id}"  ${jsFunction} name="${name}" type="${type}" value="${input.options[index].value}" ${checked}/>`;
+                    elemHTML = `${elemHTML} <input id="${id}"  ${jsFunction} name="${name}" type="${type}" value="${__taggbox__dialogEscapeHtml(input.options[index].value)}" ${checked}/>`;
                 }
             }
 

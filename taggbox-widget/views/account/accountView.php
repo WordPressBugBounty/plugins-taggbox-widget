@@ -1,4 +1,7 @@
 <?php
+if (!defined('ABSPATH')) :
+	exit;
+endif;
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headView.php';
 wp_enqueue_script('__script-account-js', TAGGBOX_PLUGIN_URL . '/assets/js/account/taggbox.account.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 ?>

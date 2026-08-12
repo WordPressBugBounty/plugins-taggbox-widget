@@ -4,18 +4,19 @@
  * Plugin Name:       Taggbox – Social Media Feed Widget
  * Plugin URI:        https://taggbox.com/widget/
  * Description:       Display social media feeds and user-generated content in an interactive widget.
- * Version:           4.1
+ * Version:           4.2
  * Author:            Taggbox
  * Author URI:        https://taggbox.com/
  * License:           GPLv3
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain:       taggbox-widget
  */
 if (!defined('WPINC')) :
 	die;
 endif;
 
 /* --Start-- Create Constant */
-!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.1');
+!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.2');
 !defined('TAGGBOX_PLUGIN_DIR_PATH')         && define('TAGGBOX_PLUGIN_DIR_PATH',         plugin_dir_path(__FILE__));
 !defined('TAGGBOX_PLUGIN_URL')              && define('TAGGBOX_PLUGIN_URL',              plugin_dir_url(__FILE__));
 !defined('TAGGBOX_PLUGIN_REDIRECT_URL')     && define('TAGGBOX_PLUGIN_REDIRECT_URL',     get_admin_url(null, 'admin.php?page='));
@@ -24,8 +25,6 @@ endif;
 !defined('TAGGBOX_PLUGIN_REACT_URL')        && define('TAGGBOX_PLUGIN_REACT_URL',        'https://widget.taggbox.com/');
 !defined('TAGGBOX_PLUGIN_CALL_BACK_URL')    && define('TAGGBOX_PLUGIN_CALL_BACK_URL',    admin_url() . 'admin.php?page=taggbox');
 !defined('TAGGBOX_PLUGIN_PLATFORM')         && define('TAGGBOX_PLUGIN_PLATFORM',         'taggbox');
-!defined('TAGGBOX_PLUGIN_OTHER_PLUGIN')     && define('TAGGBOX_PLUGIN_OTHER_PLUGIN',     'tagembed-widget/tagembed.php');
-!defined('TAGGBOX_PLUGIN_OTHER_PLUGIN_URL') && define('TAGGBOX_PLUGIN_OTHER_PLUGIN_URL', admin_url() . 'admin.php?page=tagembed');
 /* --End-- Create Constant */
 
 /* --Start--Include Files */
@@ -123,18 +122,6 @@ function taggbox_view()
 }
 /* --End-- Add & Manage Views */
 
-/* --Start-- Feed Count For First Time Create */
-function taggbox_get_feed_count_information($userDetails, $networkId)
-{
-	$param['networkId'] = sanitize_key($networkId);
-	$param['userId']    = sanitize_key($userDetails->userId);
-	$response           = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apifeed/getFeedCountForFirstTimeFeed', $param, ['Authorization:' . $userDetails->accessToken]);
-	if (200 == $response->head->code || !empty($response->body) || $response->body || $response->head->status) :
-		return $response->body;
-	endif;
-}
-/* --End-- Feed Count For First Time Create */
-
 /* --Start-- Manage Ajax Calls */
 add_action('wp_ajax_taggbox_data', 'taggbox_data_ajax_handler');
 function taggbox_data_ajax_handler()
@@ -142,17 +129,17 @@ function taggbox_data_ajax_handler()
 	if (!current_user_can('manage_options')):
 		return taggbox_exitWithDanger('You do not have sufficient permissions to access this page.');
 	endif;
-	if (empty($_REQUEST['__taggbox__ajax_action'])) :
-		return false;
-	endif;
-	$data = taggbox_sanitizeRequestData($_REQUEST);
-	$data = (object)$data;
-	/* --Start-- Manage Ajax call Request Security */
-	$__taggbox__ajaxCallSecurityNones = isset($data->__taggbox__ajax_call_nones) ? sanitize_text_field($data->__taggbox__ajax_call_nones) : '';
+	/* --Start-- Manage Ajax call Request Security (Verified Before Any Other Request Data Is Used) */
+	$__taggbox__ajaxCallSecurityNones = isset($_REQUEST['__taggbox__ajax_call_nones']) ? sanitize_text_field(wp_unslash($_REQUEST['__taggbox__ajax_call_nones'])) : '';
 	if (!wp_verify_nonce($__taggbox__ajaxCallSecurityNones, '__taggbox__ajax_call_security_nones')) :
 		return taggbox_exitWithDanger();
 	endif;
 	/* --End-- Manage Ajax call Request Security */
+	if (empty($_REQUEST['__taggbox__ajax_action'])) :
+		return false;
+	endif;
+	$data = taggbox_sanitizeRequestData(wp_unslash($_REQUEST));
+	$data = (object)$data;
 	/* --Start__ Sanetize All Input */
 	foreach ($data as $key => $value) :
 		if (!in_array($key, ['emailId', 'password', 'youtubePlaylist'])) :
@@ -162,7 +149,6 @@ function taggbox_data_ajax_handler()
 	/* --End__ Sanetize All Input */
 
 	$param = [];
-	global $wpdb;
 	$action = $data->__taggbox__ajax_action;
 	$__taggbox__user_details = taggbox_user();
 	switch ($action):
@@ -191,20 +177,6 @@ function taggbox_data_ajax_handler()
 			$response = taggbox_manageApiResponse($response);
 			unset($param);
 
-			/*Mange Other Plugin Login*/
-			if (isset($response->accountAlreadyOtherPluginStatus)):
-				$taggbox_other_plugin_install_status = false;
-				if (function_exists('is_plugin_active') && is_plugin_active(TAGGBOX_PLUGIN_OTHER_PLUGIN))
-					$taggbox_other_plugin_install_status = true;
-				return taggbox_exitWithSuccess([
-					'accountAlreadyOtherPluginStatus' => $response->accountAlreadyOtherPluginStatus,
-					'pluginUrl'                       => $response->pluginUrl,
-					'existingPluginUser'              => $response->existingPluginUser,
-					'otherPluginInstallStatus'        => $taggbox_other_plugin_install_status,
-					'otherPluginInstallUrl'           => TAGGBOX_PLUGIN_OTHER_PLUGIN_URL,
-				]);
-			endif;
-
 			$param = ['userId' => sanitize_key($response->userId), 'inheritStyles' => 1];
 			taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiwidget/create', $param, ['Authorization:' . $response->access_token]);
 			if (taggbox_login($response) == true) :
@@ -225,20 +197,6 @@ function taggbox_data_ajax_handler()
 			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/login', $param, []);
 			unset($param);
 			$response = taggbox_manageApiResponse($response);
-
-			/*Mange Other Plugin Login*/
-			if (isset($response->accountAlreadyOtherPluginStatus)):
-				$taggbox_other_plugin_install_status = false;
-				if (function_exists('is_plugin_active') && is_plugin_active(TAGGBOX_PLUGIN_OTHER_PLUGIN))
-					$taggbox_other_plugin_install_status = true;
-				return taggbox_exitWithSuccess([
-					'accountAlreadyOtherPluginStatus' => $response->accountAlreadyOtherPluginStatus,
-					'pluginUrl'                       => $response->pluginUrl,
-					'existingPluginUser'              => $response->existingPluginUser,
-					'otherPluginInstallStatus'        => $taggbox_other_plugin_install_status,
-					'otherPluginInstallUrl'           => TAGGBOX_PLUGIN_OTHER_PLUGIN_URL,
-				]);
-			endif;
 
 			if (taggbox_login($response) == true) :
 				return taggbox_exitWithSuccess(['redirectUrl' => TAGGBOX_PLUGIN_CALL_BACK_URL]);
@@ -913,25 +871,6 @@ function taggbox_data_ajax_handler()
 							$__taggbox__feed_input_data['byApiCall'] = 1;
 						endif;
 						break;
-					/*
-						case 3:
-			            case 18:
-						if (23 == $__taggbox__feed_filter_id || 26 == $__taggbox__feed_filter_id || 8 == $__taggbox__feed_filter_id) :
-						$__taggbox__get_feed_count_information = taggbox_get_feed_count_information($__taggbox__user_details, $__taggbox__feed_input_data['networkId']);
-						if (empty($__taggbox__get_feed_count_information)) :
-						$byApiCall = 1;
-						$__taggbox__feed_input_data['byApiCall'] = 1;
-						endif;
-						endif;
-						break;
-						case 1:
-						$__taggbox__get_feed_count_information = taggbox_get_feed_count_information($__taggbox__user_details, $__taggbox__feed_input_data['networkId']);
-						if (empty($__taggbox__get_feed_count_information)) :
-						$byApiCall = 1;
-						$__taggbox__feed_input_data['byApiCall'] = 1;
-						endif;
-						break;
-						*/
 					case 5:
 					case 7:
 					case 6:
@@ -1115,7 +1054,7 @@ function taggbox_data_ajax_handler()
 			$param['userId'] = sanitize_key($__taggbox__user_details->userId);
 			/* --End-- Manage Param Data */
 			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/checkusertoken', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
-			if (401 == $response->head->code && !$response->head->status) :
+			if (!empty($response->head) && 401 == $response->head->code && empty($response->head->status)) :
 				taggbox_logout();
 			endif;
 			unset($param);
@@ -1244,37 +1183,6 @@ function taggbox_data_ajax_handler()
 }
 /* --End-- Manage Ajax Calls */
 
-/* --Start-- Manage Login And Register On Plugin Activate */
-function taggbox_manageLoginAndRegisterOnPluginActivate()
-{
-	global $wpdb;
-	$__taggbox__activeUserData = wp_get_current_user();
-	if (empty($__taggbox__activeUserData->roles) || 'administrator' != $__taggbox__activeUserData->roles[0]) :
-		return false;
-	endif;
-	if (!empty($__taggbox__activeUserData->data->user_email) && !empty($__taggbox__activeUserData->data->display_name)) :
-		$__taggbox__activeUserName = $__taggbox__activeUserData->data->display_name;
-		$__taggbox__activeUserEmail = $__taggbox__activeUserData->data->user_email;
-		$__taggbox__activeOptions = taggbox_getActiveOptions();
-		if (!empty($__taggbox__activeOptions[0]->email)) :
-			if (empty($__taggbox__activeOptions[0]->isLogin) || 'no' == $__taggbox__activeOptions[0]->isLogin) :
-				return false;
-			endif;
-			$__taggbox__activeUserEmail = $__taggbox__activeOptions[0]->email;
-		endif;
-		$__taggbox__user_details = taggbox_user($__taggbox__activeUserEmail);
-		$accessTocken = (isset($__taggbox__user_details->accessToken) && !empty($__taggbox__user_details->accessToken)) ? $__taggbox__user_details->accessToken : '';
-		$param = [];
-		$param['emailId'] = sanitize_email($__taggbox__activeUserEmail);
-		$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/checkUserExistOrNotAndGetData', $param, ['Authorization:' . $accessTocken]);
-		unset($param);
-		if (!empty($response->body->userId)) :
-			taggbox_login($response->body);
-		endif;
-	endif;
-}
-/* --End-- Manage Login And Register On Plugin Activate */
-
 /* --Start-- Login */
 function taggbox_login($response)
 {
@@ -1314,15 +1222,6 @@ function taggbox_manageActiveOptions($email = null, $other = null)
 	endif;
 }
 /* --End-- Manage Active Options */
-
-/* --Start--Get User Last Login Email Id */
-function taggbox_getActiveOptions()
-{
-	global $wpdb;
-	$__taggbox__activeOptions = $wpdb->get_results($wpdb->prepare('SELECT email, isLogin FROM wp_taggbox_active_options WHERE id = %d', 1));
-	return $__taggbox__activeOptions;
-}
-/* --End--Get User last Login Email Id */
 
 /* --Start-- Logout */
 function taggbox_logout()
@@ -1422,7 +1321,6 @@ function taggbox_activeWidget()
 function taggbox_manageActiveWidget($widgetId)
 {
 	global $wpdb;
-	$return = '';
 	$activeWidgetUserId = taggbox_activeWidget();
 	if ($activeWidgetUserId == $widgetId) :
 		return true;
@@ -1434,7 +1332,6 @@ function taggbox_manageActiveWidget($widgetId)
 		$wpdb->query($wpdb->prepare('UPDATE wp_taggbox_active_widget SET widgetId = %s  WHERE id = %d', $widgetId, 1));
 		return true;
 	endif;
-	return false;
 }
 /* --End-- Manage Active Widget User */
 
@@ -1506,7 +1403,6 @@ register_activation_hook(__FILE__, 'taggbox_pluginActivate');
 function taggbox_pluginActivate()
 {
 	taggbox_createDatabaseTableForPlugin();
-	taggbox_manageLoginAndRegisterOnPluginActivate();
 	add_action('activated_plugin', 'taggbox_plginActivationRedirect');
 }
 register_uninstall_hook(__FILE__, 'taggbox_pluginUnistall');
@@ -1529,7 +1425,6 @@ function taggbox_plginActivationRedirect()
 	$__taggbox__pluginCallbackUrl = esc_url(TAGGBOX_PLUGIN_CALL_BACK_URL);
 	wp_safe_redirect($__taggbox__pluginCallbackUrl);
 	exit;
-	/* exit(wp_redirect(TAGGBOX_PLUGIN_CALL_BACK_URL)); */
 }
 /* --End--Manage Redirect After Plugin Activate */
 
@@ -1549,7 +1444,6 @@ function taggbox_manageDatabaseOnPluginUpdateTime()
 	taggbox_drop_old_database_tables();
 	taggbox_dropDatabaseTablesForPlugin();
 	taggbox_createDatabaseTableForPlugin();
-	taggbox_manageLoginAndRegisterOnPluginActivate();
 }
 add_action('upgrader_process_complete', 'taggbox_manageDatabaseOnPluginUpdateTime', 10, 2);
 /* --End--Manage Database On Plugin Update Time */
@@ -1573,12 +1467,9 @@ function taggbox_get_user_social_account_id()
 	$__taggbox__user_details = taggbox_user();
 	$param['userId'] = $__taggbox__user_details->userId;
 	$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/getsocialaccountid', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
-	if (isset($response->head->status)) :
-		if ($response->head->status) :
-			$response = taggbox_manageApiResponse($response);
-			if (!empty($response->userId)) :
-				return $response->userId;
-			endif;
+	if (!empty($response->head->status)) :
+		if (!empty($response->body->userId)) :
+			return $response->body->userId;
 		endif;
 	endif;
 	return false;
@@ -1595,8 +1486,8 @@ function taggbox_generalAdminNotice()
 	endif;
 	$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/notification', ['callBy' => 'wordpress'], []);
 	if (!is_wp_error($response)) :
-		if (isset($response->head->status)) :
-			$response = taggbox_manageApiResponse($response);
+		if (!empty($response->head->status) && !empty($response->body)) :
+			$response = $response->body;
 			if (!empty($response->notifications) && is_array($response->notifications)) :
 				$htmlData = '';
 				foreach ($response->notifications as $notifications) :
@@ -1604,11 +1495,11 @@ function taggbox_generalAdminNotice()
 						if ('taggbox' != $__tagmebed__page_name) :
 							continue;
 						endif;
-						$htmlData .= '<div class=\'notice notice-' . esc_html($notifications->type) . 'is-dismissible\'>';
+						$htmlData .= '<div class=\'notice notice-' . esc_attr($notifications->type) . ' is-dismissible\'>';
 						$htmlData .= '<p>' . $notifications->message . '</p>';
 						$htmlData .= '</div>';
 					elseif ('all' == $notifications->location) :
-						$htmlData .= '<div class=\'notice	notice-' . esc_html($notifications->type) . 'is-dismissible\'>';
+						$htmlData .= '<div class=\'notice notice-' . esc_attr($notifications->type) . ' is-dismissible\'>';
 						$htmlData .= '<p>' . $notifications->message . '</p>';
 						$htmlData .= '</div>';
 					endif;

@@ -4,11 +4,11 @@ Contributors: taggbox
 Donate link: https://taggbox.com/
 Tags: social media feed, social media widget, social proof widget, reviews widget, shoppable video
 Requires at least: 3.0
-Tested up to: 7.0.2
+Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.1
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Stable tag: 4.2
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Display social media feeds, reviews, and user-generated content on your WordPress website with responsive, customizable widgets that require no coding
 
@@ -237,6 +237,15 @@ Displaying social media feeds on your WordPress website helps you:
 3. Customize your social media feed widget.
 4. Copy the shortcode and publish it anywhere on your website.
 
+== External services ==
+
+**1. Intercom - widget.intercom.io and api-iam.intercom.io**
+
+Intercom powers the "Chat with Us" support chat on the Taggbox admin screens. When you are signed in, your email address, name, Taggbox user ID and a verification hash are sent to Intercom to identify your support conversation. Nothing is sent from your site's front end.
+
+Terms and policies: https://www.intercom.com/legal/terms-and-policies
+Privacy policy: https://www.intercom.com/legal/privacy
+
 == Installation ==
 
 1. Install the plugin from the WordPress Plugin Directory or upload it manually.
@@ -296,18 +305,22 @@ This plugin displays content from connected social media and review platforms. V
 
 == Screenshots ==
 
-1. Dashboard overview
-2. Create a social media feed
-3. Select a social platform
-4. Create a review widget
-5. Customize widget layout
-6. Moderation dashboard
-7. Display shortcode
-8. Elementor integration
-9. Responsive social media widget
-10. Google Reviews widget
+1. Register your account
+2. Login to your account
+3. Create a review widget
+4. Customize widget layout
+5. Moderation dashboard
+6. Display shortcode
+7. Responsive social media widget
+8. Embed widget
 
 == Changelog ==
+
+= 4.2 =
+* Security: fixed a cross-site scripting (XSS) issue on the plugin admin screens.
+* Security: hardened output escaping across all admin views and scripts.
+* Security: added direct file access protection to all plugin files.
+* Security: request verification now runs before any request data is processed.
 
 = 4.1 =
 * Fixed compatibility issues with latest WordPress versions.
@@ -326,6 +339,9 @@ This plugin displays content from connected social media and review platforms. V
 * Enhanced Elementor compatibility.
 
 == Upgrade Notice ==
+
+= 4.2 =
+Security release. Fixes a cross-site scripting (XSS) issue on the plugin admin screens and hardens output escaping throughout the plugin. Updating is strongly recommended for all users.
 
 = 4.1 =
 Recommended update with performance improvements, documentation updates, and compatibility enhancements.

@@ -1,4 +1,7 @@
 <?php
+if (!defined('ABSPATH')) :
+	exit;
+endif;
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headView.php';
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
 if (!empty($__taggbox__widgets)) :

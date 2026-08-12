@@ -34,6 +34,33 @@ document.onreadystatechange = function () {
 };
 /*--End--Hide/Show Loader During Page Readay State*/
 
+/*--Start--Escape Untrusted Value Before Render*/
+function __taggbox__escapeHtml(value) {
+	return String(value === undefined || value === null ? "" : value)
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+}
+/*--End--Escape Untrusted Value Before Render*/
+/*--Start--Escape Untrusted Value Inside A Single Quoted Inline JS String*/
+function __taggbox__escapeJsString(value) {
+	return String(value === undefined || value === null ? "" : value)
+		.replace(/\\/g, "\\\\")
+		.replace(/'/g, "\\'")
+		.replace(/"/g, "&quot;")
+		.replace(/</g, "\\u003C")
+		.replace(/>/g, "\\u003E")
+		.replace(/\r?\n/g, "");
+}
+/*--End--Escape Untrusted Value Inside A Single Quoted Inline JS String*/
+/*--Start--Force Untrusted Value To A Plain Number For Unquoted Inline JS Arguments*/
+function __taggbox__escapeJsNumber(value) {
+	let __taggbox__numeric_value = Number(value);
+	return isNaN(__taggbox__numeric_value) ? 0 : __taggbox__numeric_value;
+}
+/*--End--Force Untrusted Value To A Plain Number For Unquoted Inline JS Arguments*/
 /*--Start-- Manage Response Message*/
 window.addEventListener ? window.addEventListener("load", __taggbox__message, false) : window.attachEvent && window.attachEvent("onload", __taggbox__message);
 function __taggbox__message() {
@@ -73,15 +100,15 @@ function __taggbox__message() {
 			elemHTML = `${elemHTML}<div class="__taggbox__plandetail">`;
 			elemHTML = `${elemHTML}<div class="__taggbox__planbox">`;
 			elemHTML = `${elemHTML}<p>Amount</p>`;
-			elemHTML = `${elemHTML}<span>$${__taggbox__message.amount}</span>`;
+			elemHTML = `${elemHTML}<span>$${__taggbox__escapeHtml(__taggbox__message.amount)}</span>`;
 			elemHTML = `${elemHTML}</div>`;
 			elemHTML = `${elemHTML}<div class="__taggbox__planbox">`;
 			elemHTML = `${elemHTML}<p>Payment Id</p>`;
-			elemHTML = `${elemHTML}<span>${__taggbox__message.paymentId}</span>`;
+			elemHTML = `${elemHTML}<span>${__taggbox__escapeHtml(__taggbox__message.paymentId)}</span>`;
 			elemHTML = `${elemHTML}</div>`;
 			elemHTML = `${elemHTML}<div class="__taggbox__planbox">`;
 			elemHTML = `${elemHTML}<p>Plan</p>`;
-			elemHTML = `${elemHTML}<span>${__taggbox__message.planName}</span>`;
+			elemHTML = `${elemHTML}<span>${__taggbox__escapeHtml(__taggbox__message.planName)}</span>`;
 			elemHTML = `${elemHTML}</div></div></div></div></div></div>`;
 			__taggbox__upgrade_account_popup.innerHTML = elemHTML;
 			__taggbox__upgrade_account_popup.style.display = "block";

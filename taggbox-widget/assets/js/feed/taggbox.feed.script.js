@@ -207,7 +207,7 @@ function __taggbox__getFacebookPageAlbums() {
 				let elemHTML = `<label>Select Album</label><select name="accountAlbumData" id="__taggbox__account_album_data">`;
 				if (response.data) {
 					for (let index in response.data)
-						elemHTML = `${elemHTML} <option value="${response.data[index].id}#${response.data[index].name}">${response.data[index].name}</option>`;
+						elemHTML = `${elemHTML} <option value="${__taggbox__escapeHtml(response.data[index].id)}#${__taggbox__escapeHtml(response.data[index].name)}">${__taggbox__escapeHtml(response.data[index].name)}</option>`;
 				} else {
 					elemHTML = `${elemHTML} <option value="">This Facebook Pase Album Not Found</option>`;
 				}
@@ -288,7 +288,7 @@ function __taggbox__manageFacebookPageSearchOptions() {
 					let elemHTML = `<ul>`;
 					if (response.data.length > 0) {
 						for (let index in response.data)
-							elemHTML = `${elemHTML} <li style="font-weight:500; line-height:normal;" onClick="__taggbox__facebookSearchData('${response.data[index].name}','${response.data[index].link}')" value="${response.data[index].link}">${response.data[index].name} <span style="display:block; line-height:normal; font-weight:normal; margin-top:3px;">${response.data[index].link}</span></li>`;
+							elemHTML = `${elemHTML} <li style="font-weight:500; line-height:normal;" onClick="__taggbox__facebookSearchData('${__taggbox__escapeJsString(response.data[index].name)}','${__taggbox__escapeJsString(response.data[index].link)}')" value="${__taggbox__escapeHtml(response.data[index].link)}">${__taggbox__escapeHtml(response.data[index].name)} <span style="display:block; line-height:normal; font-weight:normal; margin-top:3px;">${__taggbox__escapeHtml(response.data[index].link)}</span></li>`;
 					} else {
 						elemHTML = `${elemHTML} <li value="">Not Found</li>`;
 					}
@@ -375,7 +375,7 @@ function __taggbox__searchGoogleLocation() {
 				let elemHTML = `<ul>`;
 				if (response.data) {
 					for (let index in response.data)
-						elemHTML = `${elemHTML} <li onClick="__taggbox__manageGoogleSearchData('${response.data[index].place_id}','${response.data[index].structured_formatting.main_text}','${response.data[index].description}')" value="${response.data[index].place_id}"> <img src="${__taggbox__plugin_url_for_js}assets/images/feeds/location.svg" alt="image" />${response.data[index].description}</li>`;
+						elemHTML = `${elemHTML} <li onClick="__taggbox__manageGoogleSearchData('${__taggbox__escapeJsString(response.data[index].place_id)}','${__taggbox__escapeJsString(response.data[index].structured_formatting.main_text)}','${__taggbox__escapeJsString(response.data[index].description)}')" value="${__taggbox__escapeHtml(response.data[index].place_id)}"> <img src="${__taggbox__plugin_url_for_js}assets/images/feeds/location.svg" alt="image" />${__taggbox__escapeHtml(response.data[index].description)}</li>`;
 				} else {
 					elemHTML = `${elemHTML} <li value="">Not Found</li>`;
 				}
@@ -543,7 +543,7 @@ function __taggbox__youtubeSearch(type = null) {
 				let elemHTML = `<ul>`;
 				if (response.data.length > 0) {
 					for (let index in response.data)
-						elemHTML = `${elemHTML} <li onClick="__taggbox__youtubeSearchData('${response.data[index].youtubeId}','${response.data[index].youtubeName}','${type}')" value="${response.data[index].youtubeId}"><img src="${response.data[index].youtubeImage}" alt="image" /> ${response.data[index].youtubeName}</li>`;
+						elemHTML = `${elemHTML} <li onClick="__taggbox__youtubeSearchData('${__taggbox__escapeJsString(response.data[index].youtubeId)}','${__taggbox__escapeJsString(response.data[index].youtubeName)}','${__taggbox__escapeJsString(type)}')" value="${__taggbox__escapeHtml(response.data[index].youtubeId)}"><img src="${__taggbox__escapeHtml(response.data[index].youtubeImage)}" alt="image" /> ${__taggbox__escapeHtml(response.data[index].youtubeName)}</li>`;
 				} else {
 					elemHTML = `${elemHTML} <li value="">Not Found</li>`;
 				}
@@ -612,7 +612,7 @@ function __taggbox__getYoutubePlaylist(youtubeId) {
 			let elemHTML = `<label>Select Playlist</label><select name="youtubePlaylist" id="__taggbox__playlist_data">`;
 			if (response.data.length > 0) {
 				for (let index in response.data)
-					elemHTML = `${elemHTML} <option value="${response.data[index].youtubeId}#${response.data[index].youtubeName}">${response.data[index].youtubeName}</option>`;
+					elemHTML = `${elemHTML} <option value="${__taggbox__escapeHtml(response.data[index].youtubeId)}#${__taggbox__escapeHtml(response.data[index].youtubeName)}">${__taggbox__escapeHtml(response.data[index].youtubeName)}</option>`;
 			} else {
 				elemHTML = `${elemHTML} <option value="">Not Found</option>`;
 			}
@@ -838,7 +838,7 @@ function __taggbox__getSlackChannelList(__taggbox__connected_accountsId = null) 
 				let elemHTML = ``;
 				if (response.data) {
 					for (let index in response.data)
-						elemHTML = `${elemHTML} <option value="${response.data[index].id}#${response.data[index].name}">${response.data[index].name}</option>`;
+						elemHTML = `${elemHTML} <option value="${__taggbox__escapeHtml(response.data[index].id)}#${__taggbox__escapeHtml(response.data[index].name)}">${__taggbox__escapeHtml(response.data[index].name)}</option>`;
 				} else {
 					elemHTML = `${elemHTML} <option value="">This Slack Channel Not Found</option>`;
 				}
@@ -997,7 +997,7 @@ function __taggbox__searchVkCommunities() {
 				let elemHTML = `<ul>`;
 				if (response.data) {
 					for (let index in response.data)
-						elemHTML = `${elemHTML} <li onClick="__taggbox__manageVkCommunitiesData('${response.data[index].id}','${response.data[index].screen_name}')" value="${response.data[index].id}"> <img style="min-width:20px;max-width:20px;" src="${response.data[index].photo_100}" alt="image" />${response.data[index].screen_name}</li>`;
+						elemHTML = `${elemHTML} <li onClick="__taggbox__manageVkCommunitiesData('${__taggbox__escapeJsString(response.data[index].id)}','${__taggbox__escapeJsString(response.data[index].screen_name)}')" value="${__taggbox__escapeHtml(response.data[index].id)}"> <img style="min-width:20px;max-width:20px;" src="${__taggbox__escapeHtml(response.data[index].photo_100)}" alt="image" />${__taggbox__escapeHtml(response.data[index].screen_name)}</li>`;
 				} else {
 					elemHTML = `${elemHTML} <li value="">Not Found</li>`;
 				}
@@ -1273,16 +1273,16 @@ function __taggbox__getFeed() {
 					__taggbox__feedbox_id = __taggbox__feedbox_id + count;
 					elemHTML = `${elemHTML}<li id="${__taggbox__feedbox_id}">`;
 					elemHTML = `${elemHTML}<div class="__taggbox__checkbox __taggbox__reconninn">`;
-					elemHTML = `${elemHTML}<div class="__taggbox__feediconame"><label><img class="" src="${__taggbox__plugin_url_for_js}assets/images/network/${response.data[index].Feed.networkId}.png"/></label>`;
-					elemHTML = `${elemHTML}<span title="${response.data[index].Feed.name}"><img class="" src="${response.data[index].Filter.image}"/> <b>${response.data[index].Feed.name} : ${response.data[index].Filter.name}</b></span></div>`;
+					elemHTML = `${elemHTML}<div class="__taggbox__feediconame"><label><img class="" src="${__taggbox__plugin_url_for_js}assets/images/network/${__taggbox__escapeHtml(response.data[index].Feed.networkId)}.png"/></label>`;
+					elemHTML = `${elemHTML}<span title="${__taggbox__escapeHtml(response.data[index].Feed.name)}"><img class="" src="${__taggbox__escapeHtml(response.data[index].Filter.image)}"/> <b>${__taggbox__escapeHtml(response.data[index].Feed.name)} : ${__taggbox__escapeHtml(response.data[index].Filter.name)}</b></span></div>`;
 					if (response.data[index].Feed.api == 3 || response.data[index].Feed.api == 4)
-						elemHTML = `${elemHTML}<div class="__taggbox__conn__actions"><a class="__taggbox__btn_reconn" href="javascript:void(0);" onclick="__tageembed__addUpdateAndRefreshAccount(${response.data[index].Feed.networkId},'reconnect','${response.data[index].Feed.accountId}',${response.data[index].Feed.id},${response.data[index].Feed.filterId},'${response.data[index].Feed.name}');"><i class="fas fa-redo-alt"></i> ${response.data[index].Feed.api == 3 ? 'Connect' : 'Reconnect'} </a></div>`;
+						elemHTML = `${elemHTML}<div class="__taggbox__conn__actions"><a class="__taggbox__btn_reconn" href="javascript:void(0);" onclick="__tageembed__addUpdateAndRefreshAccount(${__taggbox__escapeJsNumber(response.data[index].Feed.networkId)},'reconnect','${__taggbox__escapeJsString(response.data[index].Feed.accountId)}',${__taggbox__escapeJsNumber(response.data[index].Feed.id)},${__taggbox__escapeJsNumber(response.data[index].Feed.filterId)},'${__taggbox__escapeJsString(response.data[index].Feed.name)}');"><i class="fas fa-redo-alt"></i> ${response.data[index].Feed.api == 3 ? 'Connect' : 'Reconnect'} </a></div>`;
 					elemHTML = `${elemHTML}</div>`;
 					elemHTML = `${elemHTML}<div class="__taggbox__mod__actions">`;
 					elemHTML = `${elemHTML}<div class="__taggbox__status">`;
 					elemHTML = `${elemHTML}<div class="__taggbox__toggleOnBut __taggbox__switch tooltip">`;
 					elemHTML = `${elemHTML}<div class="__taggbox__onoffswitch">`;
-					elemHTML = `${elemHTML}<input data-widgetId="${response.data[index].Feed.wallId}" data-feedId="${response.data[index].Feed.id}"  data-feedStatus="${response.data[index].Feed.status}"  id="feed_${count}" name="feed_${count}"  onchange="__taggbox__updateFeedStauts(${count});" type="checkbox"  class="__taggbox__onoffswitch-checkbox __taggbox__updateStatus" data-on-color="#009385" data-off-color="#989898" ${(response.data[index].Feed.status == 1) ? 'checked' : ''}>`;
+					elemHTML = `${elemHTML}<input data-widgetId="${__taggbox__escapeHtml(response.data[index].Feed.wallId)}" data-feedId="${__taggbox__escapeHtml(response.data[index].Feed.id)}"  data-feedStatus="${__taggbox__escapeHtml(response.data[index].Feed.status)}"  id="feed_${count}" name="feed_${count}"  onchange="__taggbox__updateFeedStauts(${count});" type="checkbox"  class="__taggbox__onoffswitch-checkbox __taggbox__updateStatus" data-on-color="#009385" data-off-color="#989898" ${(response.data[index].Feed.status == 1) ? 'checked' : ''}>`;
 					elemHTML = `${elemHTML}<label class="__taggbox__onoffswitch-label" for="feed_${count}">`;
 					elemHTML = `${elemHTML}<span class="__taggbox__onoffswitch-inner"></span>`;
 					elemHTML = `${elemHTML}<span class="__taggbox__onoffswitch-switch"style="background: rgb(152, 152, 152);"></span>`;
@@ -1290,10 +1290,10 @@ function __taggbox__getFeed() {
 					elemHTML = `${elemHTML}<span class="tooltiptext">Status</span>`;
 					elemHTML = `${elemHTML}</div></div>`;
 					elemHTML = `${elemHTML}<div class="__taggbox__totalpostcount">`;
-					elemHTML = `${elemHTML}Total Post <span>${response.data[index].Feed.totalPost}</span>`;
+					elemHTML = `${elemHTML}Total Post <span>${__taggbox__escapeHtml(response.data[index].Feed.totalPost)}</span>`;
 					elemHTML = `${elemHTML}</div>`;
 					elemHTML = `${elemHTML}<div class="__taggbox__moderation">`;
-					elemHTML = `${elemHTML}<a class="__taggbox__btn__trash" onclick="__taggbox__deleteFeed(${response.data[index].Feed.id},${response.data[index].Feed.wallId},'${__taggbox__feedbox_id}');" href="javascript:void(0);"><i class="fas fa-trash" aria-hidden="true"></i></a>`;
+					elemHTML = `${elemHTML}<a class="__taggbox__btn__trash" onclick="__taggbox__deleteFeed(${__taggbox__escapeJsNumber(response.data[index].Feed.id)},${__taggbox__escapeJsNumber(response.data[index].Feed.wallId)},'${__taggbox__escapeJsString(__taggbox__feedbox_id)}');" href="javascript:void(0);"><i class="fas fa-trash" aria-hidden="true"></i></a>`;
 					elemHTML = `${elemHTML}</div></div></li>`;
 					count++;
 				}

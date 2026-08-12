@@ -107,7 +107,7 @@ function __taggbox__get_account_details() {
 								for (const key of selectedKeys) {
 									const planRuleData = response.data.Product[indexxxxx][indexxxxxx].PlanRule;
 									if (planRuleData.hasOwnProperty(key) && !allFeactureRemovableKeys.includes(key)) {
-										allFeactureHTML += `<th>${key.replace(/([A-Z])/g, ' $1')}</th>`;
+										allFeactureHTML += `<th>${__taggbox__escapeHtml(key.replace(/([A-Z])/g, ' $1'))}</th>`;
 									}
 								}
 								allFeactureHTML += '<th>Networks</th></tr>';
@@ -119,7 +119,7 @@ function __taggbox__get_account_details() {
 								const planRuleData = response.data.Product[indexxxxx][indexxxxxx].PlanRule;
 								if (planRuleData.hasOwnProperty(key) && !allFeactureRemovableKeys.includes(key)) {
 									if (allFeactureIcons.includes(key)) {
-										allFeactureHTML += `<td>${planRuleData[key]}</td>`;
+										allFeactureHTML += `<td>${__taggbox__escapeHtml(planRuleData[key])}</td>`;
 									} else {
 										if (planRuleData[key] == "1") {
 											allFeactureHTML += `<td class="text-center mb-0"><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" class="img-fluid"></td>`;
@@ -131,7 +131,7 @@ function __taggbox__get_account_details() {
 							}
 							allFeactureHTML += '<td>';
 							for (let network of response.data.Product[indexxxxx][indexxxxxx].Planrulenetwork) {
-								allFeactureHTML += `<img style="height:14px; margin:2px;" src="${__taggbox__plugin_url_for_js}assets/images/network/${network.network}.png"/>`;
+								allFeactureHTML += `<img style="height:14px; margin:2px;" src="${__taggbox__plugin_url_for_js}assets/images/network/${__taggbox__escapeHtml(network.network)}.png"/>`;
 							}
 							allFeactureHTML += '</td></tr>';
 						}
@@ -148,29 +148,29 @@ function __taggbox__get_account_details() {
 						elemHTML = `${elemHTML}<div class="__taggbox__planbox ${(response.data.Product[indexx][indexxx].Plan.id == response.data.Product.ActivePlan.id) ? '__taggbox__activeplan' : ''}">`;
 						if (response.data.Product[indexx][indexxx].Plan.id == response.data.Product.ActivePlan.id)
 							elemHTML = `${elemHTML}<span class="__taggbox__currentplan">Current Plan</span>`;
-						elemHTML = `${elemHTML}<strong>${response.data.Product[indexx][indexxx].Plan.name}</strong>`;
+						elemHTML = `${elemHTML}<strong>${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].Plan.name)}</strong>`;
 						let monthelyPrice = response.data.Product[indexx][indexxx].Plan.wordpessMonthlyPrice;
 						let yearlyPrice = response.data.Product[indexx][indexxx].Plan.wordpressYearlyPrice;
 						if (response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) {
 							elemHTML = `${elemHTML}<h2>Free</h2>`;
 						} else {
-							elemHTML = `${elemHTML}<h2 class="__taggbox__monthely_plan" style="display:none;">$${monthelyPrice}/Mo</h2>`;
-							elemHTML = `${elemHTML}<h2 class="__taggbox__yearly_plan">$${yearlyPrice}/Mo</h2>`;
+							elemHTML = `${elemHTML}<h2 class="__taggbox__monthely_plan" style="display:none;">$${__taggbox__escapeHtml(monthelyPrice)}/Mo</h2>`;
+							elemHTML = `${elemHTML}<h2 class="__taggbox__yearly_plan">$${__taggbox__escapeHtml(yearlyPrice)}/Mo</h2>`;
 						}
-						elemHTML = `${elemHTML}<p>${response.data.Product[indexx][indexxx].Plan.description}</p>`;
+						elemHTML = `${elemHTML}<p>${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].Plan.description)}</p>`;
 						elemHTML = `${elemHTML}<ul>`;
-						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${response.data.Product[indexx][indexxx].PlanRule.feeds} ${(response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) ? `Feed` : `Feeds`}</li>`;
-						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${response.data.Product[indexx][indexxx].PlanRule.viewCount} Views/Month</li>`;
+						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.feeds)} ${(response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) ? `Feed` : `Feeds`}</li>`;
+						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.viewCount)} Views/Month</li>`;
 						if (response.data.Product[indexx][indexxx].Plan.id != 67 && response.data.Product[indexx][indexxx].Plan.id != 53) {
 							if (response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit != 0) {
-								elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />LinkedIn Auto Update (Max ${response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit} Feeds)</li>`;
+								elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />LinkedIn Auto Update (Max ${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit)} Feeds)</li>`;
 							} else {
 								elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />LinkedIn Manual</li>`;
 							}
 						} else {
 							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-cross.svg" alt="no-access" />LinkedIn Feed</li>`;
 						}
-						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${response.data.Product[indexx][indexxx].PlanRule.updatesIntervalCron} ${(response.data.Product[indexx][indexxx].PlanRule.unit_cron == 3600) ? "Hours" : "Mins"}  Update Time</li>`;
+						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.updatesIntervalCron)} ${(response.data.Product[indexx][indexxx].PlanRule.unit_cron == 3600) ? "Hours" : "Mins"}  Update Time</li>`;
 						if (response.data.Product[indexx][indexxx].PlanRule.customCss == 0) {
 							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-cross.svg" alt="no-access" />No Custom CSS</li>`;
 						} else {
@@ -185,15 +185,15 @@ function __taggbox__get_account_details() {
 						if (response.data.Product[indexx][indexxx].Plan.id != 1) {
 							if (response.data.Product[indexx][indexxx].Plan.id == response.data.Product.ActivePlan.id) {
 								if (response.data.Product[indexx][indexxx].Plan.id != 67 && response.data.Product[indexx][indexxx].Plan.id != 53) {
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__cancel_subscription('${response.data.Product[indexx][indexxx].Plan.id}');" class="__taggbox__selectbtn">Cancel Subscription</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__cancel_subscription('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}');" class="__taggbox__selectbtn">Cancel Subscription</a>`;
 								}
 							} else {
 								if (response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) {
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_lite_plan_payment('${response.data.Product[indexx][indexxx].Plan.id}','${response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode}');" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_lite_plan_payment('${response.data.Product[indexx][indexxx].Plan.id}','${response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode}');" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_lite_plan_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_lite_plan_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
 								} else {
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_payment('${response.data.Product[indexx][indexxx].Plan.id}','${response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode}');" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_payment('${response.data.Product[indexx][indexxx].Plan.id}','${response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode}');" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
 								}
 							}
 						}

@@ -29,6 +29,16 @@ class TaggboxToast {
         this.icon = "fa-check";
         this.show(options);
     }
+    /*--Start--Escape Untrusted Value Before Render*/
+    escapeHtml(value) {
+        return String(value === undefined || value === null ? "" : value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+    /*--End--Escape Untrusted Value Before Render*/
     show(options) {
         if (options.hasOwnProperty("position")) {
             this.position = options.position;
@@ -44,7 +54,7 @@ class TaggboxToast {
         }
         /*create toast*/
         let toastDiv = document.createElement("div");
-        let elemHTML = '<span class="__taggbox__faicon"><i class="fas ' + this.icon + '" aria-hidden="true"></i></span><span class="__taggbox__btnmsg">' + this.message + '</span>';
+        let elemHTML = '<span class="__taggbox__faicon"><i class="fas ' + this.icon + '" aria-hidden="true"></i></span><span class="__taggbox__btnmsg">' + this.escapeHtml(this.message) + '</span>';
         toastDiv.innerHTML = elemHTML;
         toastDiv.className = this.type;
         let toastParentDiv = document.createElement("div");
