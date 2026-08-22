@@ -79,22 +79,22 @@ function __taggbox__manageCustomizationOptions(__taggbox__customizationsOptions)
 	if (__taggbox__customizationsOptions.Personalization.postText == 1)
 		document.querySelector("#__taggbox__hide_top_ck").checked = true;
 	document.querySelector("#__taggbox__ps").value = __taggbox__customizationsOptions.Personalization.padding;
-	document.querySelector("#__taggbox__post_spacing_range_value_section").innerHTML = __taggbox__customizationsOptions.Personalization.padding;
+	document.querySelector("#__taggbox__post_spacing_range_value_section").textContent = __taggbox__customizationsOptions.Personalization.padding;
 	document.querySelector("#__taggbox__post_mw").value = __taggbox__customizationsOptions.Personalization.minimumPostWidth;
-	document.querySelector("#__taggbox__post_width_range_value_section").innerHTML = __taggbox__customizationsOptions.Personalization.minimumPostWidth;
+	document.querySelector("#__taggbox__post_width_range_value_section").textContent = __taggbox__customizationsOptions.Personalization.minimumPostWidth;
 	document.querySelector("#__taggbox__columnCount").value = __taggbox__customizationsOptions.ThemeRule.numberOfColumn;
 	document.querySelector("#__taggbox__columnCountMobile").value = __taggbox__customizationsOptions.ThemeRule.mobileColumn;
 	/*--End-- Manage Layout Setting*/
 
 	/*--Start-- Manage Card Setting*/
 	document.querySelector("#__taggbox__fontColor").value = __taggbox__customizationsOptions.ThemeRule.fontColor;
-	document.querySelector("#__taggbox__post_font_color_value_section").innerHTML = __taggbox__customizationsOptions.ThemeRule.fontColor;
+	document.querySelector("#__taggbox__post_font_color_value_section").textContent = __taggbox__customizationsOptions.ThemeRule.fontColor;
 	document.querySelector("#__taggbox__authorFontColor").value = __taggbox__customizationsOptions.ThemeRule.authorColor;
-	document.querySelector("#__taggbox__author_font_color_value_section").innerHTML = __taggbox__customizationsOptions.ThemeRule.authorColor;
+	document.querySelector("#__taggbox__author_font_color_value_section").textContent = __taggbox__customizationsOptions.ThemeRule.authorColor;
 	document.querySelector("#__taggbox__cardColor").value = __taggbox__customizationsOptions.ThemeRule.cardColor;
-	document.querySelector("#__taggbox__card_color_value_section").innerHTML = __taggbox__customizationsOptions.ThemeRule.cardColor;
-	document.querySelector("#__taggbox__post_font_size").innerHTML = __taggbox__customizationsOptions.ThemeRule.fontSize;
-	document.querySelector("#__taggbox__post_font_size_section").innerHTML = __taggbox__customizationsOptions.ThemeRule.fontSize;
+	document.querySelector("#__taggbox__card_color_value_section").textContent = __taggbox__customizationsOptions.ThemeRule.cardColor;
+	document.querySelector("#__taggbox__post_font_size").textContent = __taggbox__customizationsOptions.ThemeRule.fontSize;
+	document.querySelector("#__taggbox__post_font_size_section").textContent = __taggbox__customizationsOptions.ThemeRule.fontSize;
 	document.querySelector("#__taggbox__show_is_ck").checked = false;
 	if (__taggbox__customizationsOptions.ThemeRule.inheritStyles == 1)
 		document.querySelector("#__taggbox__show_is_ck").checked = true;
@@ -124,11 +124,11 @@ function __taggbox__manageCustomizationOptions(__taggbox__customizationsOptions)
 	document.querySelector("#__taggbox__square_curve").checked = false;
 	document.querySelector("#__taggbox__rounded_corner").checked = false;
 	document.querySelector("#__taggbox__circular_corner").checked = false;
-	if (__taggbox__customizationsOptions.ThemeRule.borderRadius == 0)
+	if (__taggbox__customizationsOptions.ThemeRule.roundEdge == 0)
 		document.querySelector("#__taggbox__square_curve").checked = true;
-	if (__taggbox__customizationsOptions.ThemeRule.borderRadius == 8)
+	if (__taggbox__customizationsOptions.ThemeRule.roundEdge == 8)
 		document.querySelector("#__taggbox__rounded_corner").checked = true;
-	if (__taggbox__customizationsOptions.ThemeRule.borderRadius == 24)
+	if (__taggbox__customizationsOptions.ThemeRule.roundEdge == 24)
 		document.querySelector("#__taggbox__circular_corner").checked = true;
 	/*--End-- Manage Card Setting*/
 
@@ -190,12 +190,19 @@ function __taggbox__updateCustomizationOption(__taggbox__optionType) {
 			let __taggbox__hideTextOnlyPost = document.querySelector("#__taggbox__hide_top_ck");
 			if (__taggbox__hideTextOnlyPost.checked)
 				__taggbox__hideTextOnlyPostCheckBoxValue = 1;
+
 			let __taggbox__featurePopupCheckBoxValue = 0;
-			if (document.querySelector("#__taggbox__featured_popup").checked)
-				__taggbox__featurePopupCheckBoxValue = 1;
 			let __taggbox__directToSourceCheckBoxValue = 0;
-			if (document.querySelector("#__taggbox__direct_to_source").checked)
+
+			if (document.querySelector("#__taggbox__featured_popup").checked) {
+				__taggbox__featurePopupCheckBoxValue = 1;
 				__taggbox__directToSourceCheckBoxValue = 1;
+			}
+			if (document.querySelector("#__taggbox__direct_to_source").checked) {
+				__taggbox__directToSourceCheckBoxValue = 2;
+				__taggbox__featurePopupCheckBoxValue = 2;
+			}
+
 			if (document.querySelector("#__taggbox__none").checked) {
 				__taggbox__directToSourceCheckBoxValue = 0;
 				__taggbox__featurePopupCheckBoxValue = 0;
@@ -264,7 +271,7 @@ function __taggbox__updateCustomizationOption(__taggbox__optionType) {
 			formData.append('lineTrim', __taggbox__linetrim);
 			formData.append('aspectImageRatio', __taggbox__aspectImageRatio);
 			formData.append('textAlignment', __taggbox__textAlignment);
-			formData.append('borderRadius', __taggbox__cardCurve);
+			formData.append('roundEdge', __taggbox__cardCurve);
 			break;
 		case 'other':
 			let __taggbox__customCss = document.querySelector("#__taggbox__custom_css").value;
@@ -386,13 +393,13 @@ function __taggbox__manageCustomizeMenueHideShow(__taggbox__customize_menue) {
 function __taggbox__showRangeInputValue(__taggbox__range_val, __taggbox__range_value_Show_section_id) {
 	let __taggbox__rangeValueShowSection = document.getElementById(__taggbox__range_value_Show_section_id);
 	if (__taggbox__rangeValueShowSection)
-		__taggbox__rangeValueShowSection.innerHTML = __taggbox__range_val;
+		__taggbox__rangeValueShowSection.textContent = __taggbox__range_val;
 }
 /*--End-- Show Range Input Value*/
 /*--Start-- Show Range Input Value*/
 function __taggbox__showColorInputValue(__taggbox__color_val, __taggbox__color_value_Show_section_id) {
 	let __taggbox__colorValueShowSection = document.getElementById(__taggbox__color_value_Show_section_id);
 	if (__taggbox__colorValueShowSection)
-		__taggbox__colorValueShowSection.innerHTML = __taggbox__color_val;
+		__taggbox__colorValueShowSection.textContent = __taggbox__color_val;
 }
 /*--End-- Show Range Input Value*/

@@ -21,7 +21,7 @@ include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
 				$count = 0;
 				foreach ($__taggbox__widgets as $__taggbox__widget) :
 			?>
-					<div class="__taggbox__widgetbox <?php echo $__taggbox__active_widget_id == $__taggbox__widget->id ? 'active' : ''; ?>" id="__taggbox__widgetbox<?php echo esc_attr($count); ?>">
+					<div class="__taggbox__widgetbox <?php echo $__taggbox__active_widget_id == $__taggbox__widget->id ? 'active' : ''; ?>" id="<?php echo esc_attr('__taggbox__widgetbox' . $count); ?>">
 						<div class="__taggbox__widgethead">
 							<div>
 								<h3><?php echo esc_html($__taggbox__widget->name); ?></h3>
@@ -33,8 +33,8 @@ include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
 							<div class="tooltip">
 								<div class="__taggbox__toggleOnBut __taggbox__switch">
 									<div class="__taggbox__onoffswitch">
-										<input data-widgetStatus="<?php echo esc_attr($__taggbox__widget->status); ?>" onchange="__taggbox__updateWidgetStauts('<?php echo esc_js($__taggbox__widget->id); ?>', '<?php echo esc_js($count); ?>');" type="checkbox" name="widget-<?php echo esc_attr($count); ?>" id="widget-<?php echo esc_attr($count); ?>" class="__taggbox__onoffswitch-checkbox __taggbox__updateStatus" data-on-color="#009385" data-off-color="#989898" <?php echo ($__taggbox__widget->status) ? 'checked' : ''; ?>>
-										<label class="__taggbox__onoffswitch-label" for="widget-<?php echo esc_attr($count); ?>">
+										<input data-widgetStatus="<?php echo esc_attr($__taggbox__widget->status); ?>" onchange="__taggbox__updateWidgetStauts('<?php echo esc_js($__taggbox__widget->id); ?>', '<?php echo esc_js($count); ?>');" type="checkbox" name="<?php echo esc_attr('widget-' . $count); ?>" id="<?php echo esc_attr('widget-' . $count); ?>" class="__taggbox__onoffswitch-checkbox __taggbox__updateStatus" data-on-color="#009385" data-off-color="#989898" <?php echo ($__taggbox__widget->status) ? 'checked' : ''; ?>>
+										<label class="__taggbox__onoffswitch-label" for="<?php echo esc_attr('widget-' . $count); ?>">
 											<span class="__taggbox__onoffswitch-inner"></span>
 											<span class="__taggbox__onoffswitch-switch" style="background: rgb(152, 152, 152);"></span>
 										</label>
@@ -59,7 +59,7 @@ include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
 									</a>
 								</li>
 
-								<li><a href="javascript:void(0);" onclick="__taggbox__deleteWidget('<?php echo esc_js($__taggbox__widget->id); ?>', '__taggbox__widgetbox<?php echo esc_js($count); ?>');"> Delete </a></li>
+								<li><a href="javascript:void(0);" onclick="__taggbox__deleteWidget('<?php echo esc_js($__taggbox__widget->id); ?>', '<?php echo esc_js('__taggbox__widgetbox' . $count); ?>');"> Delete </a></li>
 							</ul>
 						</div>
 					</div>

@@ -53,25 +53,28 @@ function __taggbox__manage_account_view(accountType) {
 function __taggbox__manage_other_plugin_account(otherPluginInstallStatus, pluginUrl, existingPluginUser, otherPluginInstallUrl) {
     let elemHTML = `<div id="__taggbox__upgrade_plan_overlay" style="left:0;position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:999;"></div>`;
     elemHTML = `${elemHTML}<div class="__taggbox__popupwrap __taggbox__popup_xl">`;
-    elemHTML = `${elemHTML}<button onclick="__taggbox__hide_other_plugin_account_popup_close();" type="button" class="__taggbox__closebtn"></button>`;
+    elemHTML = `${elemHTML}<button data-taggbox-action="close-other-plugin" type="button" class="__taggbox__closebtn"></button>`;
     elemHTML = `${elemHTML}<div class="__taggbox__popupinn">`;
     elemHTML = `${elemHTML}<div class="__taggbox__header"><h2>Taggbox & Taggbox Are Now One 🤝</h2></div>`;
     elemHTML = `${elemHTML}<hr class="__taggbox__horizontaborder">`;
     elemHTML = `${elemHTML}<div class="__taggbox__formwbody">`;
     elemHTML = `${elemHTML}<div class="__taggbox__formwrow">`;
-    elemHTML = `${elemHTML}<p style="text-align: center;"> You already have an account on <strong style="text-transform: capitalize;">${existingPluginUser}</strong> Plugin. Install and Use the same credentials to log in Or to continue sign up with a different email.</p>`;
+    elemHTML = `${elemHTML}<p style="text-align: center;"> You already have an account on <strong style="text-transform: capitalize;">${__taggbox__escapeText(existingPluginUser)}</strong> Plugin. Install and Use the same credentials to log in Or to continue sign up with a different email.</p>`;
     elemHTML = `${elemHTML}</div></div>`;
     elemHTML = `${elemHTML}<div class="__taggbox__btnwrap text-center">`;
 
     if (otherPluginInstallStatus) {
-        elemHTML = `${elemHTML}<a href="${otherPluginInstallUrl}" style=""  class="__taggbox__okaybtn">Login</a>`;
+        elemHTML = `${elemHTML}<a href="${__taggbox__escapeAttr(otherPluginInstallUrl)}" style=""  class="__taggbox__okaybtn">Login</a>`;
     } else {
-        elemHTML = `${elemHTML}<a href="${pluginUrl}" target="_blank" style=""  class="__taggbox__okaybtn">Install <strong style="text-transform: capitalize;">${existingPluginUser}</strong>  Plugin</a>`;
+        elemHTML = `${elemHTML}<a href="${__taggbox__escapeAttr(pluginUrl)}" target="_blank" style=""  class="__taggbox__okaybtn">Install <strong style="text-transform: capitalize;">${__taggbox__escapeText(existingPluginUser)}</strong>  Plugin</a>`;
     }
     elemHTML = `${elemHTML}</div>`;
     elemHTML = `${elemHTML}</div></div>`;
     let __taggbox__other_plugin_popup = document.getElementById("__taggbox__other_plugin_popup");
-    __taggbox__other_plugin_popup.innerHTML = elemHTML;
+    __taggbox__setSafeHtml(__taggbox__other_plugin_popup, elemHTML);
+    __taggbox__other_plugin_popup.querySelectorAll('[data-taggbox-action="close-other-plugin"]').forEach(function (b) {
+        b.addEventListener("click", __taggbox__hide_other_plugin_account_popup_close);
+    });
     __taggbox__other_plugin_popup.style.display = "block";
 }
 function __taggbox__hide_other_plugin_account_popup_close() {

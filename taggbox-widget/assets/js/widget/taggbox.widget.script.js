@@ -69,7 +69,7 @@ function __taggbox__updateWidgetStauts(__taggbox__widget_id, count) {
 	let __taggbox__toast = new TaggboxToast;
 	if (!__taggbox__widget_id || !__taggbox__widget_status)
 		return __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
-	/*confirmDialog({title: 'Yes, update widget status', message: 'Are you sure! do you want to update widget status?', buttonText: 'Update', type: 'warning'}, function () {*/
+	/*__taggbox__confirmDialog({title: 'Yes, update widget status', message: 'Are you sure! do you want to update widget status?', buttonText: 'Update', type: 'warning'}, function () {*/
 	let formData = new FormData();
 	formData.append('widgetId', __taggbox__widget_id);
 	formData.append('status', __taggbox__widget_status);
@@ -122,7 +122,7 @@ function __taggbox__deleteWidget(__taggbox__widget_id, __taggbox__widgetbox_id) 
 	let __taggbox__toast = new TaggboxToast;
 	if (!__taggbox__widget_id || !__taggbox__widgetbox_id)
 		return __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
-	confirmDialog({ title: 'Yes, delete widget', message: 'Are you sure! do you want to delete widget?', buttonText: 'Delete', type: 'danger' }, function () {
+	__taggbox__confirmDialog({ title: 'Yes, delete widget', message: 'Are you sure! do you want to delete widget?', buttonText: 'Delete', type: 'danger' }, function () {
 		let formData = new FormData();
 		formData.append('widgetId', __taggbox__widget_id);
 		formData.append('action', 'taggbox_data');

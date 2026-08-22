@@ -20,7 +20,18 @@ function __taggbox__changeIfrmSrc() {
     let widgetData = document.querySelector("#__taggbox__widgets");
     if (widgetData) {
         let __taggbox__widgetId = widgetData.selectedOptions[0].value.split('#')[0];
-        document.querySelector("#__taggbox__widget_display_preview_id").innerHTML = `<iframe id="__taggbox__display_ifrm" width="100%" height="100%" src="${__taggbox__plugin_react_url + __taggbox__widgetId}?editor=1" title="Taggbox" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        /* Validate before use : the widget id must be digits only. */
+        if (!/^\d+$/.test(__taggbox__widgetId)) return;
+        let __taggbox__displayFrame = document.createElement("iframe");
+        __taggbox__displayFrame.setAttribute("id", "__taggbox__display_ifrm");
+        __taggbox__displayFrame.setAttribute("width", "100%");
+        __taggbox__displayFrame.setAttribute("height", "100%");
+        __taggbox__displayFrame.setAttribute("src", __taggbox__plugin_react_url + __taggbox__widgetId);
+        __taggbox__displayFrame.setAttribute("title", "Taggbox");
+        __taggbox__displayFrame.setAttribute("frameborder", "0");
+        __taggbox__displayFrame.setAttribute("allow", "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+        __taggbox__displayFrame.setAttribute("allowfullscreen", "");
+        document.querySelector("#__taggbox__widget_display_preview_id").replaceChildren(__taggbox__displayFrame);
     }
     /*Close  Loader After 5 Second*/
     /*setTimeout(function () {__taggbox__display_preview_loader.style.display = 'none'}, 2000);*/

@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) :
 endif;
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headView.php';
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
-wp_enqueue_script('__script-upgrade-js', TAGGBOX_PLUGIN_URL . '/assets/js/upgrade/taggbox.upgrade.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+wp_enqueue_script('__taggbox__script-upgrade-js', TAGGBOX_PLUGIN_URL . '/assets/js/upgrade/taggbox.upgrade.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 ?>
 <div class="__taggbox__support" id="__taggbox__support_section" style="display: none;">
 	<h3><span style="font-size: 12px;">🔗</span> <a style="color: #d63636;" href="https://taggbox.com/support/" target="_blank">We’re Here to Help You Succeed -</a> </h3>

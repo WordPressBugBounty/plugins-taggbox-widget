@@ -519,7 +519,7 @@ div.__taggbox__container .__taggbox__row .__taggbox__widget .__taggbox__widget_i
     -webkit-transition: margin 0.3s ease-in
 }
 
-.tooltip .tooltiptext {
+.__taggbox__container .tooltip .tooltiptext {
     -webkit-transition: opacity 0.3s;
     -o-transition     : opacity 0.3s;
     transition        : opacity 0.3s
@@ -3054,7 +3054,7 @@ div#screen-meta+div {
 }
 
 .__taggbox__popupwrap .__taggbox__formwbody .__taggbox__formwrow:first-child,
-.tooltip {
+.__taggbox__container .tooltip {
     position: relative
 }
 
@@ -3467,11 +3467,11 @@ textarea:-ms-input-placeholder {
     color: #999
 }
 
-.tooltip {
+.__taggbox__container .tooltip {
     display: inline-block
 }
 
-.tooltip .tooltiptext {
+.__taggbox__container .tooltip .tooltiptext {
     display         : none;
     width           : 120px;
     background-color: #555;
@@ -3489,7 +3489,7 @@ textarea:-ms-input-placeholder {
     overflow        : unset !important
 }
 
-.tooltip .tooltiptext::after {
+.__taggbox__container .tooltip .tooltiptext::after {
     content     : "";
     position    : absolute;
     top         : 100%;
@@ -3500,7 +3500,7 @@ textarea:-ms-input-placeholder {
     border-color: #555 #fff0 #fff0
 }
 
-.tooltip:hover .tooltiptext {
+.__taggbox__container .tooltip:hover .tooltiptext {
     display: block;
     opacity: 1
 }
@@ -3520,18 +3520,18 @@ div#wpwrap~.__taggbox__overlay .__taggbox__popupwrap {
     left: 160px
 }
 
-#screen-meta~.notice {
+body.toplevel_page_taggbox #screen-meta~.notice {
     margin        : 5px 0;
     padding-top   : 0;
     padding-bottom: 0;
     width         : calc(100% - 70px)
 }
 
-.notice p {
+body.toplevel_page_taggbox .notice p {
     padding: 0
 }
 
-.notice .notice-dismiss {
+body.toplevel_page_taggbox .notice .notice-dismiss {
     padding: 6px
 }
 
@@ -4405,3 +4405,6 @@ div.daterangepicker.opensright:after {
         padding: 15px
     }
 }
+/* The sanitizer removes javascript: URLs, so these action links no longer carry an href.
+   This keeps their pointer cursor unchanged. */
+a.__taggbox__btn_reconn,a.__taggbox__btn__trash,a.__taggbox__selectbtn,a.__taggbox__okaybtn{cursor:pointer}

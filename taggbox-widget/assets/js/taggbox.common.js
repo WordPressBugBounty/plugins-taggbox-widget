@@ -34,33 +34,41 @@ document.onreadystatechange = function () {
 };
 /*--End--Hide/Show Loader During Page Readay State*/
 
-/*--Start--Escape Untrusted Value Before Render*/
-function __taggbox__escapeHtml(value) {
-	return String(value === undefined || value === null ? "" : value)
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;")
-		.replace(/'/g, "&#039;");
+/*--Start--Validation : Accept An Identifier Only When It Is Digits Only*/
+/* Validation, as described in the WordPress security handbook : test the value against a
+   known pattern and treat anything else as invalid. */
+function __taggbox__isValidId(value) {
+	return /^\d+$/.test(String(value === undefined || value === null ? "" : value).trim());
 }
-/*--End--Escape Untrusted Value Before Render*/
-/*--Start--Escape Untrusted Value Inside A Single Quoted Inline JS String*/
-function __taggbox__escapeJsString(value) {
-	return String(value === undefined || value === null ? "" : value)
-		.replace(/\\/g, "\\\\")
-		.replace(/'/g, "\\'")
-		.replace(/"/g, "&quot;")
-		.replace(/</g, "\\u003C")
-		.replace(/>/g, "\\u003E")
-		.replace(/\r?\n/g, "");
+function __taggbox__validId(value) {
+	return __taggbox__isValidId(value) ? String(value).trim() : "";
 }
-/*--End--Escape Untrusted Value Inside A Single Quoted Inline JS String*/
-/*--Start--Force Untrusted Value To A Plain Number For Unquoted Inline JS Arguments*/
-function __taggbox__escapeJsNumber(value) {
-	let __taggbox__numeric_value = Number(value);
-	return isNaN(__taggbox__numeric_value) ? 0 : __taggbox__numeric_value;
+/*--End--Validation*/
+/*--Start--Escaping : WordPress Core @wordpress/escape-html Package*/
+/* wp.escapeHtml is shipped by WordPress core (script handle wp-escape-html).
+   escapeHTML() is for text between tags, escapeAttribute() is for a double quoted attribute. */
+function __taggbox__escapeText(value) {
+	return window.wp.escapeHtml.escapeHTML(String(value === undefined || value === null ? "" : value));
 }
-/*--End--Force Untrusted Value To A Plain Number For Unquoted Inline JS Arguments*/
+function __taggbox__escapeAttr(value) {
+	return window.wp.escapeHtml.escapeAttribute(String(value === undefined || value === null ? "" : value));
+}
+/*--End--Escaping*/
+/*--Start--Sanitization : DOMPurify, Applied To Every Markup String Before It Reaches The DOM*/
+/* Our own DOMPurify instance is captured as soon as this file loads, so a copy loaded
+   later by another plugin can never replace the one this plugin uses. */
+var __taggbox__purifier = window.__taggbox__DOMPurify || window.DOMPurify;
+function __taggbox__setSafeHtml(element, html) {
+	if (!element) return;
+	var __taggbox__sanitizer = __taggbox__purifier || window.__taggbox__DOMPurify || window.DOMPurify;
+	if (!__taggbox__sanitizer || typeof __taggbox__sanitizer.sanitize !== "function") {
+		/* Without the sanitizer nothing is rendered, so unsanitized markup can never reach the page. */
+		element.textContent = "";
+		return;
+	}
+	element.innerHTML = __taggbox__sanitizer.sanitize(String(html === undefined || html === null ? "" : html), { USE_PROFILES: { html: true } });
+}
+/*--End--Sanitization*/
 /*--Start-- Manage Response Message*/
 window.addEventListener ? window.addEventListener("load", __taggbox__message, false) : window.attachEvent && window.attachEvent("onload", __taggbox__message);
 function __taggbox__message() {
@@ -88,29 +96,75 @@ function __taggbox__message() {
 			__taggbox__toast.danger({ message: __taggbox__message.__taggbox__message.replace(/-/g, ' '), position: '__taggbox__is-top-right' });
 		}
 		/*--Start--Show Popup On Plan Upgrade Time*/
-		if (__taggbox__message.hasOwnProperty("planName") && __taggbox__message.hasOwnProperty("amount") && __taggbox__message.hasOwnProperty("paymentId")) {
+		/* Every query string value is read through one trimmed lookup, so a key that arrives with
+		   no value at all (&paymentId) counts as absent instead of printing a blank box. */
+		let __taggbox__queryValue = function (key) {
+			let __taggbox__raw = __taggbox__message[key];
+			return String(__taggbox__raw === undefined || __taggbox__raw === null ? "" : __taggbox__raw).trim();
+		};
+		let __taggbox__planName = __taggbox__queryValue("planName");
+		if (__taggbox__planName) {
 			let __taggbox__upgrade_account_popup = document.querySelector("#__taggbox__upgrade_account_popup");
-			let elemHTML = `<div class="__taggbox__popupwrap __taggbox__popup_md">`;
-			elemHTML = `${elemHTML}<button id="__taggbox__upgrade_account_popup_close_btn" onclick="__taggbox__hide_upgrade_account_popup();" type="button" class="__taggbox__closebtn"></button>`;
-			elemHTML = `${elemHTML}<div class="__taggbox__popupinn">`;
-			elemHTML = `${elemHTML}<div class="__taggbox__formwbody">`;
-			elemHTML = `${elemHTML}<div class="__taggbox__thankyou">`;
-			elemHTML = `${elemHTML}<img src="${__taggbox__plugin_url_for_js}assets/images/check-green.png" alt="check">`;
-			elemHTML = `${elemHTML}<h2>Congratulations! <span>Your account has been upgraded</span></h2>`;
-			elemHTML = `${elemHTML}<div class="__taggbox__plandetail">`;
-			elemHTML = `${elemHTML}<div class="__taggbox__planbox">`;
-			elemHTML = `${elemHTML}<p>Amount</p>`;
-			elemHTML = `${elemHTML}<span>$${__taggbox__escapeHtml(__taggbox__message.amount)}</span>`;
-			elemHTML = `${elemHTML}</div>`;
-			elemHTML = `${elemHTML}<div class="__taggbox__planbox">`;
-			elemHTML = `${elemHTML}<p>Payment Id</p>`;
-			elemHTML = `${elemHTML}<span>${__taggbox__escapeHtml(__taggbox__message.paymentId)}</span>`;
-			elemHTML = `${elemHTML}</div>`;
-			elemHTML = `${elemHTML}<div class="__taggbox__planbox">`;
-			elemHTML = `${elemHTML}<p>Plan</p>`;
-			elemHTML = `${elemHTML}<span>${__taggbox__escapeHtml(__taggbox__message.planName)}</span>`;
-			elemHTML = `${elemHTML}</div></div></div></div></div></div>`;
-			__taggbox__upgrade_account_popup.innerHTML = elemHTML;
+			/* The popup markup only exists on the upgrade screen, so nothing is built when it is absent. */
+			if (!__taggbox__upgrade_account_popup) return;
+			/* Built with DOM methods. The query string values are inserted as text
+			   nodes only, so no markup can be produced from them. */
+			let __taggbox__makeElement = function (tag, className) {
+				let __taggbox__element = document.createElement(tag);
+				if (className) __taggbox__element.className = className;
+				return __taggbox__element;
+			};
+			let __taggbox__makePlanBox = function (label, value) {
+				let __taggbox__box = __taggbox__makeElement("div", "__taggbox__planbox");
+				let __taggbox__label = document.createElement("p");
+				__taggbox__label.textContent = label;
+				let __taggbox__value = document.createElement("span");
+				__taggbox__value.textContent = (value === undefined || value === null) ? "" : String(value);
+				__taggbox__box.appendChild(__taggbox__label);
+				__taggbox__box.appendChild(__taggbox__value);
+				return __taggbox__box;
+			};
+			let __taggbox__wrap = __taggbox__makeElement("div", "__taggbox__popupwrap __taggbox__popup_md");
+			let __taggbox__closeBtn = __taggbox__makeElement("button", "__taggbox__closebtn");
+			__taggbox__closeBtn.setAttribute("id", "__taggbox__upgrade_account_popup_close_btn");
+			__taggbox__closeBtn.setAttribute("type", "button");
+			__taggbox__closeBtn.addEventListener("click", __taggbox__hide_upgrade_account_popup);
+			let __taggbox__inn = __taggbox__makeElement("div", "__taggbox__popupinn");
+			let __taggbox__body = __taggbox__makeElement("div", "__taggbox__formwbody");
+			let __taggbox__thankyou = __taggbox__makeElement("div", "__taggbox__thankyou");
+			let __taggbox__checkImg = document.createElement("img");
+			__taggbox__checkImg.setAttribute("src", __taggbox__plugin_url_for_js + "assets/images/check-green.png");
+			__taggbox__checkImg.setAttribute("alt", "check");
+			let __taggbox__heading = document.createElement("h2");
+			__taggbox__heading.appendChild(document.createTextNode("Congratulations! "));
+			let __taggbox__headingSpan = document.createElement("span");
+			/* The popup repeats the message that came back in the query string, so an upgrade and a
+			   downgrade each read correctly instead of both claiming an upgrade. */
+			__taggbox__headingSpan.textContent = __taggbox__message.__taggbox__message.replace(/-/g, ' ');
+			__taggbox__heading.appendChild(__taggbox__headingSpan);
+			let __taggbox__detail = __taggbox__makeElement("div", "__taggbox__plandetail");
+			/* A free plan costs nothing, so a missing or zero amount is left out rather than shown as $0. */
+			let __taggbox__amount = __taggbox__queryValue("amount");
+			let __taggbox__amountValue = Number(__taggbox__amount);
+			if (__taggbox__amount && !(isFinite(__taggbox__amountValue) && 0 === __taggbox__amountValue))
+				__taggbox__detail.appendChild(__taggbox__makePlanBox("Amount", "$" + __taggbox__amount));
+			/* A downgrade carries no payment, so the payment id is shown only when one actually arrived. */
+			let __taggbox__paymentId = __taggbox__queryValue("paymentId");
+			if (__taggbox__paymentId)
+				__taggbox__detail.appendChild(__taggbox__makePlanBox("Payment Id", __taggbox__paymentId));
+			/* The free plan is the fallback every downgrade lands on, so naming it adds nothing. */
+			if ("free" !== __taggbox__planName.toLowerCase())
+				__taggbox__detail.appendChild(__taggbox__makePlanBox("Plan", __taggbox__planName));
+			__taggbox__thankyou.appendChild(__taggbox__checkImg);
+			__taggbox__thankyou.appendChild(__taggbox__heading);
+			/* A free downgrade leaves out every detail, so the empty row is not added at all. */
+			if (__taggbox__detail.hasChildNodes())
+				__taggbox__thankyou.appendChild(__taggbox__detail);
+			__taggbox__body.appendChild(__taggbox__thankyou);
+			__taggbox__inn.appendChild(__taggbox__body);
+			__taggbox__wrap.appendChild(__taggbox__closeBtn);
+			__taggbox__wrap.appendChild(__taggbox__inn);
+			__taggbox__upgrade_account_popup.replaceChildren(__taggbox__wrap);
 			__taggbox__upgrade_account_popup.style.display = "block";
 		}
 		/*--End--Show Popup On Plan Upgrade Time*/
@@ -130,7 +184,7 @@ function __taggbox__manageApiCall() {
 var __taggbox__logout = document.querySelector("#__taggbox__logout");
 if (__taggbox__logout) {
 	__taggbox__logout.addEventListener('click', function (event) {
-		confirmDialog({ title: 'Yes, sign out', message: 'Are you sure! do you want to sign out?', buttonText: 'Sign Out', type: 'warning' }, function () {
+		__taggbox__confirmDialog({ title: 'Yes, sign out', message: 'Are you sure! do you want to sign out?', buttonText: 'Sign Out', type: 'warning' }, function () {
 			let formData = new FormData();
 			formData.append('action', 'taggbox_data');
 			formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
@@ -450,7 +504,7 @@ function __taggbox__manageShotrCode() {
 		let __taggbox__widgetId = widgetData.selectedOptions[0].value.split('#')[0];
 		let __taggbox__shortCode = document.querySelector("#__taggbox__shortCode");
 		if (__taggbox__shortCode)
-			__taggbox__shortCode.innerHTML = `[taggbox widgetid="${__taggbox__widgetId}"]`;
+			__taggbox__shortCode.textContent = `[taggbox widgetid="${__taggbox__widgetId}"]`;
 	}
 }
 /*--Start--Copy Short Code*/
@@ -461,7 +515,7 @@ async function __taggbox__copyCodeEmbed(__taggbox__codeType, __taggbox__copyEmbe
 	let __taggbox__copyEmbedCode = "";
 	switch (__taggbox__codeType) {
 		case "shortCode":
-			__taggbox__copyEmbedCode = document.querySelector(`#${__taggbox__copyEmbedId}`).innerHTML;
+			__taggbox__copyEmbedCode = document.querySelector(`#${__taggbox__copyEmbedId}`).textContent;
 			break;
 		case "embedCode":
 			__taggbox__copyEmbedCode = document.querySelector(`#${__taggbox__copyEmbedId}`).value;

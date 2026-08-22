@@ -6,9 +6,19 @@ function __taggbox__open_loader(text = '', loaderImage = '') {
     text = (text) ? text : 'Please Wait...';
     loaderImage = (loaderImage) ? loaderImage : __taggboxLoaderImageCustomPath;
     document.body.style.cursor = "wait";
-    let elem = document.createElement('div');
-    elem.innerHTML = '<div id="__taggbox__loader" class="__taggbox__loader-overlay"><div class="__taggbox__loader"><img src="' + loaderImage + '"/><br/>' + text + '</div></div>';
-    document.body.appendChild(elem.firstChild);
+    /* Built with DOM methods so no markup is produced from the arguments. */
+    let overlay = document.createElement('div');
+    overlay.setAttribute('id', '__taggbox__loader');
+    overlay.className = '__taggbox__loader-overlay';
+    let inner = document.createElement('div');
+    inner.className = '__taggbox__loader';
+    let image = document.createElement('img');
+    image.setAttribute('src', loaderImage);
+    inner.appendChild(image);
+    inner.appendChild(document.createElement('br'));
+    inner.appendChild(document.createTextNode(text));
+    overlay.appendChild(inner);
+    document.body.appendChild(overlay);
 }
 function __taggbox__close_loader() {
     document.body.style.cursor = "auto";

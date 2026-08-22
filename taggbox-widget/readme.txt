@@ -3,10 +3,10 @@
 Contributors: taggbox
 Donate link: https://taggbox.com/
 Tags: social media feed, social media widget, social proof widget, reviews widget, shoppable video
-Requires at least: 3.0
-Tested up to: 7.0
+Requires at least: 5.0
+Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 4.2
+Stable tag: 4.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -316,6 +316,15 @@ This plugin displays content from connected social media and review platforms. V
 
 == Changelog ==
 
+
+= 4.3 =
+* Security: replaced all in-house output escaping with the WordPress core escaping APIs and the DOMPurify sanitizer.
+* Security: admin screens now build their markup with DOM methods instead of HTML strings wherever possible.
+* Security: identifiers received from the API are validated before use.
+* Security: removed every inline event handler from generated markup.
+* Bundled DOMPurify 3.4.13 (Apache-2.0) at assets/js/vendor/purify.js. This is the official release from https://github.com/cure53/DOMPurify/blob/3.4.13/dist/purify.js and is used unmodified.
+* Raised the minimum supported WordPress version to 5.0.
+
 = 4.2 =
 * Security: fixed a cross-site scripting (XSS) issue on the plugin admin screens.
 * Security: hardened output escaping across all admin views and scripts.
@@ -339,6 +348,9 @@ This plugin displays content from connected social media and review platforms. V
 * Enhanced Elementor compatibility.
 
 == Upgrade Notice ==
+
+= 4.3 =
+Security release. Output escaping now uses the WordPress core escaping APIs together with the DOMPurify sanitizer, and admin markup is built with DOM methods. Updating is strongly recommended for all users.
 
 = 4.2 =
 Security release. Fixes a cross-site scripting (XSS) issue on the plugin admin screens and hardens output escaping throughout the plugin. Updating is strongly recommended for all users.

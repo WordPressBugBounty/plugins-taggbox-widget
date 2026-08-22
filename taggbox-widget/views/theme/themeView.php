@@ -4,9 +4,9 @@ if (!defined('ABSPATH')) :
 endif;
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headView.php';
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
-wp_enqueue_script('__script-theme-js', TAGGBOX_PLUGIN_URL . '/assets/js/theme/taggbox.theme.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+wp_enqueue_script('__taggbox__script-theme-js', TAGGBOX_PLUGIN_URL . '/assets/js/theme/taggbox.theme.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 /* Lazy Loader Script */
-wp_enqueue_script('__script-lazy-loading-js', TAGGBOX_PLUGIN_URL . '/assets/js/lazyload.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+wp_enqueue_script('__taggbox__script-lazy-loading-js', TAGGBOX_PLUGIN_URL . '/assets/js/lazyload.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 if (!empty($__taggbox__widgets)) :
 ?>
 	<div id="__taggbox__choosetheme" class="__taggbox__tabcontent">

@@ -109,19 +109,53 @@ endif;
 			}).then(response => {
 				if (response.status == true) {
 					if (response.data.installedPluginVersion != response.data.livePluginVersion) {
-						let elemHTML = `<div class="__taggbox__popupwrap __taggbox__popup_md">`;
-						elemHTML = `${elemHTML}<button onclick="__taggbox__hide_plugin_upgrade_message();" type="button" class="__taggbox__closebtn"></button>`;
-						elemHTML = `${elemHTML}<div class="__taggbox__popupinn">`;
-						elemHTML = `${elemHTML}<div class="__taggbox__header"><h2>Update Plugin For Free</h2></div>`;
-						elemHTML = `${elemHTML}<hr class="__taggbox__horizontaborder">`;
-						elemHTML = `${elemHTML}<div class="__taggbox__formwbody">`;
-						elemHTML = `${elemHTML}<div class="__taggbox__formwrow">`;
-						elemHTML = `${elemHTML}<p><strong> Note : </strong> There is a new version of Taggbox Widget available. <strong> ${__taggbox__escapeHtml(response.data.livePluginVersion)} </strong> is a recommended Update For Performance Improvements. </p>`;
-						elemHTML = `${elemHTML}</div></div>`;
-						elemHTML = `${elemHTML}<div class = "__taggbox__btnwrap text-center">`;
-						elemHTML = `${elemHTML}<a style="background: #d63638;" href="${__taggbox__escapeHtml(response.data.pluginUpgradeURL)}" class="__taggbox__okaybtn">Update Plugin</a>`;
-						elemHTML = `${elemHTML}</div></div></div>`;
-						document.getElementById("__taggbox__plugin_upgrade_message").innerHTML = elemHTML;
+/* Built with DOM methods : the version string and the upgrade URL are
+						   assigned as a text node and an attribute, never as markup. */
+						let popupWrap = document.createElement("div");
+						popupWrap.className = "__taggbox__popupwrap __taggbox__popup_md";
+						let closeBtn = document.createElement("button");
+						closeBtn.setAttribute("type", "button");
+						closeBtn.className = "__taggbox__closebtn";
+						closeBtn.addEventListener("click", __taggbox__hide_plugin_upgrade_message);
+						let popupInn = document.createElement("div");
+						popupInn.className = "__taggbox__popupinn";
+						let header = document.createElement("div");
+						header.className = "__taggbox__header";
+						let heading = document.createElement("h2");
+						heading.textContent = "Update Plugin For Free";
+						header.appendChild(heading);
+						let horizontalBorder = document.createElement("hr");
+						horizontalBorder.className = "__taggbox__horizontaborder";
+						let formBody = document.createElement("div");
+						formBody.className = "__taggbox__formwbody";
+						let formRow = document.createElement("div");
+						formRow.className = "__taggbox__formwrow";
+						let note = document.createElement("p");
+						let noteLabel = document.createElement("strong");
+						noteLabel.textContent = " Note : ";
+						let versionLabel = document.createElement("strong");
+						versionLabel.textContent = " " + response.data.livePluginVersion + " ";
+						note.appendChild(noteLabel);
+						note.appendChild(document.createTextNode(" There is a new version of Taggbox Widget available. "));
+						note.appendChild(versionLabel);
+						note.appendChild(document.createTextNode(" is a recommended Update For Performance Improvements. "));
+						formRow.appendChild(note);
+						formBody.appendChild(formRow);
+						let btnWrap = document.createElement("div");
+						btnWrap.className = "__taggbox__btnwrap text-center";
+						let updateLink = document.createElement("a");
+						updateLink.setAttribute("style", "background: #d63638;");
+						updateLink.setAttribute("href", response.data.pluginUpgradeURL);
+						updateLink.className = "__taggbox__okaybtn";
+						updateLink.textContent = "Update Plugin";
+						btnWrap.appendChild(updateLink);
+						popupInn.appendChild(header);
+						popupInn.appendChild(horizontalBorder);
+						popupInn.appendChild(formBody);
+						popupInn.appendChild(btnWrap);
+						popupWrap.appendChild(closeBtn);
+						popupWrap.appendChild(popupInn);
+						document.getElementById("__taggbox__plugin_upgrade_message").replaceChildren(popupWrap);
 					}
 				} else {
 					__taggbox__toast.danger({

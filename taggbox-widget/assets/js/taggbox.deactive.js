@@ -65,7 +65,7 @@ function __taggbox__pluginDeactivateReason(__taggbox__pluginDeactivateReason) {
     document.querySelector("#__taggbox__other_reason_input").value = "";
     document.querySelector("#__taggbox__better_plugin_input").value = "";
     let __taggbox__pluginDeactivateBtn = document.querySelector("#__taggbox__pluginDeactivateBtn");
-    __taggbox__pluginDeactivateBtn.innerHTML = "Submit & Deactivate";
+    __taggbox__pluginDeactivateBtn.textContent = "Submit & Deactivate";
     let __taggbox__betterPluginDiv = document.querySelector("#__taggbox__betterPluginDiv");
     __taggbox__betterPluginDiv.style.display = "none";
     let __taggbox__otherReasonDiv = document.querySelector("#__taggbox__otherReasonDiv");

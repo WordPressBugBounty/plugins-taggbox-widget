@@ -2,14 +2,11 @@
 if (!defined('ABSPATH')) :
 	exit;
 endif;
-function taggbox_wpApiCall($apiUrl, $body, $header = null, $breakResponse = false)
+function taggbox_wpApiCall($apiUrl, $body, $header = null)
 {
 	$header   = (null != $header ? $header : []);
 	$args     = ['body' => $body, 'timeout' => '5', 'redirection' => '5', 'httpversion' => '1.0', 'blocking' => true, 'headers' => $header, 'cookies' => []];
 	$response = wp_remote_post($apiUrl, $args);
-	if ($breakResponse) :
-		taggbox_dd($response);
-	endif;
 	if (is_wp_error($response)) :
 		return;
 	endif;
@@ -67,19 +64,6 @@ function taggbox_exitWithSuccess($data = null)
 function taggbox_exitWithDanger($error = null, $data = [])
 {
 	wp_send_json(['status' => (bool)false, 'data' => (array)$data, 'message' => (string)('' != $error ? $error : 'Oh snap! Something went wrong.')]);
-}
-function taggbox_d($data = 'NONE')
-{
-	echo '<pre>';
-	print_r($data);
-	echo '</pre>';
-}
-function taggbox_dd($data = 'NONE')
-{
-	echo '<pre>';
-	print_r($data);
-	echo '</pre>';
-	die;
 }
 /* --Start__ Sanetize All Input */
 function taggbox_inputSanetize($data)

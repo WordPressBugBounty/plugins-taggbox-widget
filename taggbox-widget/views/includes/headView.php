@@ -2,9 +2,19 @@
 if (!defined('ABSPATH')) :
 	exit;
 endif;
-wp_enqueue_script('__jquery');
-wp_enqueue_script('__taggbox__custom-js', TAGGBOX_PLUGIN_URL . '/assets/js/taggbox.common.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
-wp_enqueue_script('__script-widget-js', TAGGBOX_PLUGIN_URL . '/assets/js/widget/taggbox.widget.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+wp_enqueue_script('jquery');
+/* --Start-- DOMPurify : Third Party HTML Sanitizer. Loaded only on this plugin's own screen. */
+wp_enqueue_script('__taggbox__domPurifyJs', TAGGBOX_PLUGIN_URL . '/assets/js/vendor/purify.js', [], '3.4.13', true);
+/* DOMPurify 3.4.13. Official release, used unmodified and byte for byte
+   identical to https://github.com/cure53/DOMPurify/blob/3.4.13/dist/purify.js
+   The sanitizer is a UMD bundle. If another plugin has left an AMD or CommonJS loader on
+   the page, the bundle would register there instead of on window, so those globals are
+   hidden for the moment it runs and restored immediately afterwards. */
+wp_add_inline_script('__taggbox__domPurifyJs', '(function(w){w.__taggbox__umd={d:w.define,m:w.module,e:w.exports};try{delete w.define;delete w.module;delete w.exports;}catch(e){w.define=undefined;w.module=undefined;w.exports=undefined;}})(window);', 'before');
+wp_add_inline_script('__taggbox__domPurifyJs', '(function(w){w.__taggbox__DOMPurify=w.DOMPurify;var s=w.__taggbox__umd;if(s){if(s.d!==undefined){w.define=s.d;}if(s.m!==undefined){w.module=s.m;}if(s.e!==undefined){w.exports=s.e;}delete w.__taggbox__umd;}})(window);', 'after');
+/* --End-- DOMPurify */
+wp_enqueue_script('__taggbox__custom-js', TAGGBOX_PLUGIN_URL . '/assets/js/taggbox.common.js', ['jquery', 'wp-escape-html', '__taggbox__domPurifyJs'], TAGGBOX_PLUGIN_VERSION, true);
+wp_enqueue_script('__taggbox__script-widget-js', TAGGBOX_PLUGIN_URL . '/assets/js/widget/taggbox.widget.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 $__taggbox__account_page = true; /* Use : Check User Token Valid Or Not */
 $__taggbox__user_details = taggbox_user();
 $__taggbox__active_widget_user_id = taggbox_activeWidgetUser();

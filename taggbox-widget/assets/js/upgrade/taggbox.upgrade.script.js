@@ -4,10 +4,10 @@ function __taggbox__manageAllFeactureHideShow() {
 	let __taggbox__all_feacture_button = document.querySelector("#__taggbox__all_feacture_button");
 	if (__taggbox__all_feacture_section.style.display === "none") {
 		__taggbox__all_feacture_section.style.display = "block";
-		__taggbox__all_feacture_button.innerHTML = "Hide All Features";
+		__taggbox__all_feacture_button.textContent = "Hide All Features";
 	} else {
 		__taggbox__all_feacture_section.style.display = "none";
-		__taggbox__all_feacture_button.innerHTML = "Show All Features";
+		__taggbox__all_feacture_button.textContent = "Show All Features";
 	}
 }
 /*--End--Manage All Feacture Hide Show*/
@@ -107,7 +107,7 @@ function __taggbox__get_account_details() {
 								for (const key of selectedKeys) {
 									const planRuleData = response.data.Product[indexxxxx][indexxxxxx].PlanRule;
 									if (planRuleData.hasOwnProperty(key) && !allFeactureRemovableKeys.includes(key)) {
-										allFeactureHTML += `<th>${__taggbox__escapeHtml(key.replace(/([A-Z])/g, ' $1'))}</th>`;
+										allFeactureHTML += `<th>${__taggbox__escapeText(key.replace(/([A-Z])/g, ' $1'))}</th>`;
 									}
 								}
 								allFeactureHTML += '<th>Networks</th></tr>';
@@ -119,7 +119,7 @@ function __taggbox__get_account_details() {
 								const planRuleData = response.data.Product[indexxxxx][indexxxxxx].PlanRule;
 								if (planRuleData.hasOwnProperty(key) && !allFeactureRemovableKeys.includes(key)) {
 									if (allFeactureIcons.includes(key)) {
-										allFeactureHTML += `<td>${__taggbox__escapeHtml(planRuleData[key])}</td>`;
+										allFeactureHTML += `<td>${__taggbox__escapeText(planRuleData[key])}</td>`;
 									} else {
 										if (planRuleData[key] == "1") {
 											allFeactureHTML += `<td class="text-center mb-0"><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" class="img-fluid"></td>`;
@@ -131,14 +131,14 @@ function __taggbox__get_account_details() {
 							}
 							allFeactureHTML += '<td>';
 							for (let network of response.data.Product[indexxxxx][indexxxxxx].Planrulenetwork) {
-								allFeactureHTML += `<img style="height:14px; margin:2px;" src="${__taggbox__plugin_url_for_js}assets/images/network/${__taggbox__escapeHtml(network.network)}.png"/>`;
+								allFeactureHTML += `<img style="height:14px; margin:2px;" src="${__taggbox__plugin_url_for_js}assets/images/network/${__taggbox__escapeAttr(network.network)}.png"/>`;
 							}
 							allFeactureHTML += '</td></tr>';
 						}
 					}
 				}
 			}
-			__taggbox__all_feacture_section.innerHTML = `<table> ${allFeactureHTML}</table>`;
+			__taggbox__setSafeHtml(__taggbox__all_feacture_section, `<table> ${allFeactureHTML}</table>`);
 			/*--End-- Manage All Feacture Section*/
 			/*--Start-- Manage Plan Serction Section*/
 			let elemHTML = "";
@@ -148,29 +148,29 @@ function __taggbox__get_account_details() {
 						elemHTML = `${elemHTML}<div class="__taggbox__planbox ${(response.data.Product[indexx][indexxx].Plan.id == response.data.Product.ActivePlan.id) ? '__taggbox__activeplan' : ''}">`;
 						if (response.data.Product[indexx][indexxx].Plan.id == response.data.Product.ActivePlan.id)
 							elemHTML = `${elemHTML}<span class="__taggbox__currentplan">Current Plan</span>`;
-						elemHTML = `${elemHTML}<strong>${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].Plan.name)}</strong>`;
+						elemHTML = `${elemHTML}<strong>${__taggbox__escapeText(response.data.Product[indexx][indexxx].Plan.name)}</strong>`;
 						let monthelyPrice = response.data.Product[indexx][indexxx].Plan.wordpessMonthlyPrice;
 						let yearlyPrice = response.data.Product[indexx][indexxx].Plan.wordpressYearlyPrice;
 						if (response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) {
 							elemHTML = `${elemHTML}<h2>Free</h2>`;
 						} else {
-							elemHTML = `${elemHTML}<h2 class="__taggbox__monthely_plan" style="display:none;">$${__taggbox__escapeHtml(monthelyPrice)}/Mo</h2>`;
-							elemHTML = `${elemHTML}<h2 class="__taggbox__yearly_plan">$${__taggbox__escapeHtml(yearlyPrice)}/Mo</h2>`;
+							elemHTML = `${elemHTML}<h2 class="__taggbox__monthely_plan" style="display:none;">$${__taggbox__escapeText(monthelyPrice)}/Mo</h2>`;
+							elemHTML = `${elemHTML}<h2 class="__taggbox__yearly_plan">$${__taggbox__escapeText(yearlyPrice)}/Mo</h2>`;
 						}
-						elemHTML = `${elemHTML}<p>${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].Plan.description)}</p>`;
+						elemHTML = `${elemHTML}<p>${__taggbox__escapeText(response.data.Product[indexx][indexxx].Plan.description)}</p>`;
 						elemHTML = `${elemHTML}<ul>`;
-						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.feeds)} ${(response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) ? `Feed` : `Feeds`}</li>`;
-						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.viewCount)} Views/Month</li>`;
+						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeText(response.data.Product[indexx][indexxx].PlanRule.feeds)} ${(response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) ? `Feed` : `Feeds`}</li>`;
+						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeText(response.data.Product[indexx][indexxx].PlanRule.viewCount)} Views/Month</li>`;
 						if (response.data.Product[indexx][indexxx].Plan.id != 67 && response.data.Product[indexx][indexxx].Plan.id != 53) {
 							if (response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit != 0) {
-								elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />LinkedIn Auto Update (Max ${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit)} Feeds)</li>`;
+								elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />LinkedIn Auto Update (Max ${__taggbox__escapeText(response.data.Product[indexx][indexxx].PlanRule.linkedInFeedLimit)} Feeds)</li>`;
 							} else {
 								elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />LinkedIn Manual</li>`;
 							}
 						} else {
 							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-cross.svg" alt="no-access" />LinkedIn Feed</li>`;
 						}
-						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeHtml(response.data.Product[indexx][indexxx].PlanRule.updatesIntervalCron)} ${(response.data.Product[indexx][indexxx].PlanRule.unit_cron == 3600) ? "Hours" : "Mins"}  Update Time</li>`;
+						elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-ok.svg" alt="access" />${__taggbox__escapeText(response.data.Product[indexx][indexxx].PlanRule.updatesIntervalCron)} ${(response.data.Product[indexx][indexxx].PlanRule.unit_cron == 3600) ? "Hours" : "Mins"}  Update Time</li>`;
 						if (response.data.Product[indexx][indexxx].PlanRule.customCss == 0) {
 							elemHTML = `${elemHTML}<li><img src="${__taggbox__plugin_url_for_js}assets/images/plan-cross.svg" alt="no-access" />No Custom CSS</li>`;
 						} else {
@@ -185,15 +185,15 @@ function __taggbox__get_account_details() {
 						if (response.data.Product[indexx][indexxx].Plan.id != 1) {
 							if (response.data.Product[indexx][indexxx].Plan.id == response.data.Product.ActivePlan.id) {
 								if (response.data.Product[indexx][indexxx].Plan.id != 67 && response.data.Product[indexx][indexxx].Plan.id != 53) {
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__cancel_subscription('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}');" class="__taggbox__selectbtn">Cancel Subscription</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" data-taggbox-action="cancel-subscription" data-taggbox-plan-id="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.id)}" class="__taggbox__selectbtn">Cancel Subscription</a>`;
 								}
 							} else {
 								if (response.data.Product[indexx][indexxx].Plan.id == 67 || response.data.Product[indexx][indexxx].Plan.id == 53) {
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_lite_plan_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_lite_plan_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" data-taggbox-action="lite-payment" data-taggbox-plan-id="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.id)}" data-taggbox-price-code="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode)}" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" data-taggbox-action="lite-payment" data-taggbox-plan-id="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.id)}" data-taggbox-price-code="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode)}" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
 								} else {
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
-									elemHTML = `${elemHTML}<a href="javascript:void(0);" onclick="__taggbox__make_payment('${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.id)}','${__taggbox__escapeJsString(response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode)}');" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" data-taggbox-action="payment" data-taggbox-plan-id="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.id)}" data-taggbox-price-code="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.wordpressStripeMonthlyPriceCode)}" class="__taggbox__selectbtn  __taggbox__selectbtn_monthely" style="display:none;">Select</a>`;
+									elemHTML = `${elemHTML}<a href="javascript:void(0);" data-taggbox-action="payment" data-taggbox-plan-id="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.id)}" data-taggbox-price-code="${__taggbox__escapeAttr(response.data.Product[indexx][indexxx].Plan.wordpressStripeYearlyPriceCode)}" class="__taggbox__selectbtn  __taggbox__selectbtn_yearly">Select</a>`;
 								}
 							}
 						}
@@ -201,7 +201,18 @@ function __taggbox__get_account_details() {
 					}
 				}
 			}
-			__taggbox__plan.innerHTML = elemHTML;
+			__taggbox__setSafeHtml(__taggbox__plan, elemHTML);
+			/* The plan buttons carry their values in data attributes and are wired up here. */
+			__taggbox__plan.querySelectorAll('[data-taggbox-action]').forEach(function (b) {
+				b.addEventListener('click', function () {
+					let a = (this.getAttribute('data-taggbox-action') || "");
+					let pid = (this.getAttribute('data-taggbox-plan-id') || "");
+					let pc = (this.getAttribute('data-taggbox-price-code') || "");
+					if ('cancel-subscription' === a) __taggbox__cancel_subscription(pid);
+					else if ('lite-payment' === a) __taggbox__make_lite_plan_payment(pid, pc);
+					else if ('payment' === a) __taggbox__make_payment(pid, pc);
+				});
+			});
 			/*--End-- Manage Plan Serction Section*/
 
 			/*Manage Upgrade Plan Section Hide | Show */
@@ -224,7 +235,7 @@ function __taggbox__get_account_details() {
 /*--End-- Get User Accounts Details*/
 /*--Start-- Manage Payment*/
 function __taggbox__make_lite_plan_payment(planId, priceCode) {
-	confirmDialog({ title: 'Opting Free Forever LITE Plan', message: 'Your current plan will be canceled and changed to Lite Plan.', buttonText: 'Confirm', type: 'danger' }, function () {
+	__taggbox__confirmDialog({ title: 'Opting Free Forever LITE Plan', message: 'Your current plan will be canceled and changed to Lite Plan.', buttonText: 'Confirm', type: 'danger' }, function () {
 		__taggbox__make_payment(planId, priceCode);
 	});
 }
@@ -271,7 +282,7 @@ function __taggbox__cancel_subscription(planId) {
 	let __taggbox__toast = new TaggboxToast;
 	if (!planId)
 		return __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
-	confirmDialog({ title: 'Are you sure!', message: 'Do you want to cancel subscription?', buttonText: 'Yes', type: 'danger' }, function () {
+	__taggbox__confirmDialog({ title: 'Are you sure!', message: 'Do you want to cancel subscription?', buttonText: 'Yes', type: 'danger' }, function () {
 		let formData = new FormData();
 		formData.append('planId', planId);
 		formData.append('action', 'taggbox_data');

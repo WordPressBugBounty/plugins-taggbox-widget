@@ -40,7 +40,7 @@ endif;
 						<span class="<?php echo in_array($__taggbox__active_menue_id, [2]) ? 'add-select-widget' : ""; ?> ">Selected Widget</span>
 						<select name="__taggbox__widgets" id="__taggbox__widgets">
 							<?php foreach ($__taggbox__widgets	as	$__taggbox__widget) : ?>
-								<option <?php echo $__taggbox__active_widget_id == $__taggbox__widget->id ? 'selected' : ''; ?> value="<?php echo esc_attr($__taggbox__widget->id); ?>#<?php echo esc_attr($__taggbox__widget->name); ?>"><?php echo esc_html($__taggbox__widget->name); ?></option>
+								<option <?php echo $__taggbox__active_widget_id == $__taggbox__widget->id ? 'selected' : ''; ?> value="<?php echo esc_attr($__taggbox__widget->id . '#' . $__taggbox__widget->name); ?>"><?php echo esc_html($__taggbox__widget->name); ?></option>
 							<?php endforeach; ?>
 						</select>
 					<?php endif; ?>

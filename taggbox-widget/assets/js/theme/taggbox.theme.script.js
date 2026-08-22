@@ -31,16 +31,20 @@ function __taggbox__get_theme() {
                     elemHTML = `${elemHTML}<li>`;
                     elemHTML = `${elemHTML}<label class="${response.data[index].active == 1 ? "__taggbox__themeactive" : ""} ">`;
                     elemHTML = `${elemHTML}<span class="__taggbox__theme-img">`;
-                    /*elemHTML = `${elemHTML}<img src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${__taggbox__escapeHtml(response.data[index].themeId)}.png" alt="modern fall" />`;*/
-                    elemHTML = `${elemHTML}<img class="lazyload" src="${__taggbox__plugin_url_for_js}assets/images/blur-img.gif" data-src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${__taggbox__escapeHtml(response.data[index].themeId)}.png" alt="theme-image" />`;
+                    /*elemHTML = `${elemHTML}<img src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${__taggbox__escapeAttr(response.data[index].themeId)}.png" alt="modern fall" />`;*/
+                    elemHTML = `${elemHTML}<img class="lazyload" src="${__taggbox__plugin_url_for_js}assets/images/blur-img.gif" data-src="${__taggbox__plugin_url_for_js}assets/images/theme/themeThumb${__taggbox__escapeAttr(response.data[index].themeId)}.png" alt="theme-image" />`;
                     elemHTML = `${elemHTML}</span>`;
-                    elemHTML = `${elemHTML}<span class="__taggbox__themename"> ${__taggbox__escapeHtml(response.data[index].name)} </span>`;
-                    elemHTML = `${elemHTML}<input type="radio" onclick="__taggbox__editTheme(${__taggbox__escapeJsNumber(response.data[index].themeId)});" class="__taggbox__theme_radio_button"  name="themeId" value="${__taggbox__escapeHtml(response.data[index].themeId)}" ${response.data[index].active == 1 ? "checked" : ""}  />`;
+                    elemHTML = `${elemHTML}<span class="__taggbox__themename"> ${__taggbox__escapeText(response.data[index].name)} </span>`;
+                    elemHTML = `${elemHTML}<input type="radio" data-taggbox-action="edit-theme" data-taggbox-theme-id="${__taggbox__escapeAttr(__taggbox__validId(response.data[index].themeId))}" class="__taggbox__theme_radio_button"  name="themeId" value="${__taggbox__escapeAttr(response.data[index].themeId)}" ${response.data[index].active == 1 ? "checked" : ""}  />`;
                     elemHTML = `${elemHTML}</label>`;
                     elemHTML = `${elemHTML}</li>`;
                 }
             }
-            __taggbox__theme.innerHTML = elemHTML;
+            __taggbox__setSafeHtml(__taggbox__theme, elemHTML);
+            /* The theme radio buttons carry their id in a data attribute and are wired up here. */
+            __taggbox__theme.querySelectorAll('[data-taggbox-action="edit-theme"]').forEach(function (r) {
+                r.addEventListener('click', function () { __taggbox__editTheme((this.getAttribute('data-taggbox-theme-id') || "")); });
+            });
             __taggbox__image__lazy_loading()/*Image Lazy Loader*/
         } else {
             if (response.hasOwnProperty("message")) {
@@ -59,7 +63,7 @@ function __taggbox__get_theme() {
 /*--Start--Image Lazy Loadin*/
 function __taggbox__image__lazy_loading() {
     let images = document.querySelectorAll(".lazyload");
-    lazyload(images);
+    __taggbox__lazyload(images);
 }
 /*--End--Image Lazy Loadin*/
 /*--Start--Edit Theme*/

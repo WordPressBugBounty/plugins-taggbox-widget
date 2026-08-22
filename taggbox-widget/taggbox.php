@@ -4,7 +4,7 @@
  * Plugin Name:       Taggbox – Social Media Feed Widget
  * Plugin URI:        https://taggbox.com/widget/
  * Description:       Display social media feeds and user-generated content in an interactive widget.
- * Version:           4.2
+ * Version:           4.3
  * Author:            Taggbox
  * Author URI:        https://taggbox.com/
  * License:           GPLv3
@@ -16,7 +16,7 @@ if (!defined('WPINC')) :
 endif;
 
 /* --Start-- Create Constant */
-!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.2');
+!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.3');
 !defined('TAGGBOX_PLUGIN_DIR_PATH')         && define('TAGGBOX_PLUGIN_DIR_PATH',         plugin_dir_path(__FILE__));
 !defined('TAGGBOX_PLUGIN_URL')              && define('TAGGBOX_PLUGIN_URL',              plugin_dir_url(__FILE__));
 !defined('TAGGBOX_PLUGIN_REDIRECT_URL')     && define('TAGGBOX_PLUGIN_REDIRECT_URL',     get_admin_url(null, 'admin.php?page='));
@@ -1145,7 +1145,7 @@ function taggbox_data_ajax_handler()
 			$param['lineTrim']          = sanitize_key($data->lineTrim);
 			$param['aspectImageRatio']  = $data->aspectImageRatio;
 			$param['textAlignment']     = $data->textAlignment;
-			$param['borderRadius']      = $data->borderRadius;
+			$param['roundEdge']         = $data->roundEdge;
 			/* --End-- Manage Param Data */
 			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apicustomization/card', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
 			unset($param);
@@ -1530,11 +1530,13 @@ function taggbox_hideGeneralAdminNotice()
 add_shortcode("taggbox", "taggboxPluginShortCode");
 function taggboxPluginShortCode($attr)
 {
-	extract(shortcode_atts(array('height' => '100%', 'width' => '100%',), $attr));
-	$widgetId = (isset($attr['widgetid']) ? $attr['widgetid'] : '');
+	$__taggbox__shortCodeAttr = shortcode_atts(array('height' => '100%', 'width' => '100%',), $attr);
+	$height   = isset($__taggbox__shortCodeAttr['height']) ? sanitize_text_field($__taggbox__shortCodeAttr['height']) : '';
+	$width    = isset($__taggbox__shortCodeAttr['width']) ? sanitize_text_field($__taggbox__shortCodeAttr['width']) : '';
+	$widgetId = isset($attr['widgetid']) ? sanitize_text_field($attr['widgetid']) : '';
 	if (!empty($widgetId) && is_numeric($widgetId) && (($width === '' || preg_match('/^\d+(px|%|)$/', $width)) && ($height === '' || preg_match('/^\d+(px|%|)$/', $height)))):
 		$code = '';
-		$code .= '<div class="taggbox" data-widget-id="' . $widgetId . '"></div>';
+		$code .= '<div class="taggbox" data-widget-id="' . esc_attr($widgetId) . '"></div>';
 		$code .= '<script type="text/javascript" src="https://widget.taggbox.com/embed-lite.min.js"></script>';
 	else:
 		$code = '<span style="display: block;text-align: center;border: 1px solid #eee;padding: 5px 15px;background-color: #fafafa;">Invalid Parameters Provided In The Taggbox Shortcode.</span>';

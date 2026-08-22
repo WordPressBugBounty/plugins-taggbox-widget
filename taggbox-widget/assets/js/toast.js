@@ -29,16 +29,6 @@ class TaggboxToast {
         this.icon = "fa-check";
         this.show(options);
     }
-    /*--Start--Escape Untrusted Value Before Render*/
-    escapeHtml(value) {
-        return String(value === undefined || value === null ? "" : value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-    /*--End--Escape Untrusted Value Before Render*/
     show(options) {
         if (options.hasOwnProperty("position")) {
             this.position = options.position;
@@ -53,9 +43,20 @@ class TaggboxToast {
             this.duration = options.duration;
         }
         /*create toast*/
+        /* The message is rendered as text only. No markup is built from it, so there is
+           nothing for an attacker to break out of. */
         let toastDiv = document.createElement("div");
-        let elemHTML = '<span class="__taggbox__faicon"><i class="fas ' + this.icon + '" aria-hidden="true"></i></span><span class="__taggbox__btnmsg">' + this.escapeHtml(this.message) + '</span>';
-        toastDiv.innerHTML = elemHTML;
+        let toastIconSpan = document.createElement("span");
+        toastIconSpan.className = "__taggbox__faicon";
+        let toastIcon = document.createElement("i");
+        toastIcon.className = "fas " + this.icon;
+        toastIcon.setAttribute("aria-hidden", "true");
+        toastIconSpan.appendChild(toastIcon);
+        let toastMessageSpan = document.createElement("span");
+        toastMessageSpan.className = "__taggbox__btnmsg";
+        toastMessageSpan.textContent = (this.message === undefined || this.message === null) ? "" : String(this.message);
+        toastDiv.appendChild(toastIconSpan);
+        toastDiv.appendChild(toastMessageSpan);
         toastDiv.className = this.type;
         let toastParentDiv = document.createElement("div");
         toastParentDiv.setAttribute('id', this.id);

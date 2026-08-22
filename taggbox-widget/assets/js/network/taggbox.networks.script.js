@@ -22,16 +22,22 @@ function __taggbox__get_networks() {
     }).then(response => {
         __taggbox__close_loader();
         if (response.status == true) {
-            let elemHTML = `<option vlaue="">Select Network</option>`;
+            let __taggbox__networkSelect = document.getElementById("__taggbox__networks");
+            let __taggbox__ph = document.createElement("option");
+            __taggbox__ph.setAttribute("vlaue", ""); __taggbox__ph.textContent = "Select Network";
+            __taggbox__networkSelect.replaceChildren(__taggbox__ph);
             for (let index in response.data)
                 if (response.data[index].id != 2) {/*Note : This Use For Merge Instagram 2/18*/
                     let name = response.data[index].name;
                     if (response.data[index].id == 18) {
                         name = name.split(' ')[0];
                     }
-                    elemHTML = `${elemHTML}<option value="${__taggbox__escapeHtml(response.data[index].id)}#${__taggbox__escapeHtml(response.data[index].name)}"> ${__taggbox__escapeHtml(name)}</option>`;
+                    let __taggbox__opt = document.createElement("option");
+                    __taggbox__opt.setAttribute("value", response.data[index].id + "#" + response.data[index].name);
+                    __taggbox__opt.textContent = " " + name;
+                    __taggbox__networkSelect.appendChild(__taggbox__opt);
                 }
-            document.getElementById("__taggbox__networks").innerHTML = elemHTML;
+            
         } else {
             if (response.hasOwnProperty("message")) {
                 __taggbox__toast.danger({ message: response.message, position: '__taggbox__is-top-right' });
@@ -79,10 +85,16 @@ if (__taggbox__networks) {
             __taggbox__close_loader();
             if (response.status == true) {
                 __taggbox__account_error.style.display = 'flex';
-                let elemHTML = `<option vlaue="-1">Select Feed Filter</option>`;
-                for (let index in response.data)
-                    elemHTML = `${elemHTML}<option value="${__taggbox__escapeHtml(response.data[index].id)}#${__taggbox__escapeHtml(response.data[index].name)}"> ${__taggbox__escapeHtml(response.data[index].name)}</option>`;
-                __taggbox__feed_filters.innerHTML = elemHTML;
+                let __taggbox__fph = document.createElement("option");
+                __taggbox__fph.setAttribute("vlaue", "-1"); __taggbox__fph.textContent = "Select Feed Filter";
+                __taggbox__feed_filters.replaceChildren(__taggbox__fph);
+                for (let index in response.data) {
+                    let __taggbox__fo = document.createElement("option");
+                    __taggbox__fo.setAttribute("value", response.data[index].id + "#" + response.data[index].name);
+                    __taggbox__fo.textContent = " " + response.data[index].name;
+                    __taggbox__feed_filters.appendChild(__taggbox__fo);
+                }
+                
             } else {
                 __taggbox__account_error.style.display = 'none';
                 if (response.hasOwnProperty("message")) {

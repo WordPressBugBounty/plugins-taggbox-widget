@@ -5,9 +5,9 @@ endif;
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headView.php';
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headerView.php';
 if (!empty($__taggbox__widgets)) :
-	wp_enqueue_script('__script-networks-js', TAGGBOX_PLUGIN_URL . '/assets/js/network/taggbox.networks.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
-	wp_enqueue_script('__script-feed-create-js', TAGGBOX_PLUGIN_URL . '/assets/js/feed/taggbox.feed.create.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
-	wp_enqueue_script('__script-feed-js', TAGGBOX_PLUGIN_URL . '/assets/js/feed/taggbox.feed.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+	wp_enqueue_script('__taggbox__script-networks-js', TAGGBOX_PLUGIN_URL . '/assets/js/network/taggbox.networks.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+	wp_enqueue_script('__taggbox__script-feed-create-js', TAGGBOX_PLUGIN_URL . '/assets/js/feed/taggbox.feed.create.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+	wp_enqueue_script('__taggbox__script-feed-js', TAGGBOX_PLUGIN_URL . '/assets/js/feed/taggbox.feed.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
 ?>
 	<div style="" id="__taggbox__addfeed" class="__taggbox__tabcontent">
 		<!--Start-- Network View-->
