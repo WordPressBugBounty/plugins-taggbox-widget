@@ -10,7 +10,7 @@ wp_enqueue_script('__taggbox__script-support-js', TAGGBOX_PLUGIN_URL . '/assets/
 	<h3><span style="font-size: 12px;">🔗</span> <a style="color: #d63636;" href="https://taggbox.com/support/" target="_blank">We’re Here to Help You Succeed -</a> </h3>
 	<p>Whether you’re setting up your social media feeds, customizing layouts, or troubleshooting an issue, our team is here to help you get the most out of your social media feeds!</p>
 	</br>
-	<a style="display: none;" class="__taggbox__btn" href="https://meetings.hubspot.com/ankur35/meeting-with-tagbox" target="_blank" id="__taggbox__book_demo_free_btn"> Book a Demo</a>
+	<a style="display: none;" class="__taggbox__btn" href="https://calendly.com/taggbox/demo?embed_domain=taggbox.com&embed_type=Inline&utm_medium=https%3A%2F%2Ftaggbox.com%2F&utm_campaign=calendly_Request_demo_click&month=2026-09" target="_blank" id="__taggbox__book_demo_free_btn"> Book a Demo</a>
 	<a style="display: none;" class="__taggbox__btn" href="https://calendly.com/taggbox/csm" target="_blank" id="__taggbox__book_demo_paid_btn"> Book a Demo</a>
 	<a class="__taggbox__btn __taggbox__intercom_chat_btn" href="javascript:void(0);"> Chat with Us</a>
 </div>

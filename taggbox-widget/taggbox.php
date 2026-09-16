@@ -4,7 +4,7 @@
  * Plugin Name:       Taggbox – Social Media Feed Widget
  * Plugin URI:        https://taggbox.com/widget/
  * Description:       Display social media feeds and user-generated content in an interactive widget.
- * Version:           4.3
+ * Version:           4.4
  * Author:            Taggbox
  * Author URI:        https://taggbox.com/
  * License:           GPLv3
@@ -16,7 +16,7 @@ if (!defined('WPINC')) :
 endif;
 
 /* --Start-- Create Constant */
-!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.3');
+!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.4');
 !defined('TAGGBOX_PLUGIN_DIR_PATH')         && define('TAGGBOX_PLUGIN_DIR_PATH',         plugin_dir_path(__FILE__));
 !defined('TAGGBOX_PLUGIN_URL')              && define('TAGGBOX_PLUGIN_URL',              plugin_dir_url(__FILE__));
 !defined('TAGGBOX_PLUGIN_REDIRECT_URL')     && define('TAGGBOX_PLUGIN_REDIRECT_URL',     get_admin_url(null, 'admin.php?page='));
@@ -203,6 +203,18 @@ function taggbox_data_ajax_handler()
 			else :
 				return taggbox_exitWithDanger();
 			endif;
+			break;
+		case '__taggbox__google_auth_url':
+			$__taggbox__google_state    = wp_generate_password(32, false, false);
+			$__taggbox__google_verifier = wp_generate_password(64, false, false);
+			set_transient('__taggbox__google_' . $__taggbox__google_state, ['verifier' => $__taggbox__google_verifier, 'userId' => get_current_user_id()], 10 * MINUTE_IN_SECONDS);
+			$param['platform']  = TAGGBOX_PLUGIN_PLATFORM;
+			$param['state']     = $__taggbox__google_state;
+			$param['challenge'] = hash('sha256', $__taggbox__google_verifier);
+			$param['returnUrl'] = TAGGBOX_PLUGIN_CALL_BACK_URL;
+			$__taggbox__google_auth_url = TAGGBOX_PLUGIN_API_URL . 'apiaccount/googleauth?' . http_build_query($param, '', '&');
+			unset($param);
+			return taggbox_exitWithSuccess(['authUrl' => $__taggbox__google_auth_url]);
 			break;
 		case '__taggbox__logout':
 			if (taggbox_logout()) :
@@ -1182,6 +1194,68 @@ function taggbox_data_ajax_handler()
 	endswitch;
 }
 /* --End-- Manage Ajax Calls */
+
+add_action('admin_init', 'taggbox_googleAuthListener');
+function taggbox_googleAuthListener()
+{
+	if (empty($_GET['__tb_google_state'])) :
+		return;
+	endif;
+	if (empty($_GET['page']) || 'taggbox' !== sanitize_key(wp_unslash($_GET['page']))) :
+		return;
+	endif;
+	if (!current_user_can('manage_options')) :
+		return;
+	endif;
+	$__taggbox__google_state = isset($_GET['__tb_google_state']) ? sanitize_text_field(wp_unslash($_GET['__tb_google_state'])) : '';
+	if ('' === $__taggbox__google_state || !preg_match('/^[A-Za-z0-9]{16,64}$/', $__taggbox__google_state)) :
+		return;
+	endif;
+	$__taggbox__google_session = get_transient('__taggbox__google_' . $__taggbox__google_state);
+	delete_transient('__taggbox__google_' . $__taggbox__google_state);
+	if (empty($__taggbox__google_session['verifier']) || (int) $__taggbox__google_session['userId'] !== get_current_user_id()) :
+		return taggbox_googleAuthFailed('expired');
+	endif;
+	if (empty($_GET['__tb_google_code'])) :
+		$__taggbox__google_error_code = isset($_GET['__tb_google_error']) ? sanitize_text_field(wp_unslash($_GET['__tb_google_error'])) : 'failed';
+		return taggbox_googleAuthFailed($__taggbox__google_error_code);
+	endif;
+	$param = [
+		'token'    => sanitize_text_field(wp_unslash($_GET['__tb_google_code'])),
+		'verifier' => $__taggbox__google_session['verifier'],
+		'platform' => TAGGBOX_PLUGIN_PLATFORM,
+	];
+	$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/googleexchange', $param, []);
+	unset($param);
+	if (empty($response->head) || empty($response->head->status) || empty($response->body->userId) || empty($response->body->emailId) || empty($response->body->access_token)) :
+		return taggbox_googleAuthFailed('failed');
+	endif;
+	$__taggbox__google_user = $response->body;
+	if (!empty($__taggbox__google_user->createFirstWidget)) :
+		taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiwidget/create', ['userId' => sanitize_key($__taggbox__google_user->userId), 'inheritStyles' => 1], ['Authorization:' . $__taggbox__google_user->access_token]);
+	endif;
+	if (taggbox_login($__taggbox__google_user) !== true) :
+		return taggbox_googleAuthFailed('failed');
+	endif;
+	wp_safe_redirect(TAGGBOX_PLUGIN_CALL_BACK_URL);
+	exit;
+}
+function taggbox_googleAuthFailed($errorCode)
+{
+	$__taggbox__google_errors = [
+		'cancelled' => 'Google sign in was cancelled. Please try again.',
+		'expired'   => 'Google sign in session has expired. Please try again.',
+		'email'     => 'Your Google account email could not be verified. Please use another account.',
+		'account'   => 'Your account is not active. Please contact support.',
+		'register'  => 'We could not create an account with this Google email. Please sign up with your email instead.',
+		'process'   => 'Your registration is already in progress. Please wait a moment and try again.',
+		'failed'    => 'Google sign in failed. Please try again.',
+	];
+	$__taggbox__google_message = isset($__taggbox__google_errors[$errorCode]) ? $__taggbox__google_errors[$errorCode] : $__taggbox__google_errors['failed'];
+	set_transient('__taggbox__google_error_' . get_current_user_id(), $__taggbox__google_message, MINUTE_IN_SECONDS);
+	wp_safe_redirect(TAGGBOX_PLUGIN_CALL_BACK_URL);
+	exit;
+}
 
 /* --Start-- Login */
 function taggbox_login($response)

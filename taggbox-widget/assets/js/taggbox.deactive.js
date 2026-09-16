@@ -47,7 +47,7 @@ window.onload = function () {
             elemHTML = `${elemHTML} </div></div>`;
             elemHTML = `${elemHTML} <div class = "__taggbox__btnwrap text-center">`;
             elemHTML = `${elemHTML} <button id="__taggbox__pluginDeactivateBtn" onclick="__taggbox__deactivatePlugin();" class="__taggbox__okaybtn __taggbox__bg-danger">Skip & Deactivate</button>`;
-            elemHTML = `${elemHTML} <button class="__taggbox__okaybtn" onclick="__taggbox__hidePluginDeactivePopup();">Cencel</button>`;
+            elemHTML = `${elemHTML} <button class="__taggbox__okaybtn" onclick="__taggbox__hidePluginDeactivePopup();">Cancel</button>`;
             elemHTML = `${elemHTML} </div></div></div>`;
             let __taggbox__deactivatePopupNode = document.createElement('div');
             __taggbox__deactivatePopupNode.setAttribute("id", "__taggbox__plugin_deactivate_popup");

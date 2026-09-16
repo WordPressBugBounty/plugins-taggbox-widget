@@ -6,7 +6,7 @@ Tags: social media feed, social media widget, social proof widget, reviews widge
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 4.3
+Stable tag: 4.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -316,6 +316,8 @@ This plugin displays content from connected social media and review platforms. V
 
 == Changelog ==
 
+= 4.4 =
+* Add Google login and signup option
 
 = 4.3 =
 * Security: replaced all in-house output escaping with the WordPress core escaping APIs and the DOMPurify sanitizer.
@@ -348,6 +350,9 @@ This plugin displays content from connected social media and review platforms. V
 * Enhanced Elementor compatibility.
 
 == Upgrade Notice ==
+
+= 4.4 =
+Added Google login and signup option. Updating is recommended for all users.
 
 = 4.3 =
 Security release. Output escaping now uses the WordPress core escaping APIs together with the DOMPurify sanitizer, and admin markup is built with DOM methods. Updating is strongly recommended for all users.

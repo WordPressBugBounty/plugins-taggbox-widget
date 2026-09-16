@@ -46,7 +46,7 @@ function __taggbox__manageEmbedCode() {
     let widgetData = document.querySelector("#__taggbox__widgets");
     if (widgetData) {
         let __taggbox__widgetId = widgetData.selectedOptions[0].value.split('#')[0];
-        __taggbox__html_embed_code.value = `<div class="taggbox" style="width:100%;height:100%;overflow:auto;" data-widget-id="${__taggbox__widgetId}"></div>`;
+        __taggbox__html_embed_code.value = `<div class="taggbox" style="width:100%;height:100%;overflow:auto;" data-widget-id="${__taggbox__widgetId}"><script src="${__taggbox__plugin_react_url}embed.min.js"></script></div>`;
         __taggbox__iframe_embed_code.value = `<iframe src="${__taggbox__plugin_react_url + __taggbox__widgetId}" tyle="width:100%;height:100%;overflow:auto;border:none;"></iframe>`;
     }
 }

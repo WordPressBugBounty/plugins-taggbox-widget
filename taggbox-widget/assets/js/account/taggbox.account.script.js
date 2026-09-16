@@ -260,3 +260,38 @@ if (__taggbox__login_form) {
     });
 }
 /*--End-- Login*/
+/*--Start-- Google Login*/
+var __taggbox__google_login_buttons = document.querySelectorAll(".__taggbox__google_btn");
+if (__taggbox__google_login_buttons.length) {
+    __taggbox__google_login_buttons.forEach(function (__taggbox__google_login_button) {
+        __taggbox__google_login_button.addEventListener("click", function () {
+            let __taggbox__toast = new TaggboxToast;
+            let formData = new FormData();
+            formData.append('action', 'taggbox_data');
+            formData.append('__taggbox__ajax_call_nones', __taggbox__ajax_call_nones);
+            formData.append('__taggbox__ajax_action', '__taggbox__google_auth_url');
+            __taggbox__open_loader();
+            fetch(__taggbox__ajax_url, {
+                method: 'POST',
+                headers: {
+                    'x-requested-with': 'XMLHttpRequest',
+                },
+                body: formData,
+            }).then(response => {
+                return response.json();
+            }).then(response => {
+                if (response.status == true && response.hasOwnProperty("data") && response.data.authUrl) {
+                    window.location.href = response.data.authUrl;
+                    return;
+                }
+                __taggbox__close_loader();
+                __taggbox__toast.danger({ message: response.hasOwnProperty("message") ? response.message : "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
+            }).catch((error) => {
+                console.log(error);
+                __taggbox__close_loader();
+                __taggbox__toast.danger({ message: "Something went wrong. Please try after sometime", position: '__taggbox__is-top-right' });
+            });
+        });
+    });
+}
+/*--End-- Google Login*/

@@ -4,11 +4,64 @@ if (!defined('ABSPATH')) :
 endif;
 include_once TAGGBOX_PLUGIN_DIR_PATH . 'views/includes/headView.php';
 wp_enqueue_script('__taggbox__script-account-js', TAGGBOX_PLUGIN_URL . '/assets/js/account/taggbox.account.script.js', ['jquery'], TAGGBOX_PLUGIN_VERSION, true);
+$__taggbox__google_error = get_transient('__taggbox__google_error_' . get_current_user_id());
+if (!empty($__taggbox__google_error)) :
+	delete_transient('__taggbox__google_error_' . get_current_user_id());
+endif;
 ?>
 <!--Start-- Other Plugin Popup-->
 <style>
 	.__taggbox__okaybtn:hover {
 		color: #fff !important;
+	}
+
+	.__taggbox__google_divider {
+		display: flex;
+		align-items: center;
+		margin: 18px 0 14px;
+		color: #8c8f94;
+		font-size: 13px;
+	}
+
+	.__taggbox__google_divider::before,
+	.__taggbox__google_divider::after {
+		content: "";
+		flex: 1 1 auto;
+		height: 1px;
+		background: #dcdcde;
+	}
+
+	.__taggbox__google_divider span {
+		padding: 0 10px;
+	}
+
+	.__taggbox__google_btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		min-height: 40px;
+		padding: 8px 14px;
+		background: #fff;
+		color: #3c4043;
+		border: 1px solid #dadce0;
+		border-radius: 0;
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 1.4;
+		cursor: pointer;
+	}
+
+	.__taggbox__google_btn:hover {
+		background: #f7f8f8;
+		border-color: #c6c8ca;
+	}
+
+	.__taggbox__google_btn svg {
+		width: 18px;
+		height: 18px;
+		display: block;
+		margin-right: 10px;
 	}
 </style>
 <div id="__taggbox__other_plugin_popup" class="__taggbox__other_plugin_popup"></div>
@@ -17,7 +70,7 @@ wp_enqueue_script('__taggbox__script-account-js', TAGGBOX_PLUGIN_URL . '/assets/
 <div class="__taggbox__row">
 	<div class="__taggbox__col __taggbox__col_12 __taggbox__login_account">
 		<!--Error-->
-		<div id="__taggbox__account_error" class="__taggbox__acount_error __taggbox__danger"> Unknown email. Check again or try your email address.<br></div>
+		<div id="__taggbox__account_error" class="__taggbox__acount_error __taggbox__danger"<?php echo !empty($__taggbox__google_error) ? ' style="display:block;"' : ''; ?>> <?php echo !empty($__taggbox__google_error) ? esc_html($__taggbox__google_error) : 'Unknown email. Check again or try your email address.'; ?><br></div>
 		<!--Tabbing-->
 		<div id="__taggbox__account_tab_view" class="__taggbox__tabarea">
 			<ul>
@@ -46,6 +99,16 @@ wp_enqueue_script('__taggbox__script-account-js', TAGGBOX_PLUGIN_URL . '/assets/
 					<button type="submit" class="__taggbox__btn">Sign In</button>
 				</div>
 			</form>
+			<div class="__taggbox__google_divider"><span>or</span></div>
+			<button type="button" class="__taggbox__google_btn">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+					<path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z" />
+					<path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z" />
+					<path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z" />
+					<path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z" />
+				</svg>
+				Continue with Google
+			</button>
 		</div>
 		<!--End-- Login View-->
 		<!--Start-- Register View-->
@@ -80,6 +143,16 @@ wp_enqueue_script('__taggbox__script-account-js', TAGGBOX_PLUGIN_URL . '/assets/
 					<button type="submit" class="__taggbox__btn">Create Account</button>
 				</div>
 			</form>
+			<div class="__taggbox__google_divider"><span>or</span></div>
+			<button type="button" class="__taggbox__google_btn">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+					<path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z" />
+					<path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z" />
+					<path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24s.85 6.91 2.34 9.88l7.35-5.7z" />
+					<path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z" />
+				</svg>
+				Continue with Google
+			</button>
 		</div>
 	</div>
 </div>
