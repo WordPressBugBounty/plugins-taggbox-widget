@@ -4,7 +4,7 @@
  * Plugin Name:       Taggbox – Social Media Feed Widget
  * Plugin URI:        https://taggbox.com/widget/
  * Description:       Display social media feeds and user-generated content in an interactive widget.
- * Version:           4.4
+ * Version:           4.6
  * Author:            Taggbox
  * Author URI:        https://taggbox.com/
  * License:           GPLv3
@@ -16,7 +16,7 @@ if (!defined('WPINC')) :
 endif;
 
 /* --Start-- Create Constant */
-!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.4');
+!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.6');
 !defined('TAGGBOX_PLUGIN_DIR_PATH')         && define('TAGGBOX_PLUGIN_DIR_PATH',         plugin_dir_path(__FILE__));
 !defined('TAGGBOX_PLUGIN_URL')              && define('TAGGBOX_PLUGIN_URL',              plugin_dir_url(__FILE__));
 !defined('TAGGBOX_PLUGIN_REDIRECT_URL')     && define('TAGGBOX_PLUGIN_REDIRECT_URL',     get_admin_url(null, 'admin.php?page='));
@@ -243,6 +243,62 @@ function taggbox_data_ajax_handler()
 			$param['userId'] = sanitize_key($__taggbox__user_details->userId);
 			/* --End-- Manage Param Data */
 			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/checkUserAccountStatus', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
+			unset($param);
+			$response = taggbox_manageApiResponse($response);
+			return taggbox_exitWithSuccess($response);
+			break;
+		case '__taggbox__get_cards':
+			if (empty($__taggbox__user_details)) :
+				return taggbox_exitWithDanger();
+			endif;
+			$param['userId']   = sanitize_key($__taggbox__user_details->userId);
+			$param['platform'] = TAGGBOX_PLUGIN_PLATFORM;
+			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/getcards', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
+			unset($param);
+			$response = taggbox_manageApiResponse($response);
+			return taggbox_exitWithSuccess($response);
+			break;
+		case '__taggbox__card_session':
+			if (empty($__taggbox__user_details)) :
+				return taggbox_exitWithDanger();
+			endif;
+			$param['userId']    = sanitize_key($__taggbox__user_details->userId);
+			$param['platform']  = TAGGBOX_PLUGIN_PLATFORM;
+			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/cardsession', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
+			unset($param);
+			$response = taggbox_manageApiResponse($response);
+			return taggbox_exitWithSuccess($response);
+			break;
+		case '__taggbox__get_plan_status':
+			if (empty($__taggbox__user_details)) :
+				return taggbox_exitWithDanger();
+			endif;
+			$param['userId']   = sanitize_key($__taggbox__user_details->userId);
+			$param['platform'] = TAGGBOX_PLUGIN_PLATFORM;
+			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/planstatus', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
+			unset($param);
+			$response = taggbox_manageApiResponse($response);
+			return taggbox_exitWithSuccess($response);
+			break;
+		case '__taggbox__get_invoice_pdf':
+			if (empty($__taggbox__user_details) || empty($data->invoiceId)) :
+				return taggbox_exitWithDanger();
+			endif;
+			$param['userId']    = sanitize_key($__taggbox__user_details->userId);
+			$param['invoiceId'] = sanitize_text_field($data->invoiceId);
+			$param['platform']  = TAGGBOX_PLUGIN_PLATFORM;
+			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/invoicepdf', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
+			unset($param);
+			$response = taggbox_manageApiResponse($response);
+			return taggbox_exitWithSuccess($response);
+			break;
+		case '__taggbox__get_invoices':
+			if (empty($__taggbox__user_details)) :
+				return taggbox_exitWithDanger();
+			endif;
+			$param['userId']   = sanitize_key($__taggbox__user_details->userId);
+			$param['platform'] = TAGGBOX_PLUGIN_PLATFORM;
+			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/getinvoices', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
 			unset($param);
 			$response = taggbox_manageApiResponse($response);
 			return taggbox_exitWithSuccess($response);
@@ -941,6 +997,18 @@ function taggbox_data_ajax_handler()
 			unset($param);
 			$response = taggbox_manageApiResponse($response);
 			return taggbox_exitWithSuccess(['__taggbox__requestCallBackUrl' => TAGGBOX_PLUGIN_CALL_BACK_URL, 'redirectUrl' => TAGGBOX_PLUGIN_API_URL . 'apiaccount/makepayment', '__taggbox__paymentData' => $response->__taggbox__paymentData]);
+			break;
+		case '__taggbox__resume_subscription':
+			if (empty($__taggbox__user_details)) :
+				return taggbox_exitWithDanger();
+			endif;
+			$param['userId']   = sanitize_key($__taggbox__user_details->userId);
+			$param['platform'] = TAGGBOX_PLUGIN_PLATFORM;
+			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/resumesubscription', $param, ['Authorization:' . $__taggbox__user_details->accessToken]);
+			unset($param);
+			$response = taggbox_manageApiResponse($response);
+			$response = !empty($response->message) ? $response->message : 'Done';
+			return taggbox_exitWithSuccess(['message' => $response]);
 			break;
 		case '__taggbox__cancel_subscription':
 			if (empty($__taggbox__user_details) || empty($data->planId)) :

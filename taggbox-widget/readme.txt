@@ -6,7 +6,7 @@ Tags: social media feed, social media widget, social proof widget, reviews widge
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 4.4
+Stable tag: 4.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -316,6 +316,14 @@ This plugin displays content from connected social media and review platforms. V
 
 == Changelog ==
 
+= 4.6 =
+* Add Cards management section
+
+= 4.5 =
+* Plan upgrades, downgrades and cancellations now take effect at the end of your billing cycle, with a confirmation before you switch.
+* Added a Restart Subscription option for cancelled plans.
+* Billing History now shows invoice PDF downloads.
+
 = 4.4 =
 * Add Google login and signup option
 
@@ -351,14 +359,5 @@ This plugin displays content from connected social media and review platforms. V
 
 == Upgrade Notice ==
 
-= 4.4 =
-Added Google login and signup option. Updating is recommended for all users.
-
-= 4.3 =
-Security release. Output escaping now uses the WordPress core escaping APIs together with the DOMPurify sanitizer, and admin markup is built with DOM methods. Updating is strongly recommended for all users.
-
-= 4.2 =
-Security release. Fixes a cross-site scripting (XSS) issue on the plugin admin screens and hardens output escaping throughout the plugin. Updating is strongly recommended for all users.
-
-= 4.1 =
-Recommended update with performance improvements, documentation updates, and compatibility enhancements.
+= 4.6 =
+Added Cards management section. Updating is recommended for all users.
