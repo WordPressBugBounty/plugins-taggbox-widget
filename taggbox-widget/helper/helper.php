@@ -94,3 +94,49 @@ function taggbox_sanitizeRequestData($__taggbox__request_input_data)
 	return $__taggbox__Input_return_data;
 }
 /*--End-- Sanitize Request Data*/
+
+function taggbox_expandLinkedinShortUrl($__taggbox__linkedinShortUrl)
+{
+	$__taggbox__expandedUrl = $__taggbox__linkedinShortUrl;
+	for ($__taggbox__hop = 0; $__taggbox__hop < 5; $__taggbox__hop++) :
+		$__taggbox__currentHost = wp_parse_url($__taggbox__expandedUrl, PHP_URL_HOST);
+		$__taggbox__currentHost = is_string($__taggbox__currentHost) ? strtolower($__taggbox__currentHost) : '';
+		if ($__taggbox__currentHost !== 'lnkd.in' && substr($__taggbox__currentHost, -8) !== '.lnkd.in') :
+			break;
+		endif;
+		$__taggbox__response = wp_remote_head($__taggbox__expandedUrl, ['timeout' => 10, 'redirection' => 0, 'httpversion' => '1.1', 'blocking' => true]);
+		if (is_wp_error($__taggbox__response)) :
+			return '';
+		endif;
+		$__taggbox__location = wp_remote_retrieve_header($__taggbox__response, 'location');
+		if (is_array($__taggbox__location)) :
+			$__taggbox__location = end($__taggbox__location);
+		endif;
+		$__taggbox__location = is_string($__taggbox__location) ? trim($__taggbox__location) : '';
+		if ($__taggbox__location === '') :
+			break;
+		endif;
+		if (stripos($__taggbox__location, 'http') !== 0) :
+			return '';
+		endif;
+		$__taggbox__expandedUrl = $__taggbox__location;
+	endfor;
+	return $__taggbox__expandedUrl === $__taggbox__linkedinShortUrl ? '' : $__taggbox__expandedUrl;
+}
+function taggbox_parseLinkedinPostUrl($__taggbox__linkedinPostUrl)
+{
+	$__taggbox__postPath = wp_parse_url($__taggbox__linkedinPostUrl, PHP_URL_PATH);
+	if (!is_string($__taggbox__postPath) || $__taggbox__postPath === '') :
+		return [];
+	endif;
+	$__taggbox__postPath = rtrim($__taggbox__postPath, '/');
+	if (!preg_match('/(?:urn:li:|[-_\/])(activity|ugcPost|share)[-_:]([0-9]{6,30})/i', $__taggbox__postPath, $__taggbox__matchedPost)) :
+		return [];
+	endif;
+	$__taggbox__postTypeMap = ['activity' => 'activity', 'ugcpost' => 'ugcPost', 'share' => 'share'];
+	$__taggbox__postType = strtolower($__taggbox__matchedPost[1]);
+	if (!isset($__taggbox__postTypeMap[$__taggbox__postType])) :
+		return [];
+	endif;
+	return ['value2' => $__taggbox__postTypeMap[$__taggbox__postType], 'value3' => $__taggbox__matchedPost[2]];
+}

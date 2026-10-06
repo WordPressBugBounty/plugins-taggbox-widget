@@ -4,7 +4,7 @@
  * Plugin Name:       Taggbox – Social Media Feed Widget
  * Plugin URI:        https://taggbox.com/widget/
  * Description:       Display social media feeds and user-generated content in an interactive widget.
- * Version:           4.6
+ * Version:           4.7
  * Author:            Taggbox
  * Author URI:        https://taggbox.com/
  * License:           GPLv3
@@ -16,7 +16,7 @@ if (!defined('WPINC')) :
 endif;
 
 /* --Start-- Create Constant */
-!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.6');
+!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.7');
 !defined('TAGGBOX_PLUGIN_DIR_PATH')         && define('TAGGBOX_PLUGIN_DIR_PATH',         plugin_dir_path(__FILE__));
 !defined('TAGGBOX_PLUGIN_URL')              && define('TAGGBOX_PLUGIN_URL',              plugin_dir_url(__FILE__));
 !defined('TAGGBOX_PLUGIN_REDIRECT_URL')     && define('TAGGBOX_PLUGIN_REDIRECT_URL',     get_admin_url(null, 'admin.php?page='));
@@ -171,6 +171,7 @@ function taggbox_data_ajax_handler()
 			$param['password']     = $data->password;
 			$param['contact_no']   = $data->contact_no;
 			$param['calling_code'] = $data->calling_code;
+			$param['timezone']     = !empty($data->timezone) ? sanitize_text_field($data->timezone) : '';
 			$param['platform']     = TAGGBOX_PLUGIN_PLATFORM;
 			/* --End-- Manage Param Data */
 			$response = taggbox_wpApiCall(TAGGBOX_PLUGIN_API_URL . 'apiaccount/register', $param, []);
@@ -753,42 +754,33 @@ function taggbox_data_ajax_handler()
 					break;
 				case 10:
 					if (in_array($__taggbox__feed_filter_id, [1, 16, 17])) :
-						if (!preg_match('/\b(?:(?:https?|ftp) :\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i', $data->feed)) :
+						if (!preg_match('/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i', $data->feed)) :
 							return taggbox_exitWithDanger('Validation Error', ['feed' => 'Enter Valid URL']);
 						endif;
 					endif;
 					switch ($__taggbox__feed_filter_id):
 						case 16:
-							$postUrl = parse_url($data->feed);
-							if (!strstr($postUrl['host'], 'linkedin')) :
+							$__taggbox__postHostUrl = wp_parse_url($data->feed, PHP_URL_HOST);
+							$__taggbox__postHostUrl = is_string($__taggbox__postHostUrl) ? strtolower($__taggbox__postHostUrl) : '';
+							if ($__taggbox__postHostUrl === 'lnkd.in' || substr($__taggbox__postHostUrl, -8) === '.lnkd.in') :
+								$__taggbox__expandedPostUrl = taggbox_expandLinkedinShortUrl($data->feed);
+								if (!empty($__taggbox__expandedPostUrl)) :
+									$data->feed     = $__taggbox__expandedPostUrl;
+									$__taggbox__postHostUrl = wp_parse_url($data->feed, PHP_URL_HOST);
+									$__taggbox__postHostUrl = is_string($__taggbox__postHostUrl) ? strtolower($__taggbox__postHostUrl) : '';
+								endif;
+							endif;
+							if (!strstr($__taggbox__postHostUrl, 'linkedin')) :
 								return taggbox_exitWithDanger('Validation Error', ['feed' => 'Enter Linkedin Post Url']);
 							endif;
-							$postUrl = $data->feed;
-							$postUrl = rtrim($postUrl, '/');
-							preg_match('/[^\/]+$/', $postUrl, $postId);
-							$postId = $postId[0];
-							$postId = (explode('?', $postId)[0]);
-							$value1 = 'LinkedIn';
-							if (stripos($postId, 'activity') !== false) :
-								$postId = (explode('activity', $postId)[1]);
-								$value2 = 'activity';
-							elseif (stripos($postId, 'ugcPost') !== false) :
-								$postId = (explode('ugcPost', $postId)[1]);
-								$value2 = 'ugcPost';
-							else :
+							$__taggbox__parsedPost = taggbox_parseLinkedinPostUrl($data->feed);
+							if (empty($__taggbox__parsedPost['value2']) || empty($__taggbox__parsedPost['value3'])) :
 								return taggbox_exitWithDanger('Validation Error', ['feed' => 'Enter Linkedin Post Url']);
 							endif;
-							preg_match_all('!\d+!', $postId, $postId);
-							if (isset($postId[0][0]) && empty($postId[0][0])) :
-								return taggbox_exitWithDanger('Validation Error', ['feed' => 'Enter Linkedin Post Url']);
-							endif;
-							$value3 = $postId[0][0];
-							if (empty($value1) || empty($value2) || empty($value3)) :
-								return taggbox_exitWithDanger('Validation Error', ['feed' => 'Enter Linkedin Post Url']);
-							endif;
-							$__taggbox__feed_input_data['value1'] = $value1;
-							$__taggbox__feed_input_data['value2'] = $value2;
-							$__taggbox__feed_input_data['value3'] = $value3;
+							$__taggbox__feed_input_data['feed']   = sanitize_text_field($data->feed);
+							$__taggbox__feed_input_data['value1'] = 'LinkedIn';
+							$__taggbox__feed_input_data['value2'] = $__taggbox__parsedPost['value2'];
+							$__taggbox__feed_input_data['value3'] = $__taggbox__parsedPost['value3'];
 							break;
 						case 1:
 						case 17:
