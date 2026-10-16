@@ -180,7 +180,12 @@ function __taggbox__createFacebookFeed(__taggbox__feed_data) {
 	let setOnlyParentNetwork = (__taggbox__feed_data.filterId == 1 || __taggbox__feed_data.filterId == 8) ? true : false;/*Manage Connected Account On Facebook Handel Time */
 	let __taggbox__exist_auth = __taggbox__alreadyExistAuth(setOnlyParentNetwork);
 	switch (__taggbox__feed_data.filterId) {
-		case "1":
+		/*--Start-- Old Facebook Handel Auth Process (Not In Use : Facebook Handel Now Created Without Auth)*/
+		/*case "1":
+			break;*/
+		/*--End-- Old Facebook Handel Auth Process*/
+		case "1":/*Without Auth : Facebook Profile Url*/
+			__taggbox__feed_data.inputs = [{ label: 'Profile Page Url', type: 'text', name: 'feed', placeholder: 'Enter Profile URL : https://www.facebook.com/username' }];
 			break;
 		case "8":
 			__taggbox__feed_data.inputs = [{ label: 'Facebook Page', type: 'text', name: 'facebookPage', placeholder: 'Enter Page URL Or Page Name', id: '__taggbox__facebook_search_page', jsFunction: 'onkeyup="__taggbox__manageFacebookPageSearchOptions();"', extraTag: 'search_option', inputLoader: 'facebook_page_search_loader' }, { id: '__taggbox__facebook_feed', type: 'hidden', name: 'feed' }];
@@ -197,7 +202,9 @@ function __taggbox__createFacebookFeed(__taggbox__feed_data) {
 			return;
 			break;
 	}
-	if (__taggbox__exist_auth.alreadyAuthOption.length > 0) {
+	/*Facebook Handle (Filter 1) Is Created Without Auth, So Connected Accounts Are Not Shown*/
+	/*if (__taggbox__exist_auth.alreadyAuthOption.length > 0) {*/
+	if (__taggbox__feed_data.filterId != 1 && __taggbox__exist_auth.alreadyAuthOption.length > 0) {
 		switch (__taggbox__feed_data.filterId) {
 			case "65":
 				let options = [{ name: 'All Facebook Page Album', value: '67' }, { name: 'Single Album', value: '65' }];

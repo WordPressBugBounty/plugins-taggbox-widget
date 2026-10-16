@@ -6,7 +6,7 @@ Tags: social media feed, social media widget, social proof widget, reviews widge
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 5.6
-Stable tag: 4.7
+Stable tag: 4.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -316,6 +316,10 @@ This plugin displays content from connected social media and review platforms. V
 
 == Changelog ==
 
+== 4.8 ==
+* Performance improvements.
+* Minor bug fixes.
+
 == 4.7 ==
 * Performance improvements.
 * Minor bug fixes.
@@ -363,6 +367,6 @@ This plugin displays content from connected social media and review platforms. V
 
 == Upgrade Notice ==
 
-= 4.7 =
+= 4.8 =
 Performance improvements and minor bug fixes. Updating is recommended for all users.
 

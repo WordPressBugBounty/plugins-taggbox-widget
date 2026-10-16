@@ -4,7 +4,7 @@
  * Plugin Name:       Taggbox – Social Media Feed Widget
  * Plugin URI:        https://taggbox.com/widget/
  * Description:       Display social media feeds and user-generated content in an interactive widget.
- * Version:           4.7
+ * Version:           4.8
  * Author:            Taggbox
  * Author URI:        https://taggbox.com/
  * License:           GPLv3
@@ -16,7 +16,7 @@ if (!defined('WPINC')) :
 endif;
 
 /* --Start-- Create Constant */
-!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.7');
+!defined('TAGGBOX_PLUGIN_VERSION')          && define('TAGGBOX_PLUGIN_VERSION',          '4.8');
 !defined('TAGGBOX_PLUGIN_DIR_PATH')         && define('TAGGBOX_PLUGIN_DIR_PATH',         plugin_dir_path(__FILE__));
 !defined('TAGGBOX_PLUGIN_URL')              && define('TAGGBOX_PLUGIN_URL',              plugin_dir_url(__FILE__));
 !defined('TAGGBOX_PLUGIN_REDIRECT_URL')     && define('TAGGBOX_PLUGIN_REDIRECT_URL',     get_admin_url(null, 'admin.php?page='));
@@ -669,6 +669,10 @@ function taggbox_data_ajax_handler()
 				case 3:
 					$__taggbox__feed_input_data['auth'] = 1;
 					switch ($__taggbox__feed_filter_id):
+						case 1:/* Without Auth : Facebook Profile Url (Validated In Api) */
+							$__taggbox__feed_input_data['auth']   = 0;
+							$__taggbox__feed_input_data['authId'] = 0;
+							break;
 						case 65:
 							$__taggbox__feed_input_data['accountAlbumType'] = sanitize_key(isset($data->accountAlbumType) ? $data->accountAlbumType : '');
 							$__taggbox__feed_input_data['accountAlbumData'] = sanitize_text_field(isset($data->accountAlbumData) ? $data->accountAlbumData : '');
@@ -925,6 +929,12 @@ function taggbox_data_ajax_handler()
 			$byApiCall = 0;
 			if (empty($__taggbox__feed_input_data['authId'])) :
 				switch ($__taggbox__feed_input_data['networkId']):
+					case 3:
+						if (1 == $__taggbox__feed_filter_id) :
+							$byApiCall = 1;
+							$__taggbox__feed_input_data['byApiCall'] = 1;
+						endif;
+						break;
 					case 4:
 						if (33 == $__taggbox__feed_filter_id) :
 							$byApiCall = 1;
